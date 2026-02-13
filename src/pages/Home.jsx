@@ -1,12 +1,16 @@
 // import React, { useState, useEffect, useRef } from "react";
-// import { Link } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 // import { 
 //   Building2, 
 //   Users2, 
-//   Briefcase, 
+//   Phone,
 //   Handshake, 
-//   Globe2 
+//   Globe2,
+//   ChevronRight,
+//   Plus,
+//   Minus 
 // } from "lucide-react";
+
 // import EmployeeImg from "../assets/Employee.jpeg";
 // import KalibreImg from "../assets/KalibreGlobal.jpg";
 // import EducationImg from "../assets/Education.webp";
@@ -77,6 +81,12 @@
 // };
 
 // const Home = () => {
+//   const navigate = useNavigate();
+
+//   // States for the Digital Solutions Section
+//   const [activeTab, setActiveTab] = useState("Mining Operations");
+//   const [openAccordion, setOpenAccordion] = useState(null);
+
 //   const achievements = [
 //     {
 //       icon: <Building2 className="w-8 h-8 text-orange-500" strokeWidth={2} />,
@@ -91,7 +101,7 @@
 //       suffix: "+"
 //     },
 //     {
-//       icon: <Briefcase className="w-8 h-8 text-orange-500" strokeWidth={2} />,
+//       icon: <Phone className="w-8 h-8 text-orange-500" strokeWidth={2} />,
 //       value: 50,
 //       label: "Industries",
 //       suffix: "+"
@@ -109,6 +119,94 @@
 //       suffix: "+"
 //     }
 //   ];
+
+//   // Data for the Digital Solutions Section
+//   const solutionsData = {
+//     "Mining Operations": {
+//       title: "Innovating Mining Operations with Digital Solutions",
+//       desc: "At Kavach Technology, we are committed to enhancing the efficiency and transparency of mining operations through our cutting-edge technology solutions. Our suite of products is designed to streamline processes, ensure safety, and boost productivity at every stage of mining, from extraction to delivery.",
+//       items: [
+//         { 
+//           title: "Digital Logistics Management Solutions (DLMS)", 
+//           content: "Revolutionizing the movement of goods within mining operations, our Digital Logistics Management Solutions (DLMS) provide real-time tracking, optimized routing, and intelligent analytics. This helps in improving operational efficiency, reducing transit time, and minimizing costs while ensuring safety and regulatory compliance." 
+//         },
+//         { 
+//           title: "Integrated Customer Management Solution", 
+//           content: "Our Integrated Customer Management Solution offers seamless tracking and management of customer interactions, ensuring that orders, invoicing, and delivery processes are handled effectively. With features like customer profiling, order history, and support tracking, this solution provides a 360-degree view of your customer base." 
+//         }
+//       ]
+//     },
+//     "Education Management": {
+//       title: "Revolutionizing Education Management Through Technology",
+//       desc: "Education is the cornerstone of progress, and managing the education system is as vital as delivering knowledge itself. In a rapidly evolving world, traditional education management systems must adapt to the dynamic needs of learners and institutions. At Kavach Technology, we empower educational institutions with cutting-edge solutions designed to streamline operations, enhance learning experiences, and foster innovation.",
+//       items: [
+//         { 
+//           title: "Admission Automation System", 
+//           content: "Simplify and streamline the admissions process with our Admission Automation System. From online application submissions to real-time status updates, this system reduces administrative workload, ensures error-free data management, and enhances the applicant's experience." 
+//         },
+//         { 
+//           title: "Scholarship Management System", 
+//           content: "Our Scholarship Management System ensures transparency and efficiency in administering scholarships. It facilitates application tracking, eligibility verification, fund disbursement, and compliance reporting, ensuring that deserving students receive their benefits seamlessly." 
+//         }
+//       ]
+//     },
+//     "Food Security & Agriculture": {
+//       title: "Driving Food Security Through Digital Innovation",
+//       desc: "Food security is fundamental to a nation's well-being and economic stability. At Kavach Technology, we are committed to enabling efficient, transparent, and tech-driven solutions that address the complexities of agriculture, distribution, and food supply management. Our innovative platforms streamline the entire value chain, from procurement to distribution, ensuring sustainability and accessibility for all.",
+//       items: [
+//         { 
+//           title: "Commodity Auction Automation System", 
+//           content: "Revolutionize the trading of agricultural commodities with our Commodity Auction Automation System. This solution provides a transparent, real-time auction platform that ensures fair pricing for farmers and buyers, reduces market inefficiencies, and fosters trust in the ecosystem." 
+//         },
+//         { 
+//           title: "Supply Chain Management System", 
+//           content: "Streamline the movement of agricultural produce with our Supply Chain Management System. This end-to-end solution optimizes storage, transportation, and delivery, ensuring fresh produce reaches its destination efficiently. Real-time tracking and data analytics enhance decision-making and minimize wastage." 
+//         }
+//       ]
+//     },
+//     "Smart Land & Industry": {
+//       title: "Empowering Land & Industry with Digital Solutions",
+//       desc: "Land management and industrial operations are fundamental to economic growth, requiring efficient, transparent, and scalable systems. Kavach Technology provides innovative solutions that streamline land allocation, industrial inspections, CSR monitoring, and more. Our platforms ensure optimized operations, better resource management, and seamless collaboration across multiple sectors.",
+//       items: [
+//         { 
+//           title: "Building Plan Approval System", 
+//           content: "Simplify the approval process for building plans with our Building Plan Approval System. This solution automates the submission, review, and approval workflows, ensuring faster and more efficient handling of applications." 
+//         },
+//         { 
+//           title: "CSR Monitoring System", 
+//           content: "Ensure the effective implementation of corporate social responsibility initiatives with our CSR Monitoring System. This platform tracks CSR projects, monitors progress, and measures impact, ensuring transparency and accountability." 
+//         }
+//       ]
+//     },
+//     "HealthTech Solutions": {
+//       title: "Transforming Healthcare Through Technology",
+//       desc: "The healthcare sector requires seamless coordination, efficient resource management, and robust systems to deliver timely and quality care. Kavach Technology offers innovative solutions that address these challenges, empowering healthcare providers and administrators to enhance service delivery and improve patient outcomes.",
+//       items: [
+//         { 
+//           title: "Community Health Worker System", 
+//           content: "Support grassroots healthcare initiatives with our Community Health Worker System. This solution enables health workers to track patient records, monitor health programs, and ensure timely care delivery in underserved areas, fostering healthier communities." 
+//         },
+//         { 
+//           title: "Drug Distribution & Supply Chain System", 
+//           content: "Ensure uninterrupted access to essential medicines with our Drug Distribution & Supply Chain System. This platform optimizes inventory management, tracks distribution in real time, and reduces wastage, ensuring critical drugs reach the right locations on time." 
+//         }
+//       ]
+//     },
+//     "Marketing & Communication": {
+//       title: "Revolutionizing Marketing and Communication",
+//       desc: "In today's fast-paced digital world, effective communication and marketing strategies are pivotal for business success. Kavach Technology offers advanced solutions that empower organizations to engage customers, streamline operations, and enhance decision-making. Our tools are designed to create impactful interactions and drive superior outcomes.",
+//       items: [
+//         { 
+//           title: "Cloud Contact Center", 
+//           content: "Transform customer service with our Cloud Contact Center solution. It enables businesses to manage omnichannel communications, optimize workflows, and ensure a seamless customer experience—all through a scalable, cloud-based platform." 
+//         },
+//         { 
+//           title: "Conversational AI", 
+//           content: "Enhance customer engagement with our Conversational AI solutions. From intelligent chatbots to virtual assistants, this technology delivers personalized, 24/7 support, automating routine tasks while ensuring meaningful interactions." 
+//         }
+//       ]
+//     }
+//   };
 
 //   const industries = [
 //     { 
@@ -151,6 +249,29 @@
 //       image: MarketingImg,
 //       description: "Strategic marketing and branding solutions that elevate your presence in a competitive global market. We create high-impact, data-driven campaigns and brand strategies that resonate deeply with target audiences, driving measurable business growth through creative digital transformation."
 //     }
+//   ];
+
+//   const recentProjects = [
+//     {
+//       id: "intelligent-traffic-management",
+//       title: "Intelligent Traffic Management System",
+//       icon: <Globe2 className="w-8 h-8" />,
+//     },
+//     {
+//       id: "emergency-call-box",
+//       title: "Emergency Call Box",
+//       icon: <Phone className="w-8 h-8" />,
+//     },
+//     {
+//       id: "gis-solution-mining",
+//       title: "GIS Solution For Mining",
+//       icon: <Building2 className="w-8 h-8" />,
+//     },
+//     {
+//       id: "payroll-solutions",
+//       title: "360 Degree Payroll Solutions",
+//       icon: <Users2 className="w-8 h-8" />,
+//     },
 //   ];
 
 //   return (
@@ -216,38 +337,58 @@
 //         </div>
 //       </section>
 
-//       {/* Our Achievements Section */}
-//       <section className="py-16 px-4">
-//         <div className="max-w-6xl mx-auto">
+//       {/* NEW: Kavach Technology Digital Solutions Section */}
+//       <section className="py-20 px-4 bg-white/50">
+//         <div className="max-w-7xl mx-auto">
 //           <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-600 mb-12">
-//             Our Achievements
+//             Kavach Technology Digital Solutions
 //           </h2>
-          
-//           <div className="flex flex-wrap justify-center gap-6">
-//             {achievements.map((item, index) => (
-//               <div 
-//                 key={index}
-//                 className="relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-orange-50 to-white rounded-3xl shadow-md hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 ease-out opacity-0 animate-[fadeIn_0.6s_ease-out_forwards] w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] group overflow-hidden border border-red-200"
-//                 style={{ animationDelay: `${index * 100}ms` }}
-//               >
-//                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-//                 <div className="absolute inset-0 bg-gradient-to-br from-orange-400/10 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl"></div>
-                
-//                 <div className="relative mb-4 p-3 bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-sm group-hover:shadow-md">
-//                   <div className="transform group-hover:rotate-[-12deg] transition-all duration-500">
-//                     {item.icon}
+
+//           <div className="flex flex-col lg:flex-row gap-8">
+//             {/* Sidebar List */}
+//             <div className="lg:w-1/3 flex flex-col gap-3">
+//               {Object.keys(solutionsData).map((key) => (
+//                 <button
+//                   key={key}
+//                   onClick={() => { setActiveTab(key); setOpenAccordion(null); }}
+//                   className={`flex items-center justify-between p-4 rounded-xl font-bold transition-all text-left ${
+//                     activeTab === key 
+//                     ? "bg-gray-900 text-white shadow-xl" 
+//                     : "bg-orange-100 text-gray-700 hover:bg-orange-200"
+//                   }`}
+//                 >
+//                   {key}
+//                   <ChevronRight className={`w-5 h-5 transition-transform ${activeTab === key ? "rotate-90" : ""}`} />
+//                 </button>
+//               ))}
+//             </div>
+
+//             {/* Interactive Accordion Content */}
+//             <div className="lg:w-2/3 bg-white rounded-3xl p-8 border border-orange-200 shadow-sm">
+//               <h3 className="text-2xl font-bold text-gray-900 mb-2">{solutionsData[activeTab].title}</h3>
+//               <p className="text-gray-600 mb-8 border-l-4 border-orange-500 pl-4 italic">
+//                 {solutionsData[activeTab].desc}
+//               </p>
+
+//               <div className="space-y-4">
+//                 {solutionsData[activeTab].items.map((item, idx) => (
+//                   <div key={idx} className="border-b border-gray-100 last:border-0">
+//                     <button 
+//                       onClick={() => setOpenAccordion(openAccordion === idx ? null : idx)}
+//                       className="w-full flex items-center justify-between py-4 text-left group"
+//                     >
+//                       <span className="font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
+//                         {item.title}
+//                       </span>
+//                       {openAccordion === idx ? <Minus className="text-red-500" /> : <Plus className="text-orange-500" />}
+//                     </button>
+//                     <div className={`overflow-hidden transition-all duration-300 ${openAccordion === idx ? "max-h-96 pb-4" : "max-h-0"}`}>
+//                       <p className="text-gray-600 text-sm leading-relaxed">{item.content}</p>
+//                     </div>
 //                   </div>
-//                 </div>
-                
-//                 <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 group-hover:from-orange-600 group-hover:to-red-600 bg-clip-text text-transparent mb-1 transition-all duration-300">
-//                   <CounterAnimation end={item.value} />
-//                   <span>{item.suffix}</span>
-//                 </h3>
-//                 <p className="text-gray-600 text-xs font-bold text-center uppercase tracking-wider group-hover:text-orange-600 transition-colors duration-300">
-//                   {item.label}
-//                 </p>
+//                 ))}
 //               </div>
-//             ))}
+//             </div>
 //           </div>
 //         </div>
 //       </section>
@@ -261,7 +402,7 @@
 //           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
 //             We serve diverse sectors with tailored solutions that drive growth and innovation
 //           </p>
-          
+
 //           {/* Grid container with better spacing */}
 //           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 //             {industries.map((industry, index) => (
@@ -272,7 +413,7 @@
 //               >
 //                 {/* Gradient Background Overlay (always visible) */}
 //                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 group-hover:from-orange-500/10 group-hover:to-red-500/10 transition-all duration-500"></div>
-                
+
 //                 {/* Image Container */}
 //                 <div className="relative h-56 overflow-hidden">
 //                   {/* Image with zoom effect */}
@@ -281,17 +422,17 @@
 //                     alt={industry.name}
 //                     className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700 ease-out"
 //                   />
-                  
+
 //                   {/* Gradient overlay that intensifies on hover */}
 //                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent group-hover:from-black/90 group-hover:via-black/60 transition-all duration-500"></div>
-                  
+
 //                   {/* Industry name badge - always visible at bottom */}
 //                   <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
 //                     <h3 className="text-xl font-bold text-white group-hover:text-orange-400 transition-colors duration-300 drop-shadow-lg">
 //                       {industry.name}
 //                     </h3>
 //                   </div>
-                  
+
 //                   {/* Hover overlay with description */}
 //                   <div className="absolute inset-0 bg-gradient-to-br from-orange-600/85 via-red-600/85 to-orange-700/85 flex items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-sm">
 //                     <div className="transform scale-90 group-hover:scale-100 transition-transform duration-500">
@@ -301,15 +442,96 @@
 //                     </div>
 //                   </div>
 //                 </div>
-                
+
 //                 {/* Decorative corner elements */}
 //                 <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-orange-400/20 to-transparent rounded-br-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 //                 <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-red-400/20 to-transparent rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
+
 //                 {/* Animated border glow */}
 //                 <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
 //                   <div className="absolute inset-0 rounded-2xl shadow-[0_0_20px_rgba(249,115,22,0.5)] animate-pulse"></div>
 //                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Highlighting Our Recently Delivered Solutions */}
+//       <section className="py-16 px-4 bg-gradient-to-br from-orange-50 via-white to-yellow-50">
+//         <div className="max-w-7xl mx-auto">
+//           {/* Header */}
+//           <div className="text-center mb-12">
+//             <h2 className="text-3xl md:text-4xl font-bold text-orange-600 mb-6">
+//               Highlighting Our Recently Delivered Solutions
+//             </h2>
+//           </div>
+
+//           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+//             {recentProjects.map((item, idx) => (
+//               <div
+//                 key={idx}
+//                 onClick={() => navigate(`/project/${item.id}`)}
+//                 className="group relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-500 border-2 border-orange-100 hover:border-orange-400 transform hover:-translate-y-2 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards] cursor-pointer"
+//                 style={{ animationDelay: `${idx * 100}ms` }}
+//               >
+//                 {/* Gradient overlay on hover */}
+//                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-all duration-500"></div>
+
+//                 <div className="relative flex flex-col items-center text-center h-full">
+//                   {/* Icon Container */}
+//                   <div className="mb-4 p-4 bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-sm">
+//                     <div className="text-orange-600 transform group-hover:rotate-[-6deg] transition-all duration-500">
+//                       {item.icon}
+//                     </div>
+//                   </div>
+
+//                   <h3 className="text-lg font-bold text-gray-800 leading-snug group-hover:text-orange-600 transition-colors duration-300">
+//                     {item.title}
+//                   </h3>
+
+//                   {/* Bottom accent line */}
+//                   <div className="mt-4 w-12 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full transition-all duration-500 group-hover:w-20"></div>
+//                 </div>
+
+//                 {/* Corner decorations */}
+//                 <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-orange-400/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+//                 <div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-tr from-red-400/10 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+//         {/* Our Achievements Section */}
+//       <section className="py-16 px-4">
+//         <div className="max-w-6xl mx-auto">
+//           <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-600 mb-12">
+//             Our Achievements
+//           </h2>
+
+//           <div className="flex flex-wrap justify-center gap-6">
+//             {achievements.map((item, index) => (
+//               <div 
+//                 key={index}
+//                 className="relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-orange-50 to-white rounded-3xl shadow-md hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 ease-out opacity-0 animate-[fadeIn_0.6s_ease-out_forwards] w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] group overflow-hidden border border-red-200"
+//                 style={{ animationDelay: `${index * 100}ms` }}
+//               >
+//                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+//                 <div className="absolute inset-0 bg-gradient-to-br from-orange-400/10 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl"></div>
+
+//                 <div className="relative mb-4 p-3 bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-sm group-hover:shadow-md">
+//                   <div className="transform group-hover:rotate-[-12deg] transition-all duration-500">
+//                     {item.icon}
+//                   </div>
+//                 </div>
+
+//                 <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 group-hover:from-orange-600 group-hover:to-red-600 bg-clip-text text-transparent mb-1 transition-all duration-300">
+//                   <CounterAnimation end={item.value} />
+//                   <span>{item.suffix}</span>
+//                 </h3>
+//                 <p className="text-gray-600 text-xs font-bold text-center uppercase tracking-wider group-hover:text-orange-600 transition-colors duration-300">
+//                   {item.label}
+//                 </p>
 //               </div>
 //             ))}
 //           </div>
@@ -332,17 +554,18 @@
 
 
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { 
   Building2, 
   Users2, 
-  Briefcase, 
+  Phone,
   Handshake, 
   Globe2,
   ChevronRight,
   Plus,
   Minus 
 } from "lucide-react";
+
 import EmployeeImg from "../assets/Employee.jpeg";
 import KalibreImg from "../assets/KalibreGlobal.jpg";
 import EducationImg from "../assets/Education.webp";
@@ -353,6 +576,13 @@ import GovernmentImg from "../assets/goverment.jpg";
 import ITImg from "../assets/IT.jpg";
 import BusinessImg from "../assets/business.webp";
 import MarketingImg from "../assets/Marketing.jpg";
+
+// Import Team Member Images
+import RajwantImg from "../assets/rajwant.jpg";
+import TakshImg from "../assets/taksh.jpg";
+import AnkitImg from "../assets/anitk.jpg";
+import AbhijeetImg from "../assets/abijeet.jpg";
+import JitinImg from "../assets/jitin.jpg";
 
 // Counter Animation Component
 const CounterAnimation = ({ end, duration = 2000, suffix = "" }) => {
@@ -413,6 +643,8 @@ const CounterAnimation = ({ end, duration = 2000, suffix = "" }) => {
 };
 
 const Home = () => {
+  const navigate = useNavigate();
+
   // States for the Digital Solutions Section
   const [activeTab, setActiveTab] = useState("Mining Operations");
   const [openAccordion, setOpenAccordion] = useState(null);
@@ -431,7 +663,7 @@ const Home = () => {
       suffix: "+"
     },
     {
-      icon: <Briefcase className="w-8 h-8 text-orange-500" strokeWidth={2} />,
+      icon: <Phone className="w-8 h-8 text-orange-500" strokeWidth={2} />,
       value: 50,
       label: "Industries",
       suffix: "+"
@@ -581,6 +813,63 @@ const Home = () => {
     }
   ];
 
+  const recentProjects = [
+    {
+      id: "intelligent-traffic-management",
+      title: "Intelligent Traffic Management System",
+      icon: <Globe2 className="w-8 h-8" />,
+    },
+    {
+      id: "emergency-call-box",
+      title: "Emergency Call Box",
+      icon: <Phone className="w-8 h-8" />,
+    },
+    {
+      id: "gis-solution-mining",
+      title: "GIS Solution For Mining",
+      icon: <Building2 className="w-8 h-8" />,
+    },
+    {
+      id: "payroll-solutions",
+      title: "360 Degree Payroll Solutions",
+      icon: <Users2 className="w-8 h-8" />,
+    },
+  ];
+
+  // Team Members Data
+  const teamMembers = [
+    {
+      id: 'rajwant-rai',
+      name: 'Dr. Rajwant Rai',
+      position: 'Chairman, Kavach Group',
+      image: RajwantImg
+    },
+    {
+      id: 'taksh-raval',
+      name: 'Mr. Taksh Raval',
+      position: 'Director',
+      image: TakshImg
+    },
+    {
+      id: 'ankit-sudrania',
+      name: 'CA Ankit Sudrania',
+      position: 'Chief Financial Officer (CFO)',
+      image: AnkitImg
+    },
+    {
+      id: 'abhijeet-wadikar',
+      name: 'Mr. Abhijeet Wadikar',
+      position: 'Chief Technology Officer (CTO)',
+      image: AbhijeetImg
+    },
+    {
+      id: 'jitin-patel',
+      name: 'Mr. Jitin Patel',
+      position: 'Chief Operating Officer (COO)',
+      image: JitinImg
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-yellow-50 pt-[76px]">
       <section className="py-10 px-4">
@@ -644,42 +933,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Our Achievements Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-600 mb-12">
-            Our Achievements
-          </h2>
-          
-          <div className="flex flex-wrap justify-center gap-6">
-            {achievements.map((item, index) => (
-              <div 
-                key={index}
-                className="relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-orange-50 to-white rounded-3xl shadow-md hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 ease-out opacity-0 animate-[fadeIn_0.6s_ease-out_forwards] w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] group overflow-hidden border border-red-200"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/10 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl"></div>
-                
-                <div className="relative mb-4 p-3 bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-sm group-hover:shadow-md">
-                  <div className="transform group-hover:rotate-[-12deg] transition-all duration-500">
-                    {item.icon}
-                  </div>
-                </div>
-                
-                <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 group-hover:from-orange-600 group-hover:to-red-600 bg-clip-text text-transparent mb-1 transition-all duration-300">
-                  <CounterAnimation end={item.value} />
-                  <span>{item.suffix}</span>
-                </h3>
-                <p className="text-gray-600 text-xs font-bold text-center uppercase tracking-wider group-hover:text-orange-600 transition-colors duration-300">
-                  {item.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* NEW: Kavach Technology Digital Solutions Section */}
       <section className="py-20 px-4 bg-white/50">
         <div className="max-w-7xl mx-auto">
@@ -712,7 +965,7 @@ const Home = () => {
               <p className="text-gray-600 mb-8 border-l-4 border-orange-500 pl-4 italic">
                 {solutionsData[activeTab].desc}
               </p>
-              
+
               <div className="space-y-4">
                 {solutionsData[activeTab].items.map((item, idx) => (
                   <div key={idx} className="border-b border-gray-100 last:border-0">
@@ -745,7 +998,7 @@ const Home = () => {
           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
             We serve diverse sectors with tailored solutions that drive growth and innovation
           </p>
-          
+
           {/* Grid container with better spacing */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {industries.map((industry, index) => (
@@ -756,7 +1009,7 @@ const Home = () => {
               >
                 {/* Gradient Background Overlay (always visible) */}
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 group-hover:from-orange-500/10 group-hover:to-red-500/10 transition-all duration-500"></div>
-                
+
                 {/* Image Container */}
                 <div className="relative h-56 overflow-hidden">
                   {/* Image with zoom effect */}
@@ -765,17 +1018,17 @@ const Home = () => {
                     alt={industry.name}
                     className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700 ease-out"
                   />
-                  
+
                   {/* Gradient overlay that intensifies on hover */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent group-hover:from-black/90 group-hover:via-black/60 transition-all duration-500"></div>
-                  
+
                   {/* Industry name badge - always visible at bottom */}
                   <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
                     <h3 className="text-xl font-bold text-white group-hover:text-orange-400 transition-colors duration-300 drop-shadow-lg">
                       {industry.name}
                     </h3>
                   </div>
-                  
+
                   {/* Hover overlay with description */}
                   <div className="absolute inset-0 bg-gradient-to-br from-orange-600/85 via-red-600/85 to-orange-700/85 flex items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-sm">
                     <div className="transform scale-90 group-hover:scale-100 transition-transform duration-500">
@@ -785,11 +1038,11 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Decorative corner elements */}
                 <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-orange-400/20 to-transparent rounded-br-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-red-400/20 to-transparent rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
+
                 {/* Animated border glow */}
                 <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                   <div className="absolute inset-0 rounded-2xl shadow-[0_0_20px_rgba(249,115,22,0.5)] animate-pulse"></div>
@@ -800,84 +1053,160 @@ const Home = () => {
         </div>
       </section>
 
-{/* Highlighting Our Recently Delivered Solutions */}
-      <section className="py-24 px-4 bg-[#fdfdfd] overflow-hidden">
+      {/* Highlighting Our Recently Delivered Solutions */}
+      <section className="py-16 px-4 bg-gradient-to-br from-orange-50 via-white to-yellow-50">
         <div className="max-w-7xl mx-auto">
-          {/* Header with animated underline */}
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-black text-[#FF4D00] mb-4 tracking-tight">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-orange-600 mb-6">
               Highlighting Our Recently Delivered Solutions
             </h2>
-            <div className="relative w-28 h-2 bg-[#FF4D00] mx-auto rounded-full overflow-hidden">
-               <div className="absolute inset-0 bg-white/30 animate-[shimmer_2s_infinite]"></div>
-            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            {[
-              {
-                title: "Intelligent Traffic Management System",
-                icon: <Globe2 className="w-8 h-8" />,
-                color: "from-[#0095FF] to-[#00CCFF]",
-                shadow: "shadow-blue-200",
-                bg: "bg-blue-50"
-              },
-              {
-                title: "Emergency Call Box",
-                icon: <Briefcase className="w-8 h-8" />,
-                color: "from-[#FF5C00] to-[#FF8A00]",
-                shadow: "shadow-orange-200",
-                bg: "bg-orange-50"
-              },
-              {
-                title: "GIS Solution For Mining",
-                icon: <Building2 className="w-8 h-8" />,
-                color: "from-[#00D1A0] to-[#00FFC2]",
-                shadow: "shadow-emerald-200",
-                bg: "bg-emerald-50"
-              },
-              {
-                title: "360 Degree Payroll Solutions",
-                icon: <Users2 className="w-8 h-8" />,
-                color: "from-[#8B5CF6] to-[#C084FC]",
-                shadow: "shadow-purple-200",
-                bg: "bg-purple-50"
-              },
-            ].map((item, idx) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {recentProjects.map((item, idx) => (
               <div
                 key={idx}
-                className="group relative h-full"
+                onClick={() => navigate(`/project/${item.id}`)}
+                className="group relative bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-500 border-2 border-orange-100 hover:border-orange-400 transform hover:-translate-y-2 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards] cursor-pointer"
+                style={{ animationDelay: `${idx * 100}ms` }}
               >
-                {/* Background "Glow" effect on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 blur-2xl transition-all duration-700 rounded-[40px]`}></div>
-                
-                <div className={`relative h-full bg-white/80 backdrop-blur-sm p-10 rounded-[40px] border border-gray-100 shadow-xl ${item.shadow} hover:shadow-2xl transition-all duration-500 flex flex-col items-center text-center cursor-pointer transform group-hover:-translate-y-4 group-hover:rotate-1`}>
-                  
-                  {/* Floating Icon Container */}
-                  <div className={`relative mb-8 p-6 rounded-3xl bg-gradient-to-br ${item.color} text-white shadow-lg transform group-hover:scale-110 group-hover:rotate-[-5deg] transition-all duration-500 animate-[float_3s_ease-in-out_infinite]`}
-                       style={{ animationDelay: `${idx * 0.5}s` }}>
-                    {item.icon}
-                    {/* Inner light reflection */}
-                    <div className="absolute top-1 left-1 w-4 h-4 bg-white/20 rounded-full blur-[2px]"></div>
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-all duration-500"></div>
+
+                <div className="relative flex flex-col items-center text-center h-full">
+                  {/* Icon Container */}
+                  <div className="mb-4 p-4 bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-sm">
+                    <div className="text-orange-600 transform group-hover:rotate-[-6deg] transition-all duration-500">
+                      {item.icon}
+                    </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-gray-800 leading-snug mb-8 flex-grow">
+                  <h3 className="text-lg font-bold text-gray-800 leading-snug group-hover:text-orange-600 transition-colors duration-300">
                     {item.title}
                   </h3>
 
-                  {/* Animated Indicator Bar */}
-                  <div className={`w-16 h-1.5 rounded-full bg-gradient-to-r ${item.color} transition-all duration-500 group-hover:w-32`}></div>
-                  
-                  {/* Glass Card "Shine" Overlay */}
-                  <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[40px]">
-                    <div className="absolute top-[-100%] left-[-100%] w-[200%] h-[200%] bg-gradient-to-br from-white/40 via-transparent to-transparent rotate-45 transition-all duration-1000 group-hover:top-[100%] group-hover:left-[100%]"></div>
-                  </div>
+                  {/* Bottom accent line */}
+                  <div className="mt-4 w-12 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full transition-all duration-500 group-hover:w-20"></div>
                 </div>
+
+                {/* Corner decorations */}
+                <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-orange-400/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-tr from-red-400/10 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Team Members Section - The Team Turning Ideas into Reality */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-600 mb-4">
+            The Team Turning Ideas into Reality
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Meet the visionary leaders driving innovation and excellence at Kavach Global
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+            {teamMembers.map((member, index) => (
+              <div
+                key={member.id}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  setTimeout(() => navigate(`/team/${member.id}`), 100);
+                }}
+                className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer transform hover:-translate-y-2 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards] border-2 border-orange-100 hover:border-orange-400"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {/* Image Container */}
+                <div className="relative h-80 overflow-hidden bg-gradient-to-br from-orange-100 to-orange-50">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  
+                  {/* LinkedIn Badge */}
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                  </div>
+
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6 bg-white">
+                  <div className="mb-3">
+                    <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors duration-300">
+                      {member.name}
+                    </h3>
+                    <p className="text-sm text-gray-600 font-medium">
+                      {member.position}
+                    </p>
+                  </div>
+
+                  {/* View Profile Button */}
+                  <div className="flex items-center justify-center pt-4 border-t border-gray-100">
+                    <div className="flex items-center gap-2 text-orange-600 group-hover:text-orange-700 transition-colors">
+                      <span className="text-sm font-semibold">View Profile</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hover Effect Border */}
+                <div className="absolute inset-0 border-2 border-orange-400 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+                {/* Corner Decorations */}
+                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-orange-400/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-red-400/20 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Achievements Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-600 mb-12">
+            Our Achievements
+          </h2>
+
+          <div className="flex flex-wrap justify-center gap-6">
+            {achievements.map((item, index) => (
+              <div 
+                key={index}
+                className="relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-orange-50 to-white rounded-3xl shadow-md hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 ease-out opacity-0 animate-[fadeIn_0.6s_ease-out_forwards] w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] group overflow-hidden border border-red-200"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/10 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl"></div>
+
+                <div className="relative mb-4 p-3 bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-sm group-hover:shadow-md">
+                  <div className="transform group-hover:rotate-[-12deg] transition-all duration-500">
+                    {item.icon}
+                  </div>
+                </div>
+
+                <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 group-hover:from-orange-600 group-hover:to-red-600 bg-clip-text text-transparent mb-1 transition-all duration-300">
+                  <CounterAnimation end={item.value} />
+                  <span>{item.suffix}</span>
+                </h3>
+                <p className="text-gray-600 text-xs font-bold text-center uppercase tracking-wider group-hover:text-orange-600 transition-colors duration-300">
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Animation Styles */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeIn {
