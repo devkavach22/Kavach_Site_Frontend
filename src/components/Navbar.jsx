@@ -18,15 +18,14 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white shadow-lg' : 'bg-white shadow-md'
-    }`}>
+    <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg' : 'bg-white shadow-md'
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-3">
           <Link to="/" className="flex items-center group py-1">
-            <img 
+            <img
               src={KavachLogo2}
-              alt="KAVACH Logo" 
+              alt="KAVACH Logo"
               className="h-13 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
@@ -37,17 +36,19 @@ const Navbar = () => {
               { path: '/', label: 'Home' },
               { path: '/about', label: 'About Us' },
               { path: '/services', label: 'Our Services' },
+              { path: '/product', label: 'Our Products' },
               { path: '/career', label: 'Career' },
+              { path: '/awards', label: 'Awards' }, // Added Awards here
               { path: '/contact', label: 'Contact' },
+
             ].map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  isActive(item.path)
-                    ? 'text-red-600 bg-red-50'
-                    : 'text-gray-700 hover:text-red-600 hover:bg-gray-50'
-                }`}
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${isActive(item.path)
+                  ? 'text-red-600 bg-red-50'
+                  : 'text-gray-700 hover:text-red-600 hover:bg-gray-50'
+                  }`}
               >
                 {item.label}
               </Link>
@@ -82,27 +83,27 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
-            menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-          }`}
+          className={`md:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            }`}
         >
           <div className="pb-4 space-y-1 bg-white">
             {[
               { path: '/', label: 'Home' },
               { path: '/about', label: 'About Us' },
               { path: '/services', label: 'Our Services' },
+              { path: '/product', label: 'Our Products' },
               { path: '/career', label: 'Career' },
+              { path: '/awards', label: 'Awards' }, 
               { path: '/contact', label: 'Contact' },
             ].map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setMenuOpen(false)}
-                className={`block px-4 py-3 rounded-lg font-medium transition-all ${
-                  isActive(item.path)
-                    ? 'text-red-600 bg-red-50'
-                    : 'text-gray-700 hover:bg-gray-50'
-                }`}
+                className={`block px-4 py-3 rounded-lg font-medium transition-all ${isActive(item.path)
+                  ? 'text-red-600 bg-red-50'
+                  : 'text-gray-700 hover:bg-gray-50'
+                  }`}
               >
                 {item.label}
               </Link>

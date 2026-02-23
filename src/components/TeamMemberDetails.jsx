@@ -13,12 +13,9 @@ const TeamMemberDetails = () => {
   const { memberId } = useParams();
   const navigate = useNavigate();
 
-  // Scroll to top when component mounts
+  // Scroll to top IMMEDIATELY when component mounts or memberId changes
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo(0, 0);
   }, [memberId]);
 
   const teamMembersData = {
@@ -26,91 +23,91 @@ const TeamMemberDetails = () => {
       name: 'Dr. Rajwant Rai',
       position: 'Chairman, Kavach Group',
       image: RajwantImg,
-      linkedin: '#',
-      bio: 'Dr. Rajwant Rai is a visionary leader with extensive experience in building and scaling technology-driven businesses. As the Chairman of Kavach Group, he has been instrumental in establishing the company as a leading provider of integrated solutions across multiple industries. His strategic vision and commitment to innovation have shaped the company\'s growth trajectory and market positioning.',
+      linkedin: 'https://www.linkedin.com/in/dr-rajwant-rai-3111533b/',
+      bio: 'Dr. Rajwant Rai is a seasoned professional with over 20 years of leadership experience in strategic business operations. As the Managing Director of Kavach Global, he has driven operational excellence and established the organization as a leader in facility management services. He also serves as a Director at Konvert HR and Kalibre Global, where he has revolutionized payroll services and talent acquisition strategies.',
       achievements: [
-        'Founded Kavach Group with a vision to transform industries through technology',
-        '20+ years of entrepreneurial experience in diverse sectors',
-        'Pioneer in integrated facility management solutions in India',
-        'Champion of innovation and sustainable business practices',
-        'Established strategic partnerships with global technology leaders',
-        'Recipient of multiple industry awards for business excellence'
+        'Over 20 years of leadership experience in strategic business operations',
+        'Established Kavach Global as a leader in facility management services',
+        'Revolutionized payroll services and talent acquisition at Konvert HR and Kalibre Global',
+        'Former Project Manager at Gujarat Narmada Valley Fertilizers and Chemicals Limited',
+        'Expert in managing complex, large-scale projects with precision and efficiency',
+        'Known for visionary leadership and transformative approach to business'
       ],
-      expertise: ['Strategic Leadership', 'Business Development', 'Innovation Management', 'Corporate Governance', 'Stakeholder Relations', 'Digital Transformation'],
-      education: 'Doctorate in Business Administration',
-      quote: 'Innovation is not just about technology; it\'s about creating value that transforms lives and businesses.'
+      expertise: ['Strategic Business Operations', 'Facility Management', 'Negotiation', 'Strategic Planning', 'Project Management', 'Business Innovation'],
+      education: 'Master of Computer Applications (MCA), Babu Banarasi Das Institute of Technology and Management',
+      quote: 'Blending strategy and innovation to achieve enduring success in dynamic industries.'
     },
     'taksh-raval': {
       name: 'Mr. Taksh Raval',
-      position: 'Director',
+      position: 'Group Marketing Director (CMO)',
       image: TakshImg,
-      linkedin: '#',
-      bio: 'Mr. Taksh Raval is a dynamic leader driving operational excellence and strategic growth across multiple business verticals at Kavach Group. With a keen eye for market opportunities and a commitment to delivering exceptional value, he has been pivotal in expanding the company\'s footprint and strengthening its market position.',
+      linkedin: 'https://www.linkedin.com/in/taksh-rawal-a38626150/',
+      bio: 'Taksh Raval is a seasoned leader in workforce solutions and business development, with over 9 years of expertise in recruitment, industrial manpower, and facility management. As the Director of Kavach Global and Kalibre Management Services, he has been instrumental in bridging the gap between global talent and top-tier organizations.',
       achievements: [
-        'Spearheading digital transformation initiatives across the organization',
-        'Established key partnerships with leading corporations across industries',
-        'Led successful expansion into new market segments and geographies',
-        'Champion of customer-centric solutions and service excellence',
-        'Implemented innovative operational strategies that improved efficiency by 40%',
-        'Built and mentored high-performing teams across multiple functions'
+        'Over 9 years of expertise in recruitment and workforce solutions',
+        'Director of Kavach Global and Kalibre Management Services',
+        'Managed high-profile events like Dubai International Hot Air Balloon Festival',
+        'Instrumental in bridging global talent with top-tier organizations',
+        'Oversees large-scale operations delivering tailored workforce solutions',
+        'Passionate about empowering youth through entrepreneurship and innovation'
       ],
-      expertise: ['Operations Management', 'Strategic Planning', 'Client Relations', 'Team Leadership', 'Business Analytics', 'Process Optimization'],
-      education: 'MBA in Operations and Strategy',
-      quote: 'Success in business comes from understanding customer needs and delivering solutions that exceed expectations.'
+      expertise: ['Workforce Solutions', 'Business Development', 'Recruitment', 'Client Interface', 'Marketing Strategy', 'Operations Management', 'Event Management'],
+      education: 'Business Management',
+      quote: 'Building strong relationships and fostering growth to enable businesses to thrive.'
     },
     'ankit-sudrania': {
       name: 'CA Ankit Sudrania',
-      position: 'Chief Financial Officer (CFO)',
+      position: 'Group Chief Financial Officer (CFO)',
       image: AnkitImg,
-      linkedin: '#',
-      bio: 'CA Ankit Sudrania is a seasoned financial strategist ensuring robust fiscal management and sustainable growth trajectories for Kavach Group. His expertise in financial planning, risk management, and corporate governance has been crucial in maintaining the company\'s financial health and supporting its ambitious expansion plans.',
+      linkedin: 'https://www.linkedin.com/in/ca-ankit-sudrania-5aa68729/',
+      bio: 'CA Ankit Sudrania is a seasoned finance professional and accomplished Chartered Accountant with over a decade of experience in banking, finance, and strategic management. Currently serving as the Group Chief Financial Officer for Kavach, Kalibre, and Konvert, he oversees financial strategy, investor relations, and corporate governance, driving sustainable growth across multiple verticals.',
       achievements: [
-        'Optimized financial operations across all group companies',
-        'Implemented advanced financial planning and analysis systems',
-        'Ensured compliance and governance excellence across operations',
-        'Drove cost optimization initiatives resulting in 25% efficiency gains',
-        'Successfully managed multiple funding rounds and strategic investments',
-        'Established best-in-class financial reporting and control systems'
+        'Founder of GaHa Partners Private Limited (Financial Advisory)',
+        'Managed assets worth ₹30,000 crores during tenure at Canara Bank',
+        'Expert in corporate credit appraisals, risk management, and portfolio optimization',
+        'Specialized in due diligence and debt syndication for NBFCs and manufacturing industries',
+        'Fluent in five languages including Hindi, Gujarati, and Marwari',
+        'Advanced management programs from MDI Gurgaon and IIM Indore'
       ],
-      expertise: ['Financial Planning & Analysis', 'Risk Management', 'Corporate Finance', 'Compliance & Governance', 'Investment Strategy', 'Treasury Management'],
-      education: 'Chartered Accountant, B.Com',
-      quote: 'Financial discipline and strategic thinking are the cornerstones of sustainable business growth.'
+      expertise: ['Financial Strategy', 'Banking & Finance', 'Investor Relations', 'Corporate Governance', 'Risk Management', 'Due Diligence', 'Debt Syndication'],
+      education: 'Chartered Accountant (ICAI), CAIIB (IIBF), Advanced Management Programs (MDI Gurgaon, IIM Indore)',
+      quote: 'Driving sustainable growth through financial excellence and strategic innovation.'
     },
     'abhijeet-wadikar': {
-      name: 'Mr. Abhijeet Wadikar',
+      name: 'Mr. Abhijeet Wadekar',
       position: 'Chief Technology Officer (CTO)',
       image: AbhijeetImg,
-      linkedin: '#',
-      bio: 'Mr. Abhijeet Wadikar is a technology visionary architecting cutting-edge solutions that drive digital innovation at Kavach Group. His expertise in emerging technologies and commitment to excellence have positioned the company at the forefront of technological advancement in the industry.',
+      linkedin: 'https://www.linkedin.com/in/abhijeetwadkkar/',
+      bio: 'Abhijeet Wadkkar serves as the Chief Technology Officer at Kavach Global, where he leads the company\'s Global Technology Growth efforts across diverse geographical regions. With over 23 years of experience in Information Technology, Abhijeet\'s career includes roles at Wipro, Cisco & Lavasa joint venture, where he most recently held the position of Head Technology.',
       achievements: [
-        'Led development of enterprise-grade platforms serving millions of users',
-        'Pioneered AI and cloud-based solutions for diverse industry applications',
-        'Built and scaled high-performing technical teams of 500+ professionals',
-        'Established robust technology infrastructure supporting 24/7 operations',
-        'Implemented DevOps and agile methodologies across the organization',
-        'Recognized as a thought leader in digital transformation'
+        'Over 23 years of experience in Information Technology',
+        'Former Head of Technology at Cisco & Lavasa joint venture',
+        'Led technology solutions for large townships (Lavasa, Panchashil, Welspun, Lanco)',
+        'Implemented Smart & Safe City projects for Surat, Meghalaya, Pune, Silvassa',
+        'Delivered Oil & Gas sector projects for IOCL, HPCL, BARC, ISRO, RDSO',
+        'Designed and implemented turnkey technology for 110+ Accor Group hotels'
       ],
-      expertise: ['Technology Strategy', 'Cloud Computing', 'AI & Machine Learning', 'Digital Innovation', 'Cybersecurity', 'Enterprise Architecture'],
-      education: 'B.Tech in Computer Science, M.Tech in AI',
-      quote: 'Technology is the enabler, but it\'s the vision and execution that creates true transformation.'
+      expertise: ['Technology Strategy', 'Digital Transformation', 'Smart City Solutions', 'Enterprise Solutions', 'SCADA Systems', 'Team Building', 'Innovation'],
+      education: 'Information Technology',
+      quote: 'Transforming businesses with digital technologies through strategic collaboration and innovative thinking.'
     },
-    'jitin-patel': {
-      name: 'Mr. Jitin Patel',
-      position: 'Chief Operating Officer (COO)',
+    'jitendra-kumar': {
+      name: 'Mr. Jitendra Kumar',
+      position: 'Director – Operations and Business Development',
       image: JitinImg,
-      linkedin: '#',
-      bio: 'Mr. Jitin Patel is a strategic operations leader ensuring seamless execution and operational excellence across all Kavach Group ventures. His expertise in process optimization and team management has been instrumental in scaling the organization\'s operations efficiently.',
+      linkedin: 'https://www.linkedin.com/in/jitendra-kumar-7578aa41/',
+      bio: 'Jitendra Kumar is a seasoned professional with over 35 years of diverse experience across telecom, infrastructure, and operations. Currently serving as the Director – Operations and Business Development, he brings a strategic vision backed by decades of hands-on expertise in executing and managing complex, large-scale projects.',
       achievements: [
-        'Streamlined operations across 8+ office locations in India',
-        'Implemented best practices resulting in 35% efficiency improvement',
-        'Led successful integration of acquired companies',
-        'Built a culture of continuous improvement and innovation',
-        'Established robust quality management systems',
-        'Drove customer satisfaction scores to industry-leading levels'
+        'Over 35 years of experience in telecom, infrastructure, and operations',
+        'Former Circle Head (Gujarat) at Pratap Beckhaul Technologies Pvt. Ltd.',
+        'Instrumental role as Sr. Manager during Jio 4G rollout',
+        'Led OFC project execution for Maharashtra at Sterlite Technologies',
+        'Expertise in data center infrastructure, O&M, and critical infrastructure management',
+        'Combined experience in aviation and admin operations'
       ],
-      expertise: ['Operations Management', 'Process Optimization', 'Supply Chain', 'Quality Management', 'Team Development', 'Strategic Planning'],
-      education: 'MBA in Operations Management, B.E. in Industrial Engineering',
-      quote: 'Operational excellence is not just about efficiency; it\'s about creating value at every touchpoint.'
+      expertise: ['Telecom Operations', 'Infrastructure Management', 'Business Development', 'Project Execution', 'OFC & Tower Construction', 'Data Center Infrastructure', 'Strategic Planning'],
+      education: 'Engineering and Management',
+      quote: 'Emphasizing efficiency, innovation, and result-oriented execution to drive growth and operational success.'
     }
   };
 
@@ -134,115 +131,223 @@ const TeamMemberDetails = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-yellow-50 pt-[76px]">
-      {/* Back Button */}
+      {/* Back Button - Redesigned */}
       <div className="max-w-7xl mx-auto px-4 py-6">
         <button
           onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-gray-600 hover:text-orange-600 transition-colors font-medium"
+          className="group flex items-center gap-3 px-6 py-3 bg-white hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 text-gray-700 hover:text-white rounded-xl font-semibold shadow-md hover:shadow-xl transition-all duration-300 border-2 border-orange-200 hover:border-transparent transform hover:scale-105"
         >
-          <ArrowLeft className="w-5 h-5" />
-          Back to Team
+          <ArrowLeft className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform duration-300" />
+          <span>Back to Team</span>
         </button>
       </div>
 
-      {/* Hero Section */}
+      {/* Hero Section - Redesigned */}
       <section className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Image */}
-            <div className="relative">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-[500px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+          <div className="grid lg:grid-cols-5 gap-8 items-start">
+            {/* Left Side - Image Card */}
+            <div className="lg:col-span-2">
+              <div className="sticky top-24">
+                <div className="relative group">
+                  {/* Main Image Container */}
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-orange-100 to-orange-50">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-[600px] object-cover object-top transform group-hover:scale-105 transition-transform duration-700"
+                    />
+                    
+                    {/* Gradient Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"></div>
+                    
+                    {/* Name Badge at Bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 via-black/70 to-transparent">
+                      <h1 className="text-3xl font-bold text-white mb-2">
+                        {member.name}
+                      </h1>
+                      <p className="text-orange-400 font-semibold text-lg">
+                        {member.position}
+                      </p>
+                    </div>
+
+                    {/* Decorative Corner Elements */}
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500/30 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-orange-500/30 to-transparent"></div>
+                  </div>
+
+                  {/* Floating Background Elements */}
+                  <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-orange-400 rounded-full blur-3xl opacity-20 -z-10 group-hover:opacity-30 transition-opacity"></div>
+                  <div className="absolute -top-8 -left-8 w-40 h-40 bg-red-400 rounded-full blur-3xl opacity-20 -z-10 group-hover:opacity-30 transition-opacity"></div>
+                  
+                  {/* Border Accent */}
+                  <div className="absolute inset-0 rounded-3xl border-4 border-white/50 pointer-events-none"></div>
+                </div>
+
+                {/* LinkedIn Button - Below Image */}
+                <div className="mt-6">
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 duration-300"
+                  >
+                    <Linkedin className="w-6 h-6" />
+                    <span className="font-semibold text-lg">Connect on LinkedIn</span>
+                  </a>
+                </div>
               </div>
-              
-              {/* Decorative Elements */}
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-orange-400 rounded-full blur-3xl opacity-30 -z-10"></div>
-              <div className="absolute -top-6 -left-6 w-32 h-32 bg-red-400 rounded-full blur-3xl opacity-30 -z-10"></div>
             </div>
 
-            {/* Content */}
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3">
-                {member.name}
-              </h1>
-              <p className="text-xl text-orange-600 font-semibold mb-6">
-                {member.position}
-              </p>
-
-              <div className="mb-6 p-6 bg-white rounded-2xl shadow-md border-l-4 border-orange-500">
-                <p className="text-gray-700 leading-relaxed italic">
-                  "{member.quote}"
+            {/* Right Side - Content */}
+            <div className="lg:col-span-3 space-y-8">
+              {/* Quote Card */}
+              <div className="relative p-8 bg-gradient-to-br from-orange-50 to-white rounded-3xl shadow-lg border-l-8 border-orange-500 transform hover:scale-[1.02] transition-transform duration-300">
+                <div className="absolute top-6 left-6 text-orange-200 opacity-50">
+                  <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                  </svg>
+                </div>
+                <p className="text-gray-800 text-xl leading-relaxed italic font-medium pl-8">
+                  {member.quote}
                 </p>
               </div>
 
-              <p className="text-gray-700 text-lg leading-relaxed mb-6">
-                {member.bio}
-              </p>
+              {/* Bio Section */}
+              <div className="bg-white rounded-3xl shadow-lg p-8 transform hover:shadow-xl transition-shadow duration-300">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                  <div className="w-1 h-8 bg-gradient-to-b from-orange-500 to-red-500 rounded-full"></div>
+                  About
+                </h2>
+                <p className="text-gray-700 text-lg leading-relaxed">
+                  {member.bio}
+                </p>
+              </div>
 
-              <div className="flex items-center gap-4">
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
-                >
-                  <Linkedin className="w-5 h-5" />
-                  Connect on LinkedIn
-                </a>
+              {/* Quick Stats/Highlights */}
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                  <div className="text-4xl font-bold mb-2">
+                    {member.achievements.length}+
+                  </div>
+                  <div className="text-orange-100 font-medium">
+                    Key Achievements
+                  </div>
+                </div>
+                <div className="bg-gradient-to-br from-orange-600 to-red-600 rounded-2xl p-6 text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                  <div className="text-4xl font-bold mb-2">
+                    {member.expertise.length}+
+                  </div>
+                  <div className="text-orange-100 font-medium">
+                    Areas of Expertise
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Achievements Section */}
-      <section className="py-16 px-4 bg-white/50">
+      {/* Achievements Section - Redesigned */}
+      <section className="py-16 px-4 bg-gradient-to-br from-white via-orange-50/30 to-white">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
-            Key Achievements
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900">
+              Key Achievements
+            </h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {member.achievements.map((achievement, index) => (
               <div
                 key={index}
-                className="flex items-start gap-4 p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-orange-500 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]"
+                className="group relative bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl transition-all duration-500 border-2 border-orange-100 hover:border-orange-400 transform hover:-translate-y-2 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                <p className="text-gray-700 leading-relaxed">{achievement}</p>
+                {/* Background Gradient on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+                
+                {/* Content */}
+                <div className="relative flex items-start gap-4">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-lg">
+                      <CheckCircle2 className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
+                    {achievement}
+                  </p>
+                </div>
+
+                {/* Corner Decoration */}
+                <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-orange-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-bl-full"></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Expertise Section */}
-      <section className="py-16 px-4">
+      {/* Expertise Section - Redesigned */}
+      <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
-            Areas of Expertise
-          </h2>
-          <div className="flex flex-wrap gap-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900">
+              Areas of Expertise
+            </h2>
+          </div>
+
+          {/* Expertise Tags */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
             {member.expertise.map((skill, index) => (
               <div
                 key={index}
-                className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]"
+                className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-semibold shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards] cursor-pointer overflow-hidden"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                {skill}
+                {/* Shimmer Effect on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                
+                <span className="relative z-10">{skill}</span>
               </div>
             ))}
           </div>
 
-          {/* Education */}
-          <div className="mt-12 p-8 bg-gradient-to-br from-orange-50 to-white rounded-2xl shadow-md border border-orange-200">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Education</h3>
-            <p className="text-gray-700 text-lg">{member.education}</p>
+          {/* Education Card */}
+          <div className="max-w-4xl mx-auto">
+            <div className="relative bg-gradient-to-br from-orange-50 via-white to-orange-50 rounded-3xl shadow-xl p-10 border-2 border-orange-200 overflow-hidden group hover:shadow-2xl transition-all duration-500">
+              {/* Background Pattern */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-200/30 to-transparent rounded-full blur-3xl -z-0 group-hover:scale-150 transition-transform duration-1000"></div>
+              
+              {/* Icon */}
+              <div className="absolute top-8 right-8 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
+                <svg className="w-32 h-32 text-orange-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/>
+                </svg>
+              </div>
+
+              <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:rotate-12 transition-transform duration-500">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold text-gray-900">Education</h3>
+                  </div>
+                </div>
+                
+                <p className="text-gray-800 text-xl leading-relaxed font-medium">
+                  {member.education}
+                </p>
+              </div>
+
+              {/* Decorative Elements */}
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-orange-200/30 to-transparent rounded-full blur-2xl"></div>
+            </div>
           </div>
         </div>
       </section>

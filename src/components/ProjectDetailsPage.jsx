@@ -7,12 +7,10 @@ const ProjectDetailsPage = () => {
     const { projectId } = useParams();
     const navigate = useNavigate();
 
-    // Scroll to top when component mounts
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    // Project data
     const projectDetails = {
         "intelligent-traffic-management": {
             title: "Intelligent Traffic Management System",
@@ -238,10 +236,12 @@ const ProjectDetailsPage = () => {
             <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-yellow-50 pt-[76px] flex items-center justify-center">
                 <div className="text-center">
                     <h1 className="text-3xl font-bold text-gray-800 mb-4">Project Not Found</h1>
+
                     <button
                         onClick={() => navigate('/')}
-                        className="px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
+                        className="flex items-center gap-2 bg-orange-100 border border-orange-300 text-orange-600 hover:bg-orange-200 hover:text-orange-700 font-semibold px-4 py-2 rounded-lg mb-8 transition-colors group"
                     >
+                        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                         Back to Home
                     </button>
                 </div>
@@ -252,16 +252,16 @@ const ProjectDetailsPage = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-yellow-50 pt-[76px]">
             <div className="max-w-7xl mx-auto px-4 py-12">
-                {/* Back Button */}
+
                 <button
                     onClick={() => navigate('/')}
-                    className="flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold mb-8 transition-colors group"
+                    className="flex items-center gap-2 bg-orange-100 border border-orange-300 text-orange-600 hover:bg-orange-200 hover:text-orange-700 font-semibold px-4 py-2 rounded-lg mb-8 transition-colors group"
                 >
                     <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                     Back to Home
                 </button>
 
-                {/* Header Section - Animated */}
+                {/* Header Section */}
                 <div className="bg-white rounded-3xl shadow-lg p-8 mb-8 border-2 border-orange-100 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 group">
                     <div className="flex items-center gap-6 mb-6">
                         <div className="p-4 bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl text-orange-600 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
@@ -276,7 +276,7 @@ const ProjectDetailsPage = () => {
                     </div>
                 </div>
 
-                {/* Main Features - Animated */}
+                {/* Main Features */}
                 <div
                     className="bg-white rounded-3xl shadow-lg p-8 mb-8 border-2 border-orange-100 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 group"
                     style={{ animationDelay: '0.1s' }}
@@ -296,7 +296,7 @@ const ProjectDetailsPage = () => {
                     </ul>
                 </div>
 
-                {/* Sections Grid - Animated */}
+                {/* Sections Grid */}
                 <div className="grid md:grid-cols-2 gap-8 mb-8">
                     {project.sections.map((section, idx) => (
                         <div
@@ -333,19 +333,49 @@ const ProjectDetailsPage = () => {
                     ))}
                 </div>
 
-                <div
-                    className="bg-gradient-to-r from-orange-600 to-red-600 rounded-3xl p-8 text-center text-white shadow-xl opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+                {/* CTA Section */}
+                <section
+                    className="rounded-3xl py-20 px-4 bg-gradient-to-br from-orange-900 via-red-800 to-orange-800 relative overflow-hidden opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]"
                     style={{ animationDelay: '0.7s' }}
                 >
-                    <h2 className="text-3xl font-bold mb-4 transition-transform duration-300 hover:scale-105">Interested in This Solution?</h2>
-                    <p className="text-lg mb-6 opacity-90">Contact us to learn how we can customize this solution for your organization</p>
-                    <button
-                        onClick={() => navigate('/contact')}
-                        className="px-8 py-4 bg-white text-orange-600 rounded-lg font-semibold hover:bg-orange-50 hover:scale-110 hover:shadow-xl transition-all duration-300 shadow-lg transform"
-                    >
-                        Get in Touch
-                    </button>
-                </div>
+                    {/* Top wave border */}
+                    <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none rotate-180">
+                        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-16 md:h-20">
+                            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="white" />
+                        </svg>
+                    </div>
+
+                    {/* Glow blobs */}
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl opacity-10"></div>
+                    <div className="absolute bottom-0 left-0 w-72 h-72 bg-red-500 rounded-full blur-3xl opacity-10"></div>
+
+                    <div className="max-w-4xl mx-auto text-center relative z-10">
+                        <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
+                            Interested in{" "}
+                            <span className="bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
+                                This Solution?
+                            </span>
+                        </h2>
+                        <p className="text-gray-300 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+                            Contact us to learn how we can customize this solution for your organization
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button
+                                onClick={() => navigate('/contact')}
+                                className="inline-block px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-orange-500/30 hover:scale-105 transition-all duration-300"
+                            >
+                                Get in Touch
+                            </button>
+                            <button
+                                onClick={() => navigate('/')}
+                                className="inline-block px-8 py-4 bg-white/10 text-white border border-white/20 rounded-xl font-semibold hover:bg-white/20 hover:scale-105 transition-all duration-300 backdrop-blur-sm"
+                            >
+                                Explore Solutions
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
             </div>
 
             {/* Animation Styles */}
