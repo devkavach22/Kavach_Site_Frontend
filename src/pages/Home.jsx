@@ -87,6 +87,8 @@ const CounterAnimation = ({ end, duration = 2000, suffix = "" }) => {
   );
 };
 
+
+
 const Home = () => {
   const navigate = useNavigate();
 
@@ -565,111 +567,49 @@ const Home = () => {
       </section>
 
       {/* Team Members Section - The Team Turning Ideas into Reality */}
-     <section className="py-16 px-4 bg-white overflow-hidden">
+      <section className="py-16 px-4 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-600 mb-4">
-            The Team Turning Ideas into Reality
-          </h2>
-          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-            Meet the visionary leaders driving innovation and excellence at Kavach Global
-          </p>
-
-          {/* Horizontal Scrolling Container */}
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-600 mb-4">The Team Turning Ideas into Reality</h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Meet the visionary leaders driving innovation and excellence at Kavach Global</p>
           <div className="relative">
-            <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide hover:scrollbar-default scroll-smooth">
+            <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide scroll-smooth">
               {teamMembers.map((member, index) => (
-                <div
-                  key={member.id}
-                  onClick={() => navigate(`/team/${member.id}`)}
-                  className="group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer transform hover:-translate-y-2 flex-shrink-0 w-[280px] snap-center border-2 border-orange-100 hover:border-orange-400 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  {/* Image Container */}
+                <div key={member.id} onClick={() => navigate(`/team/${member.id}`)}
+                  className="group relative bg-white rounded-xl overflow-hidden shadow-lg flex-shrink-0 w-[280px] snap-center cursor-pointer opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]"
+                  style={{ animationDelay: `${index * 100}ms` }}>
                   <div className="relative h-64 overflow-hidden bg-gradient-to-br from-orange-100 to-orange-50">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover object-top origin-top group-hover:scale-110 transition-transform duration-700"
-                    />
-
-                    {/* LinkedIn Badge */}
-                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm p-1.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top" />
+                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm p-1.5 rounded-full shadow-lg">
                       <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                       </svg>
                     </div>
-
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
-
-                  {/* Content */}
                   <div className="p-4 bg-white">
-                    <div className="mb-2">
-                      <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors duration-300 line-clamp-1">
-                        {member.name}
-                      </h3>
-                      <p className="text-xs text-gray-600 font-medium line-clamp-2">
-                        {member.position}
-                      </p>
-                    </div>
-
-                    {/* View Profile Button */}
-                    <div className="flex items-center justify-center pt-3 border-t border-gray-100">
-                      <div className="flex items-center gap-1 text-orange-600 group-hover:text-orange-700 transition-colors">
+                    <h3 className="text-lg font-bold text-gray-900 mb-1 line-clamp-1">{member.name}</h3>
+                    <p className="text-xs text-gray-600 font-medium line-clamp-2">{member.position}</p>
+                    <div className="flex items-center justify-center pt-3 border-t border-gray-100 mt-2">
+                      <div className="flex items-center gap-1 text-orange-600">
                         <span className="text-xs font-semibold">View Profile</span>
                         <ChevronRight className="w-3 h-3" />
                       </div>
                     </div>
                   </div>
-
-                  {/* Hover Effect Border */}
-                  <div className="absolute inset-0 border-2 border-orange-400 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-
-                  {/* Corner Decorations */}
-                  <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-orange-400/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-tr from-red-400/20 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
               ))}
             </div>
-
-            {/* Scroll Indicators */}
             <div className="flex justify-center gap-2 mt-6">
               {teamMembers.map((_, index) => (
-                <div
-                  key={index}
-                  className="w-2 h-2 rounded-full bg-orange-300 hover:bg-orange-600 transition-colors cursor-pointer"
-                ></div>
+                <div key={index} className="w-2 h-2 rounded-full bg-orange-300 hover:bg-orange-600 transition-colors cursor-pointer"></div>
               ))}
             </div>
           </div>
         </div>
-
-        {/* Custom Scrollbar Styles */}
         <style dangerouslySetInnerHTML={{
           __html: `
-          .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-          }
-          .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-          .scrollbar-default::-webkit-scrollbar {
-            height: 6px;
-          }
-          .scrollbar-default::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-          }
-          .scrollbar-default::-webkit-scrollbar-thumb {
-            background: #fb923c;
-            border-radius: 10px;
-          }
-          .scrollbar-default::-webkit-scrollbar-thumb:hover {
-            background: #f97316;
-          }
-        `}} />
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  `}} />
       </section>
 
       {/* ── OUR ACHIEVEMENTS SECTION ── */}

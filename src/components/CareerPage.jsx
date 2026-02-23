@@ -73,7 +73,6 @@ function CareerPage() {
     return logos[name] || <Code className="w-full h-full" />
   }
 
-  // Shared react-select styles
   const selectStyles = {
     control: (base, state) => ({
       ...base,
@@ -100,25 +99,14 @@ function CareerPage() {
       zIndex: 9999,
       marginTop: '6px',
     }),
-    menuList: (base) => ({ 
-      ...base, 
-      padding: '6px', 
+    menuList: (base) => ({
+      ...base,
+      padding: '6px',
       maxHeight: '260px',
-      // Webkit Scrollbar Styling (Chrome, Safari, Edge)
-      '&::-webkit-scrollbar': {
-        width: '6px',
-      },
-      '&::-webkit-scrollbar-track': {
-        background: 'transparent',
-      },
-      '&::-webkit-scrollbar-thumb': {
-        background: 'rgba(255, 100, 50, 0.3)',
-        borderRadius: '10px',
-      },
-      '&::-webkit-scrollbar-thumb:hover': {
-        background: 'rgba(255, 100, 50, 0.5)',
-      },
-      // Firefox Scrollbar Styling
+      '&::-webkit-scrollbar': { width: '6px' },
+      '&::-webkit-scrollbar-track': { background: 'transparent' },
+      '&::-webkit-scrollbar-thumb': { background: 'rgba(255, 100, 50, 0.3)', borderRadius: '10px' },
+      '&::-webkit-scrollbar-thumb:hover': { background: 'rgba(255, 100, 50, 0.5)' },
       scrollbarWidth: 'thin',
       scrollbarColor: 'rgba(255, 100, 50, 0.3) transparent',
     }),
@@ -140,29 +128,35 @@ function CareerPage() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-[76px]">
 
       {/* ── HERO ── */}
-      <div className="relative bg-gradient-to-br from-orange-600 via-red-600 to-orange-300 text-white pt-20 pb-32 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 backdrop-blur-sm border border-white/30 rounded-full mb-8 shadow-md opacity-0 animate-[slideDown_0.6s_ease-out_0.1s_forwards]">
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-            <span className="text-white text-sm font-semibold tracking-widest uppercase">Join Our Team</span>
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+      <div className="relative bg-gradient-to-br from-orange-600 via-red-600 to-orange-300 text-white pt-12 pb-20 overflow-hidden">
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-sm border border-white/30 rounded-full mb-5 shadow-md opacity-0 animate-[slideDown_0.6s_ease-out_0.1s_forwards]">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+            <span className="text-white text-xs font-semibold tracking-widest uppercase">Join Our Team</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
           </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
+
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">
             <span className="block text-white opacity-0 animate-[slideUp_0.7s_ease-out_0.2s_forwards]">Join Kavach</span>
             <span className="block bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-100 bg-clip-text text-transparent opacity-0 animate-[slideUp_0.7s_ease-out_0.4s_forwards]">Global</span>
           </h1>
-          <p className="text-white/85 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-12 opacity-0 animate-[fadeIn_0.8s_ease-out_0.6s_forwards]">
+
+          <p className="text-white/85 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-8 opacity-0 animate-[fadeIn_0.8s_ease-out_0.6s_forwards]">
             Build your career with a leading conglomerate providing comprehensive, integrated solutions across industries worldwide.
           </p>
-          <div className="flex flex-wrap justify-center gap-6 opacity-0 animate-[fadeIn_0.8s_ease-out_0.8s_forwards]">
+
+          {/* Stats */}
+          <div className="flex flex-wrap justify-center gap-4 opacity-0 animate-[fadeIn_0.8s_ease-out_0.8s_forwards]">
             {[{ value: `${jobs.length}+`, label: 'Open Positions' }, { value: '20+', label: 'Technologies' }, { value: '10+', label: 'Departments' }].map((s, i) => (
-              <div key={i} className="flex flex-col items-center px-8 py-4 bg-white/15 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/25 hover:-translate-y-1 transition-all duration-300">
-                <span className="text-3xl font-extrabold text-white">{s.value}</span>
-                <span className="text-white/70 text-sm font-medium mt-0.5">{s.label}</span>
+              <div key={i} className="flex flex-col items-center px-6 py-3 bg-white/15 backdrop-blur-sm rounded-xl border border-white/20 hover:bg-white/25 hover:-translate-y-1 transition-all duration-300">
+                <span className="text-2xl font-extrabold text-white">{s.value}</span>
+                <span className="text-white/70 text-xs font-medium mt-0.5">{s.label}</span>
               </div>
             ))}
           </div>
         </div>
+
         <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
           <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-16 md:h-20">
             <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="white" />
@@ -227,7 +221,7 @@ function CareerPage() {
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">Find your perfect role and join our team of talented professionals</p>
         </div>
 
-        {/* Filter Box — overflow-visible so dropdown shows properly */}
+        {/* Filter Box */}
         <div
           className="relative rounded-2xl shadow-xl p-6 mb-8"
           style={{
@@ -235,16 +229,12 @@ function CareerPage() {
             overflow: 'visible'
           }}
         >
-          {/* Glow orbs */}
           <div className="absolute top-0 right-0 w-48 h-48 bg-orange-500 rounded-full blur-3xl opacity-10 pointer-events-none" style={{ zIndex: 0 }}></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-red-900 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ zIndex: 0 }}></div>
 
           <div className="relative flex flex-col md:flex-row gap-6" style={{ zIndex: 10 }}>
-            {/* Technology Filter */}
             <div className="flex-1">
-              <label className="block text-sm font-bold text-white/80 mb-2">
-                Filter by Technology
-              </label>
+              <label className="block text-sm font-bold text-white/80 mb-2">Filter by Technology</label>
               <Select
                 options={technologies.map(t => ({ value: t, label: t }))}
                 value={selectedTech}
@@ -256,12 +246,8 @@ function CareerPage() {
                 menuPosition="fixed"
               />
             </div>
-
-            {/* Job Type Filter */}
             <div className="flex-1">
-              <label className="block text-sm font-bold text-white/80 mb-2">
-                Job Type
-              </label>
+              <label className="block text-sm font-bold text-white/80 mb-2">Job Type</label>
               <Select
                 options={[
                   { value: 'All', label: 'All Types' },
