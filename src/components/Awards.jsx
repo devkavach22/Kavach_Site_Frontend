@@ -692,7 +692,7 @@ const Awards = () => {
                             <div
                                 key={member.id}
                                 onClick={() => navigate(`/team/${member.id}`)}
-                                className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 cursor-pointer hover:-translate-y-2 w-[200px] border-2 border-orange-100 hover:border-orange-400 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]"
+                                className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 cursor-pointer hover:-translate-y-2 w-[200px] border-2 border-orange-100 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]"
                                 style={{ animationDelay: `${index * 80}ms` }}
                             >
                                 <div className="h-52 overflow-hidden">
@@ -711,7 +711,6 @@ const Awards = () => {
                                         <ChevronRight className="w-3 h-3" />
                                     </div>
                                 </div>
-                                <div className="absolute inset-0 border-2 border-orange-400 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                             </div>
                         ))}
                     </div>
