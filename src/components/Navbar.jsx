@@ -56,14 +56,7 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button - Desktop */}
-          <div className="hidden md:block">
-            <Link
-              to="/contact"
-              className="px-6 py-2.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-medium shadow-md hover:shadow-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 transform hover:-translate-y-0.5"
-            >
-              Get Started
-            </Link>
-          </div>
+
 
           {/* Mobile Menu Button */}
           <button
@@ -93,7 +86,7 @@ const Navbar = () => {
               { path: '/services', label: 'Our Services' },
               { path: '/product', label: 'Our Products' },
               { path: '/career', label: 'Career' },
-              { path: '/awards', label: 'Awards' }, 
+              { path: '/awards', label: 'Awards' },
               { path: '/contact', label: 'Contact' },
             ].map((item) => (
               <Link
@@ -108,13 +101,6 @@ const Navbar = () => {
                 {item.label}
               </Link>
             ))}
-            <Link
-              to="/contact"
-              onClick={() => setMenuOpen(false)}
-              className="block mx-4 mt-4 px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white text-center rounded-lg font-medium shadow-md"
-            >
-              Get Started
-            </Link>
           </div>
         </div>
       </div>
@@ -123,3 +109,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+

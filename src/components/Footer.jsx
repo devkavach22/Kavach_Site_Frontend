@@ -27,10 +27,10 @@ const Footer = () => {
   ];
 
   const socials = [
-    { label: 'Twitter', href: '#', icon: '𝕏' },
-    { label: 'Facebook', href: '#', icon: 'f' },
-    { label: 'LinkedIn', href: '#', icon: 'in' },
-    { label: 'Instagram', href: '#', icon: 'ig' },
+    { label: 'Twitter', href: 'https://x.com/Kavach_Security', icon: '𝕏' },
+    { label: 'Facebook', href: 'https://www.facebook.com/kavachglobal/', icon: 'f' },
+    { label: 'LinkedIn', href: 'https://in.linkedin.com/company/kavach-security-services', icon: 'in' },
+    { label: 'Instagram', href: 'https://www.instagram.com/kavachglobal/', icon: 'ig' },
   ];
 
   return (
