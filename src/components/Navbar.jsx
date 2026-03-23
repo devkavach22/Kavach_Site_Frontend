@@ -37,7 +37,7 @@ const Navbar = () => {
               { path: '/about', label: 'About Us' },
               { path: '/services', label: 'Our Services' },
               { path: '/product', label: 'Our Products' },
-              { path: '/career', label: 'Career' },
+              // { path: '/career', label: 'Career' },
               { path: '/awards', label: 'Awards' }, // Added Awards here
               { path: '/contact', label: 'Contact' },
 
@@ -85,7 +85,7 @@ const Navbar = () => {
               { path: '/about', label: 'About Us' },
               { path: '/services', label: 'Our Services' },
               { path: '/product', label: 'Our Products' },
-              { path: '/career', label: 'Career' },
+              // { path: '/career', label: 'Career' },
               { path: '/awards', label: 'Awards' },
               { path: '/contact', label: 'Contact' },
             ].map((item) => (

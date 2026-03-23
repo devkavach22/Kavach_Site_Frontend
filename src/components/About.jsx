@@ -198,7 +198,7 @@ const About = () => {
               </p>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
                 By leveraging the combined strengths of{" "}
-                <strong>Kavach, Kalibre, and Fact IT Solutions</strong>, we offer
+                <strong>Kavach, Kalibre</strong>, we offer
                 end-to-end, customized solutions that meet the dynamic needs of
                 today's businesses across <strong>50+ industries</strong> and{" "}
                 <strong>7+ global footprints.</strong>

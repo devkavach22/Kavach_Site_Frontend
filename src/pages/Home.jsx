@@ -11,7 +11,7 @@ import {
   Minus
 } from "lucide-react";
 
-import EmployeeImg from "../assets/Employee.jpeg";
+import EmployeeImg from "../assets/Kavach-Global.jpg";
 import KalibreImg from "../assets/KalibreGlobal.jpg";
 import EducationImg from "../assets/Education.webp";
 import HealthcareImg from "../assets/Healthcare.jpg";
@@ -133,7 +133,7 @@ const Home = () => {
   const solutionsData = {
     "Mining Operations": {
       title: "Innovating Mining Operations with Digital Solutions",
-      desc: "At Kavach Technology, we are committed to enhancing the efficiency and transparency of mining operations through our cutting-edge technology solutions. Our suite of products is designed to streamline processes, ensure safety, and boost productivity at every stage of mining, from extraction to delivery.",
+      desc: "At Kavach Global, we are committed to enhancing the efficiency and transparency of mining operations through our cutting-edge technology solutions. Our suite of products is designed to streamline processes, ensure safety, and boost productivity at every stage of mining, from extraction to delivery.",
       items: [
         {
           title: "Digital Logistics Management Solutions (DLMS)",
@@ -147,7 +147,7 @@ const Home = () => {
     },
     "Education Management": {
       title: "Revolutionizing Education Management Through Technology",
-      desc: "Education is the cornerstone of progress, and managing the education system is as vital as delivering knowledge itself. In a rapidly evolving world, traditional education management systems must adapt to the dynamic needs of learners and institutions. At Kavach Technology, we empower educational institutions with cutting-edge solutions designed to streamline operations, enhance learning experiences, and foster innovation.",
+      desc: "Education is the cornerstone of progress, and managing the education system is as vital as delivering knowledge itself. In a rapidly evolving world, traditional education management systems must adapt to the dynamic needs of learners and institutions. At Kavach Global, we empower educational institutions with cutting-edge solutions designed to streamline operations, enhance learning experiences, and foster innovation.",
       items: [
         {
           title: "Admission Automation System",
@@ -161,7 +161,7 @@ const Home = () => {
     },
     "Food Security & Agriculture": {
       title: "Driving Food Security Through Digital Innovation",
-      desc: "Food security is fundamental to a nation's well-being and economic stability. At Kavach Technology, we are committed to enabling efficient, transparent, and tech-driven solutions that address the complexities of agriculture, distribution, and food supply management. Our innovative platforms streamline the entire value chain, from procurement to distribution, ensuring sustainability and accessibility for all.",
+      desc: "Food security is fundamental to a nation's well-being and economic stability. At Kavach Global, we are committed to enabling efficient, transparent, and tech-driven solutions that address the complexities of agriculture, distribution, and food supply management. Our innovative platforms streamline the entire value chain, from procurement to distribution, ensuring sustainability and accessibility for all.",
       items: [
         {
           title: "Commodity Auction Automation System",
@@ -175,7 +175,7 @@ const Home = () => {
     },
     "Smart Land & Industry": {
       title: "Empowering Land & Industry with Digital Solutions",
-      desc: "Land management and industrial operations are fundamental to economic growth, requiring efficient, transparent, and scalable systems. Kavach Technology provides innovative solutions that streamline land allocation, industrial inspections, CSR monitoring, and more. Our platforms ensure optimized operations, better resource management, and seamless collaboration across multiple sectors.",
+      desc: "Land management and industrial operations are fundamental to economic growth, requiring efficient, transparent, and scalable systems. Kavach Global provides innovative solutions that streamline land allocation, industrial inspections, CSR monitoring, and more. Our platforms ensure optimized operations, better resource management, and seamless collaboration across multiple sectors.",
       items: [
         {
           title: "Building Plan Approval System",
@@ -189,7 +189,7 @@ const Home = () => {
     },
     "HealthTech Solutions": {
       title: "Transforming Healthcare Through Technology",
-      desc: "The healthcare sector requires seamless coordination, efficient resource management, and robust systems to deliver timely and quality care. Kavach Technology offers innovative solutions that address these challenges, empowering healthcare providers and administrators to enhance service delivery and improve patient outcomes.",
+      desc: "The healthcare sector requires seamless coordination, efficient resource management, and robust systems to deliver timely and quality care. Kavach Global offers innovative solutions that address these challenges, empowering healthcare providers and administrators to enhance service delivery and improve patient outcomes.",
       items: [
         {
           title: "Community Health Worker System",
@@ -203,7 +203,7 @@ const Home = () => {
     },
     "Marketing & Communication": {
       title: "Revolutionizing Marketing and Communication",
-      desc: "In today's fast-paced digital world, effective communication and marketing strategies are pivotal for business success. Kavach Technology offers advanced solutions that empower organizations to engage customers, streamline operations, and enhance decision-making. Our tools are designed to create impactful interactions and drive superior outcomes.",
+      desc: "In today's fast-paced digital world, effective communication and marketing strategies are pivotal for business success. Kavach Global offers advanced solutions that empower organizations to engage customers, streamline operations, and enhance decision-making. Our tools are designed to create impactful interactions and drive superior outcomes.",
       items: [
         {
           title: "Cloud Contact Center",
@@ -345,7 +345,7 @@ const Home = () => {
 
               <p className="text-gray-700 text-lg leading-relaxed mb-4">
                 By leveraging the combined strengths of{" "}
-                <strong>Kavach, Kalibrc, and Fact IT Solutions</strong>, we
+                <strong>Kavach Global, kalibre</strong>, we
                 offer end-to-end, customized solutions that meet the dynamic
                 needs of today's businesses.
               </p>
@@ -384,7 +384,7 @@ const Home = () => {
       <section className="py-20 px-4 bg-white/50">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-600 mb-12">
-            Kavach Technology Digital Solutions
+            Kavach global Digital Solutions
           </h2>
 
           <div className="flex flex-col lg:flex-row gap-8">

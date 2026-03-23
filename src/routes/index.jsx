@@ -31,9 +31,9 @@ const AppRoutes = () => {
         <Route path="/contact" element={<ContactPage />} />
         
         {/* Career Routes */}
-        <Route path="/career" element={<CareerPage />} />
+        {/* <Route path="/career" element={<CareerPage />} />
         <Route path="/career/job/:jobId" element={<JobDetails />} />
-        <Route path="/career/technologies" element={<LanguageDetails />} />
+        <Route path="/career/technologies" element={<LanguageDetails />} /> */}
         <Route path='/services' element={<Services/>}/>
         <Route path='/product'element={<Product/>}/>
         <Route path='/about'element={<About/>}/>
