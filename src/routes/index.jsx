@@ -11,14 +11,13 @@ import Services from '../components/Services';
 import About from '../components/About';
 import Awards from '../components/Awards';
 import Product from '../components/Product';
+import ComingSoon from '../components/ComingSoon';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
   return null;
 };
 
@@ -30,7 +29,6 @@ const AppRoutes = () => {
         <Route index element={<Home />} />
         <Route path="/"  element={<Home />} />
         <Route path="/contact" element={<ContactPage />} />
-
         {/* Career Routes */}
         {/* <Route path="/career" element={<CareerPage />} />
         <Route path="/career/job/:jobId" element={<JobDetails />} />
@@ -39,6 +37,7 @@ const AppRoutes = () => {
         <Route path='/product' element={<Product />} />
         <Route path='/about' element={<About />} />
         <Route path='/awards' element={<Awards />} />
+        <Route path='/coming-soon' element={<ComingSoon />} />
         <Route path="/project/:projectId" element={<ProjectDetailsPage />} />
         <Route path="/team/:memberId" element={<TeamMemberDetails />} />
       </Routes>

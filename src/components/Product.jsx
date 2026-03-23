@@ -312,17 +312,23 @@ const Product = () => {
                                         View Site ↗
                                     </a>
                                 ) : (
-                                    <div style={{
-                                        display: 'inline-flex', alignItems: 'center', gap: '6px',
-                                        padding: '7px 16px', borderRadius: '8px',
-                                        background: 'rgba(255,255,255,0.08)',
-                                        border: '1px solid rgba(255,255,255,0.20)',
-                                        color: 'rgba(255,255,255,0.50)', fontWeight: 700,
-                                        fontSize: '0.78rem', letterSpacing: '0.03em',
-                                        cursor: 'default',
-                                        position: 'relative', zIndex: 2,
-                                    }}>
-                                        🕐 Coming Soon
+                                    <div
+                                        onClick={() => navigate('/coming-soon')}
+                                        style={{
+                                            display: 'inline-flex', alignItems: 'center', gap: '6px',
+                                            padding: '7px 16px', borderRadius: '8px',
+                                            background: 'rgba(255,255,255,0.08)',
+                                            border: '1px solid rgba(255,255,255,0.20)',
+                                            color: 'rgba(255,255,255,0.70)', fontWeight: 700,
+                                            fontSize: '0.78rem', letterSpacing: '0.03em',
+                                            cursor: 'pointer',
+                                            position: 'relative', zIndex: 2,
+                                            transition: 'all 0.2s',
+                                        }}
+                                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.16)'; e.currentTarget.style.color = 'white'; }}
+                                        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'rgba(255,255,255,0.70)'; }}
+                                    >
+                                        view site
                                     </div>
                                 )}
                             </div>
