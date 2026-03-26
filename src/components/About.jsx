@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -383,7 +384,7 @@ const AboutSection = ({ navigate }) => {
               [Building2, "8 India Offices"],
               [Users2,    "23,000+ Team Members"],
               [Award,     "25+ Years Excellence"],
-            ].map(([text], i) => (
+            ].map(([Icon, text], i) => (
               <div key={i}
                 className={`aw3-feat-row ${secVisible ? "aw3-row-in" : ""}`}
                 style={{ animationDelay: `${0.55 + i * 0.1}s` }}>
