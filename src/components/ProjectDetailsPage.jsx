@@ -1,7 +1,6 @@
-// src/pages/ProjectDetailsPage.jsx
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Globe2, Phone, Building2, Users2 } from 'lucide-react';
+import { ArrowLeft, Globe2, Phone, Building2, Users2, CheckCircle2, Target, Quote } from 'lucide-react';
 
 const ProjectDetailsPage = () => {
     const { projectId } = useParams();
@@ -9,7 +8,17 @@ const ProjectDetailsPage = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) entry.target.classList.add("is-visible");
+            });
+        }, observerOptions);
+
+        const scrollElements = document.querySelectorAll(".scroll-reveal");
+        scrollElements.forEach((el) => observer.observe(el));
+        return () => observer.disconnect();
+    }, [projectId]);
 
     const projectDetails = {
         "intelligent-traffic-management": {
@@ -233,176 +242,315 @@ const ProjectDetailsPage = () => {
 
     if (!project) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-yellow-50 pt-[76px] flex items-center justify-center">
+            <div className="min-h-screen bg-[#eeecea] flex items-center justify-center font-['Barlow']">
                 <div className="text-center">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-4">Project Not Found</h1>
-
-                    <button
-                        onClick={() => navigate('/')}
-                        className="flex items-center gap-2 bg-orange-100 border border-orange-300 text-orange-600 hover:bg-orange-200 hover:text-orange-700 font-semibold px-4 py-2 rounded-lg mb-8 transition-colors group"
-                    >
-                        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                        Back to Home
-                    </button>
+                    <h2 className="text-4xl font-black text-gray-900 mb-6 font-['Barlow_Condensed'] uppercase tracking-tight">Project Not Found</h2>
+                    <button onClick={() => navigate('/')} className="px-8 py-3 bg-orange-600 text-white font-bold rounded-full uppercase tracking-widest text-xs hover:bg-orange-700 transition-all">Back to Home</button>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-yellow-50 pt-[76px]">
-            <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="min-h-screen bg-[#eeecea] text-gray-900 font-['Barlow'] overflow-x-hidden">
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800&family=Barlow:wght@400;500;600;700&display=swap');
+                
+                :root { --org: #e05a00; --dark: #1a2332; }
+                .kv-h { font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; line-height:1; }
+                .kv-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--org); display:flex; align-items:center; gap:8px; }
+                .kv-label::before { content:''; width:10px; height:2px; background:var(--org); }
 
+                .scroll-reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+                .scroll-reveal.is-visible { opacity: 1; transform: translateY(0); }
+                .stagger-1 { transition-delay: 0.1s; }
+                .stagger-2 { transition-delay: 0.2s; }
+                
+                .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(224, 90, 0, 0.1); }
+                .icon-box { border-radius: 20px 5px 20px 5px; }
+
+                /* ── ICON VISUAL ── */
+                .proj-icon-wrap {
+                    position: relative;
+                    width: 260px;
+                    height: 260px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                /* Outer ring */
+                .proj-icon-ring {
+                    position: absolute;
+                    inset: 0;
+                    border-radius: 32px 8px 32px 8px;
+                    border: 2px dashed rgba(224,90,0,0.25);
+                    animation: spinRing 18s linear infinite;
+                }
+                @keyframes spinRing {
+                    from { transform: rotate(0deg); }
+                    to   { transform: rotate(360deg); }
+                }
+
+                /* Middle glow ring */
+                .proj-icon-glow {
+                    position: absolute;
+                    inset: 16px;
+                    border-radius: 24px 6px 24px 6px;
+                    background: radial-gradient(circle at 40% 40%, rgba(224,90,0,0.18) 0%, transparent 70%);
+                    border: 1px solid rgba(224,90,0,0.12);
+                }
+
+                /* Main dark tile */
+                .proj-icon-tile {
+                    position: relative;
+                    z-index: 2;
+                    width: 180px;
+                    height: 180px;
+                    border-radius: 24px 6px 24px 6px;
+                    background: linear-gradient(145deg, #1e2d42 0%, #111827 60%, #0d1520 100%);
+                    box-shadow:
+                        0 0 0 1px rgba(224,90,0,0.3),
+                        0 0 40px rgba(224,90,0,0.2),
+                        0 20px 60px rgba(0,0,0,0.5),
+                        inset 0 1px 0 rgba(255,255,255,0.06);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: transform 0.4s ease, box-shadow 0.4s ease;
+                }
+                .proj-icon-tile:hover {
+                    transform: translateY(-6px) scale(1.04);
+                    box-shadow:
+                        0 0 0 1px rgba(224,90,0,0.5),
+                        0 0 60px rgba(224,90,0,0.35),
+                        0 30px 80px rgba(0,0,0,0.5),
+                        inset 0 1px 0 rgba(255,255,255,0.08);
+                }
+
+                /* Icon itself — bright orange with glow */
+                .proj-icon-svg {
+                    color: #f97316;
+                    filter: drop-shadow(0 0 12px rgba(249,115,22,0.8)) drop-shadow(0 0 28px rgba(224,90,0,0.5));
+                    transition: filter 0.4s ease, transform 0.4s ease;
+                }
+                .proj-icon-tile:hover .proj-icon-svg {
+                    filter: drop-shadow(0 0 18px rgba(249,115,22,1)) drop-shadow(0 0 40px rgba(224,90,0,0.7));
+                    transform: scale(1.1);
+                }
+
+                /* Corner accent dots */
+                .proj-icon-dot {
+                    position: absolute;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background: #f97316;
+                    box-shadow: 0 0 10px rgba(249,115,22,0.8);
+                }
+
+                /* Orange corner bracket */
+                .proj-corner-tl {
+                    position: absolute;
+                    top: 0; left: 0;
+                    width: 28px; height: 28px;
+                    border-top: 3px solid #f97316;
+                    border-left: 3px solid #f97316;
+                    border-radius: 4px 0 0 0;
+                }
+                .proj-corner-br {
+                    position: absolute;
+                    bottom: 0; right: 0;
+                    width: 28px; height: 28px;
+                    border-bottom: 3px solid #f97316;
+                    border-right: 3px solid #f97316;
+                    border-radius: 0 0 4px 0;
+                }
+
+                /* Floating badge */
+                .proj-icon-badge {
+                    position: absolute;
+                    bottom: -10px;
+                    right: -10px;
+                    z-index: 3;
+                    background: linear-gradient(135deg, #f97316, #e05a00);
+                    border-radius: 10px 3px 10px 3px;
+                    padding: 6px 14px;
+                    font-family: 'Barlow Condensed', sans-serif;
+                    font-weight: 800;
+                    font-size: 10px;
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    color: #fff;
+                    box-shadow: 0 4px 16px rgba(224,90,0,0.4);
+                    white-space: nowrap;
+                }
+            `}</style>
+
+            {/* Navigation */}
+            <div className="w-full px-6 sm:px-10 lg:px-16 py-8 flex justify-between items-center">
                 <button
                     onClick={() => navigate('/')}
-                    className="flex items-center gap-2 bg-orange-100 border border-orange-300 text-orange-600 hover:bg-orange-200 hover:text-orange-700 font-semibold px-4 py-2 rounded-lg mb-8 transition-colors group"
+                    className="group flex items-center gap-3 px-5 py-2.5 bg-white rounded-full text-sm font-bold uppercase tracking-widest shadow-sm hover:shadow-md border border-gray-100 transition-all"
                 >
-                    <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                    Back to Home
+                    <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+                    <span>Back</span>
                 </button>
+                <div className="kv-label">Solution Details</div>
+            </div>
 
-                {/* Header Section */}
-                <div className="bg-white rounded-3xl shadow-lg p-8 mb-8 border-2 border-orange-100 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 group">
-                    <div className="flex items-center gap-6 mb-6">
-                        <div className="p-4 bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl text-orange-600 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                            <div className="transform group-hover:rotate-[-6deg] transition-all duration-500">
-                                {project.icon}
+            {/* Hero Section */}
+            <section className="pb-24 px-6 bg-[#eeecea]">
+                <div className="w-full px-4 sm:px-8 lg:px-16">
+                    <div className="grid lg:grid-cols-12 gap-12 items-center">
+
+                        {/* ── ICON VISUAL ── */}
+                        <div className="lg:col-span-4 scroll-reveal flex justify-center lg:justify-start">
+                            <div className="proj-icon-wrap">
+                                {/* Spinning dashed ring */}
+                                <div className="proj-icon-ring" />
+
+                                {/* Glow layer */}
+                                <div className="proj-icon-glow" />
+
+                                {/* Main tile */}
+                                <div className="proj-icon-tile">
+                                    {/* Corner brackets inside tile */}
+                                    <div className="proj-corner-tl" />
+                                    <div className="proj-corner-br" />
+
+                                    {/* Corner accent dots */}
+                                    <div className="proj-icon-dot" style={{ top: 12, right: 12 }} />
+                                    <div className="proj-icon-dot" style={{ bottom: 12, left: 12, width: 5, height: 5, opacity: 0.5 }} />
+
+                                    {/* Icon */}
+                                    <div className="proj-icon-svg">
+                                        {React.cloneElement(project.icon, { size: 88, strokeWidth: 1.2 })}
+                                    </div>
+                                </div>
+
+                                {/* Floating label badge */}
+                                <div className="proj-icon-badge">Kavach Solution</div>
+
+                                {/* Bottom blur glow */}
+                                <div style={{
+                                    position: "absolute", bottom: -20, left: "50%", transform: "translateX(-50%)",
+                                    width: 140, height: 40,
+                                    background: "radial-gradient(ellipse, rgba(249,115,22,0.3) 0%, transparent 70%)",
+                                    filter: "blur(12px)"
+                                }} />
                             </div>
                         </div>
-                        <div>
-                            <h1 className="text-4xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">{project.title}</h1>
-                            <p className="text-gray-600 text-lg">{project.description}</p>
+
+                        {/* Title side */}
+                        <div className="lg:col-span-8 space-y-6">
+                            <div className="scroll-reveal stagger-1">
+                                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-orange-500 mb-3 flex items-center gap-2">
+                                    <span className="w-8 h-[2px] bg-orange-500"></span>
+                                    Project Excellence
+                                </p>
+
+                                <h1 className="kv-h text-[#111827] mb-6 leading-[0.9]" style={{ fontSize: 'clamp(3rem, 6vw, 5rem)' }}>
+                                    {project.title.split(' ').slice(0, -1).join(' ')} <br />
+                                    <span className="text-orange-600">{project.title.split(' ').pop()}</span>
+                                </h1>
+
+                                <div className="relative">
+                                    <p className="text-xl text-gray-500 max-w-2xl leading-relaxed pl-6 border-l-2 border-orange-100">
+                                        {project.description}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                {/* Main Features */}
-                <div
-                    className="bg-white rounded-3xl shadow-lg p-8 mb-8 border-2 border-orange-100 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 group"
-                    style={{ animationDelay: '0.1s' }}
-                >
-                    <h2 className="text-2xl font-bold text-orange-600 mb-6 group-hover:scale-105 transition-transform duration-300 text-center">Services and Solutions We Offer</h2>
-                    <ul className="space-y-3">
-                        {project.mainFeatures.map((feature, idx) => (
-                            <li
-                                key={idx}
-                                className="flex items-start gap-3 opacity-0 animate-[fadeInLeft_0.5s_ease-out_forwards] hover:translate-x-2 transition-transform duration-300"
-                                style={{ animationDelay: `${0.2 + idx * 0.1}s` }}
-                            >
-                                <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0 animate-pulse"></div>
-                                <span className="text-gray-700">{feature}</span>
-                            </li>
+            {/* Features (Dark Section) */}
+            <section className="py-24 bg-[#1a2332] text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10"><Target size={400} /></div>
+                <div className="w-full px-6 sm:px-10 lg:px-16 relative z-10">
+                    <div className="kv-label text-orange-500 mb-6">Core Capabilities</div>
+                    <h2 className="kv-h text-4xl mb-12">SERVICES & <span className="text-orange-500">SOLUTIONS</span></h2>
+
+                    <div className="grid md:grid-cols-2 gap-6 scroll-reveal stagger-1">
+                        {project.mainFeatures.map((feature, i) => (
+                            <div key={i} className="flex items-start gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-orange-500 transition-colors group">
+                                <CheckCircle2 className="text-orange-500 mt-1 flex-shrink-0" size={20} />
+                                <span className="text-gray-300 font-medium group-hover:text-white transition-colors">{feature}</span>
+                            </div>
                         ))}
-                    </ul>
-                </div>
-
-                {/* Sections Grid */}
-                <div className="grid md:grid-cols-2 gap-8 mb-8">
-                    {project.sections.map((section, idx) => (
-                        <div
-                            key={idx}
-                            className="bg-white rounded-3xl shadow-lg p-8 border-2 border-orange-100 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] hover:shadow-2xl hover:border-orange-400 transition-all duration-500 hover:-translate-y-2 group relative overflow-hidden"
-                            style={{ animationDelay: `${0.3 + idx * 0.1}s` }}
-                        >
-                            {/* Decorative gradient overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 rounded-3xl transition-all duration-500"></div>
-
-                            {/* Top accent line */}
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-
-                            <div className="relative">
-                                <h2 className="text-2xl font-bold text-orange-600 mb-6 group-hover:scale-105 transition-transform duration-300">{section.title}</h2>
-                                <ul className="space-y-3">
-                                    {section.items.map((item, itemIdx) => (
-                                        <li
-                                            key={itemIdx}
-                                            className="flex items-start gap-3 opacity-0 animate-[fadeInLeft_0.5s_ease-out_forwards] hover:translate-x-2 transition-transform duration-300"
-                                            style={{ animationDelay: `${0.4 + idx * 0.1 + itemIdx * 0.05}s` }}
-                                        >
-                                            <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0 group-hover:animate-pulse"></div>
-                                            <span className="text-gray-700">{item}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            {/* Corner decorations */}
-                            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-orange-400/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-red-400/10 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* CTA Section */}
-                <section
-                    className="rounded-3xl py-20 px-4 bg-gradient-to-br from-orange-900 via-red-800 to-orange-800 relative overflow-hidden opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]"
-                    style={{ animationDelay: '0.7s' }}
-                >
-                    {/* Top wave border */}
-                    <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none rotate-180">
-                        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-16 md:h-20">
-                            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="white" />
-                        </svg>
                     </div>
+                </div>
+            </section>
 
-                    {/* Glow blobs */}
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl opacity-10"></div>
-                    <div className="absolute bottom-0 left-0 w-72 h-72 bg-red-500 rounded-full blur-3xl opacity-10"></div>
+            {/* Details Grid */}
+            <section className="py-24 px-6 bg-[#eeecea]">
+                <div className="w-full px-4 sm:px-8 lg:px-16">
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {project.sections.map((section, idx) => (
+                            <div
+                                key={idx}
+                                className={`scroll-reveal glass-card p-10 rounded-[40px_10px_40px_10px] border border-orange-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500`}
+                                style={{ transitionDelay: `${idx * 150}ms` }}
+                            >
+                                <div className="relative overflow-hidden">
+                                    <h3 className="kv-h text-2xl text-gray-900 mb-8 border-b border-orange-100 pb-4 relative group">
+                                        {section.title}
+                                        <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-700"></div>
+                                    </h3>
+                                    <ul className="space-y-4">
+                                        {section.items.map((item, i) => (
+                                            <li key={i} className="flex items-center gap-3 text-gray-600 font-medium group/item translate-x-0 hover:translate-x-2 transition-transform duration-300">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-orange-500 group-hover/item:scale-150 transition-transform"></div>
+                                                {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-                    <div className="max-w-4xl mx-auto text-center relative z-10">
-                        <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
-                            Interested in{" "}
-                            <span className="bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
-                                This Solution?
-                            </span>
+            {/* Final CTA Section */}
+            <section className="py-12 bg-[#eeecea]">
+                <div className="w-full text-center scroll-reveal bg-[#111827] py-12 px-6 shadow-2xl relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/10 rounded-full blur-3xl -z-0"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/5 rounded-full blur-3xl -z-0"></div>
+
+                    <div className="relative z-10 w-full px-6 sm:px-10 lg:px-16 mx-auto">
+                        <div className="inline-flex items-center justify-center w-12 h-12 bg-white/5 text-orange-500 rounded-xl mb-6 border border-white/10">
+                            <Quote size={24} />
+                        </div>
+
+                        <h2 className="kv-h text-3xl md:text-5xl text-white mb-4 leading-tight uppercase tracking-tight">
+                            REVOLUTIONIZE YOUR <br />
+                            <span className="text-orange-600">INFRASTRUCTURE</span>
                         </h2>
-                        <p className="text-gray-300 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-                            Contact us to learn how we can customize this solution for your organization
+
+                        <p className="text-gray-400 font-bold uppercase tracking-[0.2em] text-[10px] md:text-[12px] mb-10 max-w-2xl mx-auto leading-relaxed">
+                            Scalable solutions tailored for modern city and corporate needs.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+                        <div className="flex flex-wrap justify-center gap-4">
                             <button
                                 onClick={() => navigate('/contact')}
-                                className="inline-block px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-orange-500/30 hover:scale-105 transition-all duration-300"
+                                className="px-10 py-3.5 bg-orange-600 text-white font-black rounded-lg uppercase tracking-tighter text-xs hover:bg-white hover:text-black transition-all shadow-lg min-w-[160px]"
                             >
                                 Get in Touch
                             </button>
                             <button
                                 onClick={() => navigate('/')}
-                                className="inline-block px-8 py-4 bg-white/10 text-white border border-white/20 rounded-xl font-semibold hover:bg-white/20 hover:scale-105 transition-all duration-300 backdrop-blur-sm"
+                                className="px-10 py-3.5 border border-white/20 text-white font-black rounded-lg uppercase tracking-tighter text-xs hover:bg-white hover:text-black transition-all min-w-[160px]"
                             >
-                                Explore Solutions
+                                View All Solutions
                             </button>
                         </div>
                     </div>
-                </section>
-
-            </div>
-
-            {/* Animation Styles */}
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                @keyframes fadeInUp {
-                    from { 
-                        opacity: 0; 
-                        transform: translateY(30px); 
-                    }
-                    to { 
-                        opacity: 1; 
-                        transform: translateY(0); 
-                    }
-                }
-                
-                @keyframes fadeInLeft {
-                    from { 
-                        opacity: 0; 
-                        transform: translateX(-20px); 
-                    }
-                    to { 
-                        opacity: 1; 
-                        transform: translateX(0); 
-                    }
-                }
-            `}} />
+                </div>
+            </section>
         </div>
     );
 };

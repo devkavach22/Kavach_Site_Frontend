@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -63,58 +64,29 @@ const products = [
     },
 ];
 
-// ── TYPEWRITER COMPONENT (loops forever, alternates color) ──
-const TYPEWRITER_COLORS = [
-    { color: '#374151', gradient: false },
-    { color: null, gradient: true },
-];
-
 const TypewriterText = ({ text }) => {
+    const COLORS = [{ gradient: false }, { gradient: true }];
     const [tw, setTw] = useState({ displayed: '', index: 0, deleting: false, colorIndex: 0 });
 
     useEffect(() => {
-        const { displayed, index, deleting, colorIndex } = tw;
+        const { displayed, index, deleting } = tw;
         let delay;
-        if (!deleting && index < text.length) {
-            delay = setTimeout(() => setTw(prev => ({
-                ...prev, displayed: prev.displayed + text[prev.index], index: prev.index + 1
-            })), 30);
-        } else if (!deleting && index === text.length) {
-            delay = setTimeout(() => setTw(prev => ({ ...prev, deleting: true })), 1800);
-        } else if (deleting && displayed.length > 0) {
-            delay = setTimeout(() => setTw(prev => ({
-                ...prev, displayed: prev.displayed.slice(0, -1)
-            })), 18);
-        } else if (deleting && displayed.length === 0) {
-            delay = setTimeout(() => setTw(prev => ({
-                displayed: '', index: 0, deleting: false,
-                colorIndex: (prev.colorIndex + 1) % TYPEWRITER_COLORS.length
-            })), 30);
-        }
+        if (!deleting && index < text.length)
+            delay = setTimeout(() => setTw(p => ({ ...p, displayed: p.displayed + text[p.index], index: p.index + 1 })), 30);
+        else if (!deleting && index === text.length)
+            delay = setTimeout(() => setTw(p => ({ ...p, deleting: true })), 1800);
+        else if (deleting && displayed.length > 0)
+            delay = setTimeout(() => setTw(p => ({ ...p, displayed: p.displayed.slice(0, -1) })), 18);
+        else
+            delay = setTimeout(() => setTw(p => ({ displayed: '', index: 0, deleting: false, colorIndex: (p.colorIndex + 1) % COLORS.length })), 30);
         return () => clearTimeout(delay);
     }, [tw, text]);
 
-    const isGradient = TYPEWRITER_COLORS[tw.colorIndex].gradient;
-
+    const isGrad = COLORS[tw.colorIndex].gradient;
     return (
-        <span style={isGradient ? {
-            background: 'linear-gradient(135deg, #f97316, #ef4444)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            fontWeight: 600,
-        } : { color: TYPEWRITER_COLORS[tw.colorIndex].color, fontWeight: 600 }}>
+        <span style={isGrad ? { background: 'linear-gradient(135deg,#f97316,#ef4444)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontWeight: 700 } : { color: '#9ca3af', fontWeight: 600 }}>
             {tw.displayed}
-            <span style={{
-                display: 'inline-block',
-                width: '2px',
-                height: '1em',
-                background: isGradient ? '#f97316' : '#374151',
-                marginLeft: '2px',
-                verticalAlign: 'text-bottom',
-                animation: 'blink 0.8s step-end infinite',
-                WebkitTextFillColor: 'initial',
-            }} />
+            <span style={{ display: 'inline-block', width: '2px', height: '1em', background: isGrad ? '#f97316' : '#9ca3af', marginLeft: '2px', verticalAlign: 'text-bottom', animation: 'blink 0.8s step-end infinite', WebkitTextFillColor: 'initial' }} />
         </span>
     );
 };
@@ -129,11 +101,7 @@ const Product = () => {
     const switchProduct = (i) => {
         if (i === active) return;
         setAnimating(true);
-        setTimeout(() => {
-            setActive(i);
-            setAnimating(false);
-            setActiveFeature(null);
-        }, 250);
+        setTimeout(() => { setActive(i); setAnimating(false); setActiveFeature(null); }, 250);
     };
 
     const [orbPos, setOrbPos] = useState({ x: 0, y: 0 });
@@ -149,433 +117,470 @@ const Product = () => {
     };
 
     return (
-        <div style={{ background: '#fafafa', fontFamily: "'DM Sans', 'Segoe UI', system-ui, sans-serif", overflowX: 'hidden' }}>
+        <div className="min-h-screen" style={{ fontFamily: "'Barlow', sans-serif", background: '#1a2332', overflowX: 'hidden' }}>
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800&family=Barlow:wght@400;500;600&display=swap');
+                :root {
+                    --org:   #e05a00;
+                    --org2:  #f97316;
+                    --dark:  #1a2332;
+                    --dark2: #111827;
+                    --txt:   #4b5563;
+                    --txt2:  #6b7280;
+                }
+                .kv-h { font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; line-height:1.05; }
+                .kv-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--org); display:flex; align-items:center; gap:6px; }
+                .kv-label::before { content:''; display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--org); flex-shrink:0; }
+                .kv-btn {
+                    position:relative; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.9rem;
+                    letter-spacing:0.08em; text-transform:uppercase; padding:14px 32px;
+                    border-radius:24px 0px 24px 0px; display:inline-flex; align-items:center; gap:10px;
+                    transition:all 0.3s ease; text-decoration:none; overflow:hidden; cursor:pointer; border:none; z-index:10;
+                    background:linear-gradient(135deg,#f97316 0%,#ea580c 50%,#c2410c 100%);
+                    color:#fff; box-shadow:0 4px 15px rgba(234,88,12,0.35);
+                }
+                .kv-btn:hover {
+                    background:#c94e00; transform:translateY(-3px);
+                    box-shadow:0 8px 30px rgba(234,88,12,0.55), 0 0 20px rgba(249,115,22,0.3);
+                    border-radius:0px 24px 0px 24px;
+                }
+                .kv-btn-ghost {
+                    font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.8rem;
+                    letter-spacing:0.08em; text-transform:uppercase; padding:9px 20px;
+                    border-radius:20px 0px 20px 0px; display:inline-flex; align-items:center; gap:8px;
+                    transition:all 0.3s ease; cursor:pointer; text-decoration:none;
+                    background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.25);
+                    color:rgba(255,255,255,0.85);
+                }
+                .kv-btn-ghost:hover {
+                    background:rgba(255,255,255,0.2); color:#fff; transform:translateY(-2px);
+                    border-radius:0px 20px 0px 20px; box-shadow:0 6px 20px rgba(0,0,0,0.25);
+                }
+                .prod-tab {
+                    font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.88rem;
+                    letter-spacing:0.08em; text-transform:uppercase; padding:14px 24px;
+                    border:none; cursor:pointer; transition:all 0.25s ease;
+                    border-bottom:3px solid transparent; background:transparent;
+                    display:flex; align-items:center; gap:10px;
+                }
+                .prod-stat-card {
+                    background:#ffffff !important;
+                    border:1px solid #e5e7eb !important;
+                    transition:transform 0.35s, box-shadow 0.35s, border-color 0.35s;
+                    position:relative; overflow:hidden;
+                }
+                .prod-stat-card::before {
+                    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+                    background:linear-gradient(90deg,transparent,var(--org),transparent);
+                }
+                .prod-stat-card:hover {
+                    transform:translateY(-6px);
+                    border-color:var(--org) !important;
+                    box-shadow:
+                        0 0 0 1px rgba(224,90,0,0.4),
+                        0 0 24px rgba(224,90,0,0.3),
+                        0 0 60px rgba(224,90,0,0.12),
+                        0 20px 40px rgba(0,0,0,0.15) !important;
+                }
+                .prod-stat-card .stat-icon { transition:background 0.2s, color 0.2s, box-shadow 0.2s; }
+                .prod-stat-card:hover .stat-icon {
+                    background:var(--org) !important;
+                    color:#fff !important;
+                    box-shadow:0 0 20px rgba(224,90,0,0.6) !important;
+                }
+                .feat-row { transition:all 0.25s ease; }
+                .feat-row:hover { transform:translateX(4px); }
+                .hl-pill {
+                    font-family:'Barlow Condensed',sans-serif; font-weight:700;
+                    letter-spacing:0.06em; text-transform:uppercase; font-size:0.75rem;
+                    padding:6px 14px; border-radius:20px 0px 20px 0px; transition:all 0.2s;
+                }
+                .hl-pill:hover { transform:translateY(-2px); filter:brightness(1.1); }
+                .prod-identity-card {
+                    border-radius:4px 24px 4px 24px;
+                    position:relative; overflow:hidden; color:white; padding:32px;
+                }
+                .feat-panel {
+                    background:#ffffff;
+                    border:1px solid #f3f4f6;
+                    border-radius:4px 24px 4px 24px;
+                    padding:32px;
+                    box-shadow:0 4px 20px rgba(0,0,0,0.05);
+                }
+                @keyframes ctaGlowPulse {
+                    0%,100%{opacity:0.5;transform:scale(1)}
+                    50%{opacity:1;transform:scale(1.08)}
+                }
+                .cta-orb-1 {
+                    position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+                    width:520px; height:200px; border-radius:50%;
+                    background:radial-gradient(ellipse,rgba(249,115,22,0.22) 0%,transparent 70%);
+                    animation:ctaGlowPulse 3.5s ease-in-out infinite;
+                    pointer-events:none; filter:blur(18px);
+                }
+                .cta-orb-2 {
+                    position:absolute; bottom:-40px; left:50%; transform:translateX(-50%);
+                    width:380px; height:160px; border-radius:50%;
+                    background:radial-gradient(ellipse,rgba(224,90,0,0.15) 0%,transparent 70%);
+                    animation:ctaGlowPulse 4s ease-in-out infinite reverse;
+                    pointer-events:none; filter:blur(14px);
+                }
+                .dot-bg-dark  { background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px); background-size:28px 28px; }
+                .dot-bg-light { background-image:radial-gradient(rgba(0,0,0,0.04) 1px,transparent 1px); background-size:28px 28px; }
+                @keyframes blink  { 0%,100%{opacity:1} 50%{opacity:0} }
+                @keyframes pulse  { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.8)} }
+                @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+                .fade-up { animation:fadeUp 0.6s ease forwards; opacity:0; }
+                .hero-badge-pill {
+                    display:inline-flex; align-items:center; gap:8px;
+                    padding:7px 20px; border-radius:100px;
+                    background:rgba(249,115,22,0.1);
+                    border:1px solid rgba(249,115,22,0.3);
+                    margin-bottom:32px;
+                }
+                .hero-stat-bar {
+                    display:inline-flex;
+                    align-items:stretch;
+                    overflow:hidden;
+                    border:1px solid rgba(255,255,255,0.12);
+                    background:rgba(255,255,255,0.05);
+                    backdrop-filter:blur(12px);
+                    border-radius:8px;
+                }
+                    @keyframes floatUpDown {
+    0%, 100% { transform: translateY(0px); box-shadow: 0 4px 20px rgba(249,115,22,0.1); }
+    50%       { transform: translateY(-10px); box-shadow: 0 14px 30px rgba(249,115,22,0.25); }
+}
+            `}</style>
 
-            {/* ── HERO ── */}
+            {/* ══ 1. HERO ══ */}
             <section
                 ref={heroRef}
                 onMouseMove={handleMouseMove}
+                className="relative overflow-hidden dot-bg-dark"
                 style={{
-                    padding: '100px 20px 30px',
-                    textAlign: 'center',
-                    background: 'white',
-                    position: 'relative',
-                    overflow: 'hidden',
+                    background: '#1a2332',
+                    padding: '130px 20px 110px',
+                    minHeight: '520px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                 }}
             >
-                <div style={{
-                    position: 'absolute', top: '-60px', right: '-60px',
-                    width: '300px', height: '300px', borderRadius: '50%',
-                    background: 'radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%)',
-                    transform: `translate(${orbPos.x}px, ${orbPos.y}px)`,
-                    transition: 'transform 0.4s ease',
-                    pointerEvents: 'none',
-                }} />
-                <div style={{
-                    position: 'absolute', bottom: '-40px', left: '-40px',
-                    width: '250px', height: '250px', borderRadius: '50%',
-                    background: 'radial-gradient(circle, rgba(239,68,68,0.1) 0%, transparent 70%)',
-                    transform: `translate(${-orbPos.x}px, ${-orbPos.y}px)`,
-                    transition: 'transform 0.4s ease',
-                    pointerEvents: 'none',
-                }} />
+                {/* Mouse-follow ambient orbs */}
+                <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '480px', height: '480px', borderRadius: '50%', background: 'radial-gradient(circle,rgba(249,115,22,0.15) 0%,transparent 70%)', transform: `translate(${orbPos.x}px,${orbPos.y}px)`, transition: 'transform 0.4s ease', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', bottom: '-60px', left: '-60px', width: '380px', height: '380px', borderRadius: '50%', background: 'radial-gradient(circle,rgba(239,68,68,0.1) 0%,transparent 70%)', transform: `translate(${-orbPos.x}px,${-orbPos.y}px)`, transition: 'transform 0.4s ease', pointerEvents: 'none' }} />
+                {/* Central glow */}
+                <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', width: '900px', height: '400px', borderRadius: '50%', background: 'radial-gradient(ellipse,rgba(249,115,22,0.07) 0%,transparent 65%)', pointerEvents: 'none', filter: 'blur(10px)' }} />
 
-                <h1 style={{
-                    fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-                    fontWeight: 900, color: '#111',
-                    letterSpacing: '-0.03em', lineHeight: 1.05,
-                    marginBottom: '20px',
-                }}>
-                    Kavach{' '}
-                    <span style={{
-                        background: 'linear-gradient(135deg, #f97316, #ef4444)',
-                        WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                    }}>
-                        Digital Solutions
-                    </span>
-                </h1>
+                <div style={{ maxWidth: '900px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 5, textAlign: 'center' }}>
 
-                <p style={{ fontSize: '1.15rem', color: '#6b7280', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.7 }}>
-                    <TypewriterText text="Empowering modern enterprises with automated HR management and elite AI-driven security — built for scale, speed, and compliance." />
-                </p>
-
-                <div style={{
-                    display: 'inline-flex', gap: '0', borderRadius: '12px',
-                    overflow: 'hidden', border: '1px solid #e5e7eb',
-                    background: 'white', boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
-                }}>
-                    {[['500+', 'Enterprises'], ['99.9%', 'Accuracy'], ['24/7', 'Support']].map(([v, l], i) => (
-                        <div key={i} style={{
-                            padding: '8px 18px',
-                            borderRight: i < 2 ? '1px solid #e5e7eb' : 'none',
-                            textAlign: 'center',
-                        }}>
-                            <div style={{ fontSize: '1rem', fontWeight: 800, color: '#f97316' }}>{v}</div>
-                            <div style={{ fontSize: '0.6rem', color: '#9ca3af', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{l}</div>
+                    {/* Animated badge */}
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <div className="hero-badge-pill">
+                            <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#f97316', animation: 'pulse 2s infinite' }} />
+                            <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: '0.68rem', letterSpacing: '0.26em', textTransform: 'uppercase', color: '#f97316' }}>
+                                Our Digital Products
+                            </span>
                         </div>
-                    ))}
+                    </div>
+
+                    {/* Main headline */}
+                    <h1
+                        className="kv-h"
+                        style={{
+                            fontSize: 'clamp(2.8rem,7vw,6.2rem)',
+                            color: '#ffffff',
+                            lineHeight: 1,
+                            margin: '0 0 0 0',
+                        }}
+                    >
+                        KAVACH&nbsp;
+                        <span style={{
+                            background: 'linear-gradient(135deg,#f97316 0%,#ef4444 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                        }}>
+                            DIGITAL
+                        </span>
+                        &nbsp;SOLUTIONS
+                    </h1>
+
+                    {/* Ornamental divider */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', margin: '22px auto 26px' }}>
+                        <div style={{ height: '1px', width: '70px', background: 'linear-gradient(90deg,transparent,rgba(249,115,22,0.55))' }} />
+                        <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(249,115,22,0.4)' }} />
+                            <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#f97316' }} />
+                            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(249,115,22,0.4)' }} />
+                        </div>
+                        <div style={{ height: '1px', width: '70px', background: 'linear-gradient(90deg,rgba(249,115,22,0.55),transparent)' }} />
+                    </div>
+
+                    {/* Typewriter subtext */}
+                    <p style={{ fontSize: '1.05rem', color: '#9ca3af', maxWidth: '600px', lineHeight: 1.8, margin: '0 auto 44px' }}>
+                        <TypewriterText text="Empowering modern enterprises with automated HR management and elite AI-driven security — built for scale, speed, and compliance." />
+                    </p>
+
+                    {/* Stats bar with proper dividers */}
+                    {/* Stats - 3 separate floating cards */}
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
+                        {[
+                            { v: '500+', l: 'Enterprises', delay: '0s' },
+                            { v: '99.9%', l: 'Accuracy', delay: '0.3s' },
+                            { v: '24/7', l: 'Support', delay: '0.6s' },
+                        ].map(({ v, l, delay }, i) => (
+                            <div
+                                key={i}
+                                style={{
+                                    padding: '20px 36px',
+                                    textAlign: 'center',
+                                    background: 'rgba(255,255,255,0.05)',
+                                    border: '1px solid rgba(249,115,22,0.25)',
+                                    borderRadius: '10px',
+                                    backdropFilter: 'blur(12px)',
+                                    animation: `floatUpDown 3s ease-in-out infinite`,
+                                    animationDelay: delay,
+                                    minWidth: '120px',
+                                }}
+                            >
+                                <div className="kv-h" style={{ fontSize: '1.6rem', color: '#f97316', lineHeight: 1 }}>{v}</div>
+                                <div style={{ fontSize: '0.58rem', color: '#6b7280', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.14em', marginTop: '6px' }}>{l}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Bottom angled divider */}
+                <div className="absolute bottom-0 left-0 right-0" style={{ zIndex: 10 }}>
+                    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style={{ width: '100%', height: '50px', display: 'block' }}>
+                        <path d="M0,40 L1440,0 L1440,60 L0,60 Z" fill="#ffffff" />
+                    </svg>
                 </div>
             </section>
 
-            {/* ── PRODUCT SELECTOR TABS ── */}
-            <div style={{ background: 'white', borderBottom: '1px solid #f3f4f6', padding: '0 20px', display: 'flex', justifyContent: 'center' }}>
-                <div style={{ display: 'flex', gap: '4px', padding: '8px', background: '#f9fafb', borderRadius: '14px', margin: '20px 0' }}>
+            {/* ══ 2. PRODUCT TABS ══ */}
+            <div style={{ background: '#ffffff', borderBottom: '1px solid #f3f4f6', padding: '0 20px', display: 'flex', justifyContent: 'center' }}>
+                <div style={{ display: 'flex' }}>
                     {products.map((prod, i) => (
                         <button
                             key={prod.id}
                             onClick={() => switchProduct(i)}
+                            className="prod-tab"
                             style={{
-                                display: 'flex', alignItems: 'center', gap: '10px',
-                                padding: '8px 16px', borderRadius: '10px', border: 'none',
-                                cursor: 'pointer', transition: 'all 0.25s ease', fontWeight: 600,
-                                fontSize: '0.82rem',
-                                background: active === i
-                                    ? `linear-gradient(135deg, ${prod.gradientFrom}, ${prod.gradientTo})`
-                                    : 'transparent',
-                                color: active === i ? 'white' : '#6b7280',
-                                boxShadow: active === i ? `0 4px 15px ${prod.bgGlow}` : 'none',
-                                transform: active === i ? 'scale(1.02)' : 'scale(1)',
+                                color: active === i ? prod.accentColor : '#6b7280',
+                                borderBottomColor: active === i ? prod.accentColor : 'transparent',
                             }}
                         >
-                            <span style={{ color: active === i ? 'white' : prod.accentColor }}>{prod.icon}</span>
+                            <span style={{ color: active === i ? prod.accentColor : '#9ca3af' }}>{prod.icon}</span>
                             {prod.name}
                         </button>
                     ))}
                 </div>
             </div>
 
-            {/* ── MAIN CONTENT ── */}
-            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 20px 80px' }}>
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: '32px',
-                    opacity: animating ? 0 : 1,
-                    transform: animating ? 'translateY(10px)' : 'translateY(0)',
-                    transition: 'all 0.25s ease',
-                }}>
+            {/* ══ 3. MAIN CONTENT ══ */}
+            <section className="dot-bg-light" style={{ background: '#ffffff' }}>
+                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 20px 20px' }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))',
+                        gap: '28px',
+                        opacity: animating ? 0 : 1,
+                        transform: animating ? 'translateY(10px)' : 'translateY(0)',
+                        transition: 'all 0.25s ease',
+                    }}>
+                        {/* LEFT */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
-                    {/* LEFT: Info card */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-
-                        {/* Product Identity Card */}
-                        <div style={{
-                            background: `linear-gradient(135deg, ${p.gradientFrom}, ${p.gradientTo})`,
-                            borderRadius: '24px', padding: '32px',
-                            color: 'white', position: 'relative', overflow: 'hidden',
-                        }}>
-                            <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)' }} />
-                            <div style={{ position: 'absolute', bottom: '-20px', left: '-20px', width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }} />
-
-                            {/* Badge row with View Site / Coming Soon button */}
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                                <div style={{
-                                    display: 'inline-flex', alignItems: 'center', gap: '8px',
-                                    background: 'rgba(255,255,255,0.2)', borderRadius: '8px',
-                                    padding: '4px 12px',
-                                }}>
-                                    <span style={{ color: 'white', opacity: 0.9 }}>{p.icon}</span>
-                                    <span style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{p.badge}</span>
+                            {/* Identity card */}
+                            <div
+                                className="prod-identity-card"
+                                style={{
+                                    background: `linear-gradient(135deg,${p.gradientFrom},${p.gradientTo})`,
+                                    boxShadow: `0 12px 40px ${p.bgGlow}`,
+                                }}
+                            >
+                                <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '130px', height: '130px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)' }} />
+                                <div style={{ position: 'absolute', bottom: '-20px', left: '-20px', width: '90px', height: '90px', borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }} />
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', position: 'relative', zIndex: 2 }}>
+                                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.2)', borderRadius: '4px', padding: '4px 14px' }}>
+                                        <span style={{ color: 'white', opacity: 0.9 }}>{p.icon}</span>
+                                        <span className="kv-h" style={{ fontSize: '0.72rem', color: '#fff' }}>{p.badge}</span>
+                                    </div>
+                                    {p.siteLink ? (
+                                        <a href={p.siteLink} target="_blank" rel="noopener noreferrer" className="kv-btn-ghost">
+                                            View Site ↗
+                                        </a>
+                                    ) : (
+                                        <div onClick={() => navigate('/coming-soon')} className="kv-btn-ghost" style={{ cursor: 'pointer' }}>
+                                            Coming Soon
+                                        </div>
+                                    )}
                                 </div>
+                                <h2 className="kv-h" style={{ fontSize: 'clamp(1.4rem,2.5vw,1.8rem)', marginBottom: '12px', position: 'relative', zIndex: 1, color: '#fff' }}>
+                                    {p.tagline}
+                                </h2>
+                                <p style={{ fontSize: '0.92rem', lineHeight: 1.75, opacity: 0.9, position: 'relative', zIndex: 1 }}>
+                                    {p.description}
+                                </p>
+                            </div>
 
-                                {/* ── View Site OR Coming Soon ── */}
-                                {p.siteLink ? (
-                                    <a
-                                        href={p.siteLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                            {/* Stats */}
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '12px' }}>
+                                {p.stats.map((s, i) => (
+                                    <div key={i} className="prod-stat-card" style={{ textAlign: 'center', padding: '20px 12px', borderRadius: '8px', cursor: 'default' }}>
+                                        <div
+                                            className="stat-icon"
+                                            style={{
+                                                width: '40px', height: '40px', borderRadius: '50%',
+                                                background: '#fff3ee', color: 'var(--org)',
+                                                border: '1px solid #fde0cc',
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                margin: '0 auto 10px',
+                                                fontSize: '1rem', fontWeight: 900,
+                                                fontFamily: "'Barlow Condensed',sans-serif",
+                                            }}
+                                        >
+                                            ✦
+                                        </div>
+                                        <div className="kv-h" style={{ fontSize: '1.6rem', color: p.accentColor }}>{s.v}</div>
+                                        <div style={{ fontSize: '0.62rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '4px' }}>{s.l}</div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Highlights */}
+                            <div style={{ background: '#fff', borderRadius: '4px 20px 4px 20px', padding: '24px', border: '1px solid #f3f4f6', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
+                                <div className="kv-label" style={{ marginBottom: '14px' }}>Key Capabilities</div>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                    {p.highlights.map((h, i) => (
+                                        <span key={i} className="hl-pill" style={{ background: p.bgGlow, border: `1px solid ${p.accentColor}25`, color: p.accentColor }}>
+                                            {h}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* RIGHT — Features panel */}
+                        <div className="feat-panel">
+                            <div className="kv-label" style={{ marginBottom: '20px' }}>Core Features</div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                {p.features.map((f, i) => (
+                                    <div
+                                        key={i}
+                                        className="feat-row"
+                                        onClick={() => setActiveFeature(activeFeature === i ? null : i)}
                                         style={{
-                                            display: 'inline-flex', alignItems: 'center', gap: '6px',
-                                            padding: '7px 16px', borderRadius: '8px',
-                                            background: 'rgba(255,255,255,0.18)',
-                                            border: '1px solid rgba(255,255,255,0.35)',
-                                            color: 'white', fontWeight: 700,
-                                            fontSize: '0.78rem', textDecoration: 'none',
-                                            letterSpacing: '0.03em',
-                                            transition: 'all 0.2s ease',
-                                            backdropFilter: 'blur(4px)',
-                                            position: 'relative', zIndex: 2,
+                                            borderRadius: '4px 14px 4px 14px', cursor: 'pointer', overflow: 'hidden',
+                                            border: activeFeature === i ? `1.5px solid ${p.accentColor}55` : '1.5px solid rgba(0,0,0,0.06)',
+                                            background: activeFeature === i ? p.bgGlow : '#f9fafb',
+                                            boxShadow: activeFeature === i ? `0 4px 20px ${p.bgGlow}` : 'none',
+                                            transition: 'all 0.25s ease',
                                         }}
                                         onMouseEnter={e => {
-                                            e.currentTarget.style.background = 'rgba(255,255,255,0.30)';
-                                            e.currentTarget.style.transform = 'translateY(-1px)';
+                                            if (activeFeature !== i) {
+                                                e.currentTarget.style.background = '#f3f4f6';
+                                                e.currentTarget.style.borderColor = `${p.accentColor}30`;
+                                                e.currentTarget.style.boxShadow = `0 4px 16px ${p.bgGlow}`;
+                                            }
                                         }}
                                         onMouseLeave={e => {
-                                            e.currentTarget.style.background = 'rgba(255,255,255,0.18)';
-                                            e.currentTarget.style.transform = 'translateY(0)';
+                                            if (activeFeature !== i) {
+                                                e.currentTarget.style.background = '#f9fafb';
+                                                e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)';
+                                                e.currentTarget.style.boxShadow = 'none';
+                                            }
                                         }}
                                     >
-                                        <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13">
-                                            <path d="M10 1a9 9 0 100 18A9 9 0 0010 1zm0 1.8a7.2 7.2 0 110 14.4A7.2 7.2 0 0110 2.8zm0 1.2c-.6 0-1.5.8-2.1 2.4H12c-.5-1.6-1.4-2.4-2-2.4zm-2.5.4A7.3 7.3 0 006 8h2.2c.1-.6.2-1.2.4-1.7l-.9-.9-.2.1zm5 0l-.2-.1-.9.9c.2.5.3 1.1.4 1.7H14a7.3 7.3 0 00-1.5-2.5zM5.8 8H4.1a5.5 5.5 0 000 4h1.7A13.5 13.5 0 015.8 8zm8.4 0a13.5 13.5 0 010 4h1.7a5.5 5.5 0 000-4h-1.7zM6.2 13H4.5a7.3 7.3 0 001.5 2.5l.2.1.9-.9c-.2-.5-.3-1.1-.4-1.7zm7.6 0c-.1.6-.2 1.2-.4 1.7l.9.9.2-.1A7.3 7.3 0 0015.9 13h-1.7-.4zm-5.4 0h3.2c-.5 1.6-1.4 2.4-2 2.4-.6 0-1.5-.8-2.1-2.4h.9z" />
-                                        </svg>
-                                        View Site ↗
-                                    </a>
-                                ) : (
-                                    <div
-                                        onClick={() => navigate('/coming-soon')}
-                                        style={{
-                                            display: 'inline-flex', alignItems: 'center', gap: '6px',
-                                            padding: '7px 16px', borderRadius: '8px',
-                                            background: 'rgba(255,255,255,0.08)',
-                                            border: '1px solid rgba(255,255,255,0.20)',
-                                            color: 'rgba(255,255,255,0.70)', fontWeight: 700,
-                                            fontSize: '0.78rem', letterSpacing: '0.03em',
-                                            cursor: 'pointer',
-                                            position: 'relative', zIndex: 2,
-                                            transition: 'all 0.2s',
-                                        }}
-                                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.16)'; e.currentTarget.style.color = 'white'; }}
-                                        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'rgba(255,255,255,0.70)'; }}
-                                    >
-                                        view site
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px 18px' }}>
+                                            <div style={{
+                                                width: '44px', height: '44px',
+                                                borderRadius: '4px 12px 4px 12px', flexShrink: 0,
+                                                background: activeFeature === i
+                                                    ? `linear-gradient(135deg,${p.gradientFrom},${p.gradientTo})`
+                                                    : '#ffffff',
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                fontSize: '1.3rem',
+                                                boxShadow: activeFeature === i ? `0 4px 12px ${p.bgGlow}` : '0 2px 8px rgba(0,0,0,0.06)',
+                                                transition: 'all 0.25s',
+                                            }}>
+                                                {f.icon}
+                                            </div>
+                                            <div style={{ flex: 1 }}>
+                                                <div className="kv-h" style={{ fontSize: '0.9rem', color: activeFeature === i ? p.accentColor : 'var(--dark)', transition: 'color 0.2s' }}>
+                                                    {f.label}
+                                                </div>
+                                                {activeFeature !== i && (
+                                                    <div style={{ fontSize: '0.78rem', color: '#9ca3af', marginTop: '2px' }}>Click to learn more</div>
+                                                )}
+                                            </div>
+                                            <div style={{
+                                                color: activeFeature === i ? p.accentColor : '#d1d5db',
+                                                transition: 'all 0.25s',
+                                                transform: activeFeature === i ? 'rotate(90deg)' : 'rotate(0)',
+                                                fontSize: '1.2rem',
+                                            }}>›</div>
+                                        </div>
+                                        {activeFeature === i && (
+                                            <div style={{ padding: '0 18px 16px 78px', fontSize: '0.88rem', lineHeight: 1.7, color: 'var(--txt)' }}>
+                                                {f.desc}
+                                            </div>
+                                        )}
                                     </div>
-                                )}
-                            </div>
-
-                            <h2 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: '12px', position: 'relative', zIndex: 1 }}>
-                                {p.tagline}
-                            </h2>
-                            <p style={{ fontSize: '0.95rem', lineHeight: 1.7, opacity: 0.9, position: 'relative', zIndex: 1 }}>
-                                {p.description}
-                            </p>
-                        </div>
-
-                        {/* Stats Grid */}
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-                            {p.stats.map((s, i) => (
-                                <div key={i} style={{
-                                    textAlign: 'center', padding: '20px 12px',
-                                    background: 'white', borderRadius: '16px',
-                                    border: '1px solid #f3f4f6',
-                                    boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
-                                    transition: 'all 0.2s',
-                                    cursor: 'default',
-                                }}
-                                    onMouseEnter={e => {
-                                        e.currentTarget.style.transform = 'translateY(-3px)';
-                                        e.currentTarget.style.boxShadow = `0 8px 24px ${p.bgGlow}`;
-                                        e.currentTarget.style.borderColor = p.accentColor + '40';
-                                    }}
-                                    onMouseLeave={e => {
-                                        e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.04)';
-                                        e.currentTarget.style.borderColor = '#f3f4f6';
-                                    }}
-                                >
-                                    <div style={{ fontSize: '1.6rem', fontWeight: 900, color: p.accentColor }}>{s.v}</div>
-                                    <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '4px' }}>{s.l}</div>
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Highlights Pills */}
-                        <div style={{
-                            background: 'white', borderRadius: '20px', padding: '24px',
-                            border: '1px solid #f3f4f6', boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
-                        }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '14px' }}>
-                                Key Capabilities
-                            </div>
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                                {p.highlights.map((h, i) => (
-                                    <span key={i} style={{
-                                        padding: '6px 14px', borderRadius: '100px',
-                                        background: p.bgGlow,
-                                        border: `1px solid ${p.accentColor}25`,
-                                        color: p.accentColor,
-                                        fontSize: '0.8rem', fontWeight: 600,
-                                    }}>
-                                        {h}
-                                    </span>
                                 ))}
                             </div>
                         </div>
                     </div>
-
-                    {/* RIGHT: Interactive Features */}
-                    <div style={{
-                        background: 'white', borderRadius: '24px', padding: '32px',
-                        border: '1px solid #f3f4f6',
-                        boxShadow: '0 8px 40px rgba(0,0,0,0.06)',
-                    }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '20px' }}>
-                            Core Features
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            {p.features.map((f, i) => (
-                                <div
-                                    key={i}
-                                    onClick={() => setActiveFeature(activeFeature === i ? null : i)}
-                                    onMouseEnter={e => {
-                                        if (activeFeature !== i) {
-                                            e.currentTarget.style.background = '#f3f4f6';
-                                            e.currentTarget.style.border = `1.5px solid ${p.accentColor}30`;
-                                            e.currentTarget.style.transform = 'translateX(4px)';
-                                            e.currentTarget.style.boxShadow = `0 4px 16px ${p.bgGlow}`;
-                                        }
-                                    }}
-                                    onMouseLeave={e => {
-                                        if (activeFeature !== i) {
-                                            e.currentTarget.style.background = '#f9fafb';
-                                            e.currentTarget.style.border = '1.5px solid transparent';
-                                            e.currentTarget.style.transform = 'translateX(0)';
-                                            e.currentTarget.style.boxShadow = 'none';
-                                        }
-                                    }}
-                                    style={{
-                                        borderRadius: '16px', cursor: 'pointer',
-                                        transition: 'all 0.25s ease',
-                                        border: activeFeature === i
-                                            ? `1.5px solid ${p.accentColor}50`
-                                            : '1.5px solid transparent',
-                                        background: activeFeature === i ? p.bgGlow : '#f9fafb',
-                                        overflow: 'hidden',
-                                    }}
-                                >
-                                    <div style={{
-                                        display: 'flex', alignItems: 'center', gap: '16px',
-                                        padding: '16px 18px',
-                                    }}>
-                                        <div style={{
-                                            width: '44px', height: '44px', borderRadius: '12px', flexShrink: 0,
-                                            background: activeFeature === i
-                                                ? `linear-gradient(135deg, ${p.gradientFrom}, ${p.gradientTo})`
-                                                : 'white',
-                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                            fontSize: '1.3rem',
-                                            boxShadow: activeFeature === i ? `0 4px 12px ${p.bgGlow}` : '0 2px 8px rgba(0,0,0,0.06)',
-                                            transition: 'all 0.25s',
-                                        }}>
-                                            {f.icon}
-                                        </div>
-                                        <div style={{ flex: 1 }}>
-                                            <div style={{
-                                                fontWeight: 700, fontSize: '0.95rem',
-                                                color: activeFeature === i ? p.accentColor : '#111',
-                                                transition: 'color 0.2s',
-                                            }}>
-                                                {f.label}
-                                            </div>
-                                            {activeFeature !== i && (
-                                                <div style={{ fontSize: '0.8rem', color: '#9ca3af', marginTop: '2px' }}>
-                                                    Click to learn more
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div style={{
-                                            color: activeFeature === i ? p.accentColor : '#d1d5db',
-                                            transition: 'all 0.25s',
-                                            transform: activeFeature === i ? 'rotate(90deg)' : 'rotate(0)',
-                                            fontSize: '1.1rem',
-                                        }}>
-                                            ›
-                                        </div>
-                                    </div>
-                                    {activeFeature === i && (
-                                        <div style={{
-                                            padding: '0 18px 16px 78px',
-                                            fontSize: '0.88rem', lineHeight: 1.65, color: '#4b5563',
-                                        }}>
-                                            {f.desc}
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
                 </div>
-            </div>
 
-            {/* ── CTA SECTION ── */}
-            <section style={{ position: 'relative', overflow: 'hidden', padding: '55px 20px' }}>
-                <div style={{
-                    position: 'absolute', inset: 0,
-                    background: 'linear-gradient(135deg, #7c2d12 0%, #991b1b 40%, #92400e 100%)',
-                }} />
-                <div style={{
-                    position: 'absolute', inset: 0,
-                    backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(249,115,22,0.2) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(239,68,68,0.2) 0%, transparent 50%)',
-                }} />
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, lineHeight: 0, transform: 'rotate(180deg)' }}>
-                    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: '100%', height: '60px', display: 'block' }}>
-                        <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="white" />
+                {/* Divider into dark CTA */}
+                <div style={{ position: 'relative', marginTop: '60px' }}>
+                    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style={{ width: '100%', height: '50px', display: 'block' }}>
+                        <path d="M0,60 L1440,20 L1440,60 Z" fill="#1a2332" />
                     </svg>
                 </div>
+            </section>
 
+            {/* ══ 4. CTA ══ */}
+            <section className="dot-bg-dark" style={{ background: '#1a2332', position: 'relative', overflow: 'hidden', padding: '80px 20px 100px' }}>
+                <div className="cta-orb-1" />
+                <div className="cta-orb-2" />
+                <div style={{ position: 'absolute', top: '10%', right: '5%', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle,rgba(249,115,22,0.08) 0%,transparent 70%)', filter: 'blur(10px)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle,rgba(249,115,22,0.06) 0%,transparent 70%)', filter: 'blur(10px)', pointerEvents: 'none' }} />
                 <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-                    <div style={{
-                        display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '16px',
-                    }}>
-                        <div style={{ width: '28px', height: '2px', background: '#fb923c' }} />
-                        <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#fb923c', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-                            Special Bundle Offer
-                        </span>
-                        <div style={{ width: '28px', height: '2px', background: '#fb923c' }} />
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '100px', background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.25)', marginBottom: '20px' }}>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--org2)', animation: 'pulse 2s infinite' }} />
+                        <span className="kv-label" style={{ fontSize: '0.65rem' }}>Special Bundle Offer</span>
                     </div>
-
-                    <h2 style={{
-                        fontSize: 'clamp(1.6rem, 4vw, 2.6rem)',
-                        fontWeight: 900, color: 'white',
-                        letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: '14px',
-                    }}>
-                        Ready to transform{' '}
-                        <span style={{
-                            background: 'linear-gradient(135deg, #fb923c, #fbbf24)',
-                            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                        }}>
-                            your business?
+                    <h2 className="kv-h text-white" style={{ fontSize: 'clamp(2rem,5vw,3.4rem)', marginBottom: '8px' }}>
+                        READY TO{' '}
+                        <span style={{ background: 'linear-gradient(135deg,#f97316,#ef4444)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                            TRANSFORM
                         </span>
                     </h2>
-
-                    <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.7)', maxWidth: '500px', margin: '0 auto 28px', lineHeight: 1.7 }}>
+                    <h2 className="kv-h text-white" style={{ fontSize: 'clamp(2rem,5vw,3.4rem)', marginBottom: '24px' }}>
+                        YOUR BUSINESS?
+                    </h2>
+                    <p style={{ fontSize: '0.95rem', color: '#9ca3af', maxWidth: '500px', margin: '0 auto 32px', lineHeight: 1.75 }}>
                         Get both products at special bundle pricing —{' '}
-                        <span style={{ color: 'white', fontWeight: 600 }}>Konvert HR + Kavach AI</span>{' '}
+                        <span style={{ color: '#e5e7eb', fontWeight: 600 }}>Konvert HR + Kavach AI</span>{' '}
                         — and supercharge your entire enterprise.
                     </p>
-
-                    <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                        <button
-                            onClick={() => navigate('/contact')}
-                            style={{
-                                padding: '16px 36px', borderRadius: '14px', border: 'none',
-                                background: 'linear-gradient(135deg, #f97316, #ef4444)',
-                                color: 'white', fontWeight: 700, fontSize: '1rem', cursor: 'pointer',
-                                boxShadow: '0 8px 30px rgba(249,115,22,0.4)',
-                                transition: 'all 0.2s',
-                                letterSpacing: '-0.01em',
-                            }}
-                            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(249,115,22,0.5)'; }}
-                            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0) scale(1)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(249,115,22,0.4)'; }}
-                        >
-                            Talk to Sales →
-                        </button>
-                    </div>
-
-                    <div style={{
-                        display: 'flex', justifyContent: 'center', gap: '28px',
-                        marginTop: '28px', flexWrap: 'wrap',
-                    }}>
+                    <button onClick={() => navigate('/contact')} className="kv-btn" style={{ fontSize: '1rem', padding: '16px 44px' }}>
+                        Talk to Sales →
+                    </button>
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: '28px', marginTop: '28px', flexWrap: 'wrap' }}>
                         {['No Credit Card', 'Free Onboarding', '24/7 Support'].map((t, i) => (
-                            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>
-                                <span style={{ color: '#fb923c' }}>✓</span> {t}
+                            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#6b7280', fontSize: '0.8rem', fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                                <span style={{ color: 'var(--org2)' }}>✓</span> {t}
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
-
-            <style>{`
-                @keyframes pulse {
-                    0%, 100% { opacity: 1; transform: scale(1); }
-                    50% { opacity: 0.6; transform: scale(0.8); }
-                }
-                @keyframes blink {
-                    0%, 100% { opacity: 1; }
-                    50% { opacity: 0; }
-                }
-            `}</style>
         </div>
     );
 };
