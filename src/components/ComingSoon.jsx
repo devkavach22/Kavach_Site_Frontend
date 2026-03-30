@@ -31,15 +31,15 @@ const ComingSoon = () => {
 
   return (
     <div style={{
-      height: '90vh',           /* ← exact 90vh, no overflow gap */
+      minHeight: '90vh',
       backgroundColor: '#0f172a',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '24px 20px',    /* ← tighter padding so content breathes inside 90vh */
+      padding: '80px 20px 32px',
       position: 'relative',
-      overflow: 'hidden',       /* ← clips background glows, kills any scroll gap */
+      overflow: 'hidden',
       fontFamily: "'Barlow', sans-serif",
       boxSizing: 'border-box',
     }}>
@@ -71,6 +71,7 @@ const ComingSoon = () => {
           width: 44px;
           height: 44px;
           min-width: 44px;
+          flex-shrink: 0;
           background: #f97316;
           border-radius: 11px;
           display: flex;
@@ -98,14 +99,14 @@ const ComingSoon = () => {
           gap: 8px;
           width: 100%;
           flex-wrap: nowrap;
-          margin-bottom: 32px;  /* tighter than before */
+          margin-bottom: 32px;
         }
 
         .kv-tile {
           background: #1e293b;
           border: 1px solid rgba(255,255,255,0.06);
           border-radius: 14px;
-          padding: 16px 8px;   /* slightly less vertical padding */
+          padding: 16px 8px;
           flex: 1 1 0;
           min-width: 0;
           text-align: center;
@@ -133,22 +134,27 @@ const ComingSoon = () => {
         }
 
         .kv-back-btn {
-          background: none;
+          background: #ffffff;
           border: none;
-          color: #64748b;
+          color: #000000;
           display: inline-flex;
           align-items: center;
           gap: 8px;
           cursor: pointer;
-          transition: color 0.25s;
-          padding: 0;
+          transition: background 0.25s, color 0.25s;
+          padding: 10px 20px;
+          border-radius: 8px;
         }
-        .kv-back-btn:hover { color: #f97316; }
+        .kv-back-btn:hover {
+          background: #f97316;
+          color: #ffffff;
+        }
         .kv-back-btn span {
           font-family: 'Barlow Condensed', sans-serif;
           text-transform: uppercase;
           font-size: 0.8rem;
           letter-spacing: 0.1em;
+          font-weight: 700;
         }
       `}</style>
 
@@ -177,7 +183,7 @@ const ComingSoon = () => {
       }}>
 
         {/* ── Brand Header ── */}
-        <div style={{ marginBottom: '28px' }}>
+        <div style={{ marginBottom: '28px', marginTop: '24px' }}>
           <div className="kv-logo-wrap">
             <div className="kv-logo-icon">
               <svg
@@ -217,7 +223,7 @@ const ComingSoon = () => {
           fontSize: 'clamp(0.85rem, 2.5vw, 1rem)',
           color: '#94a3b8',
           maxWidth: '500px',
-          margin: '0 auto 32px',   /* tighter bottom margin */
+          margin: '0 auto 32px',
           lineHeight: 1.6,
           fontWeight: 500,
         }}>

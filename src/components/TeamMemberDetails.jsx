@@ -1,19 +1,13 @@
-
-// // Import images
+// Import images
 import RajwantImg from '../assets/rajwant.jpg';
 import TakshImg from '../assets/taksh.jpg';
 import AnkitImg from '../assets/anitk.jpg';
 import AbhijeetImg from '../assets/abijeet.jpg';
 import JitinImg from '../assets/jitin.jpg';
 
-
-
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, Linkedin, Award, Target, Quote } from 'lucide-react';
-
-// Import images
-
 
 const TeamMemberDetails = () => {
   const { memberId } = useParams();
@@ -152,6 +146,39 @@ const TeamMemberDetails = () => {
         
         .profile-mask { border-radius: 40px 10px 40px 10px; overflow: hidden; }
         .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(224, 90, 0, 0.1); }
+
+        .achievement-card {
+          background: #fff7f2;
+          border: 1.5px solid rgba(224, 90, 0, 0.22);
+          border-radius: 24px;
+          padding: 32px;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+        .achievement-card::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #e05a00, #f97316);
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.4s ease;
+        }
+        .achievement-card:hover::before {
+          transform: scaleX(1);
+        }
+        .achievement-card:hover {
+          border-color: #e05a00;
+          background: #fff0e6;
+          box-shadow: 0 0 0 1px rgba(224,90,0,0.2), 0 8px 30px rgba(224,90,0,0.12);
+          transform: translateY(-4px);
+        }
+        .achievement-card:hover .ach-icon {
+          background: #e05a00 !important;
+          color: #fff !important;
+        }
       `}</style>
 
       {/* Navigation Header */}
@@ -171,11 +198,10 @@ const TeamMemberDetails = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
             
-            {/* Left: Professional Portrait (FULL COLOR) */}
+            {/* Left: Professional Portrait */}
             <div className="lg:col-span-5 scroll-reveal">
               <div className="relative">
                 <div className="profile-mask shadow-2xl relative z-10">
-                  {/* Sab filters hata diye hain taaki original color dikhe */}
                   <img 
                     src={member.image} 
                     alt={member.name} 
@@ -270,9 +296,9 @@ const TeamMemberDetails = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {member.achievements.map((achievement, i) => (
-              <div key={i} className={`scroll-reveal stagger-${(i%3)+1} glass-card p-8 rounded-3xl hover:border-orange-500 transition-all group`}>
-                <div className="w-10 h-10 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mb-6 group-hover:bg-orange-600 group-hover:text-white transition-all">
-                    <CheckCircle2 size={20} />
+              <div key={i} className={`achievement-card scroll-reveal stagger-${(i%3)+1}`}>
+                <div className="ach-icon w-10 h-10 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mb-6 transition-all">
+                  <CheckCircle2 size={20} />
                 </div>
                 <p className="text-gray-700 font-medium leading-relaxed">{achievement}</p>
               </div>
@@ -281,7 +307,6 @@ const TeamMemberDetails = () => {
         </div>
       </section>
 
-     
     </div>
   );
 };
