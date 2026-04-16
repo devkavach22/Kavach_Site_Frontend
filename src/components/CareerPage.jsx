@@ -1,347 +1,233 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Briefcase, MapPin, Clock, TrendingUp, Code, Users, Award, Brain, Palette } from 'lucide-react'
-import Select from 'react-select'
+import React, { useState, useRef, useEffect } from 'react';
+import CarrerHero from "../assets/CarrerHero.png";
+import AboutBg from "../assets/AboutBg.png";
+import aboutLast from "../assets/AboutLast.png";
 
-function CareerPage() {
-  const navigate = useNavigate()
-  const [selectedTech, setSelectedTech] = useState({ value: 'All', label: 'All' })
-  const [selectedType, setSelectedType] = useState({ value: 'All', label: 'All Types' })
+// ── Custom Dropdown Component ──
+const CustomSelect = ({ options, placeholder }) => {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState('');
+  const ref = useRef(null);
 
-  const techStack = [
-    { name: 'Odoo', category: 'ERP Solutions', projects: '40+', experts: '15+', gradient: 'from-purple-500 to-purple-700' },
-    { name: 'iOS', category: 'Mobile', projects: '30+', experts: '10+', gradient: 'from-gray-700 to-gray-900' },
-    { name: 'React', category: 'Frontend', projects: '50+', experts: '20+', gradient: 'from-blue-400 to-cyan-500' },
-    { name: 'Flutter', category: 'Mobile', projects: '40+', experts: '15+', gradient: 'from-blue-500 to-blue-700' },
-    { name: 'Laravel', category: 'Backend', projects: '60+', experts: '18+', gradient: 'from-red-500 to-red-700' },
-    { name: 'Node.js', category: 'Backend', projects: '70+', experts: '25+', gradient: 'from-green-600 to-green-800' },
-    { name: 'Shopify', category: 'E-commerce', projects: '55+', experts: '12+', gradient: 'from-green-500 to-green-700' },
-    { name: 'MongoDB', category: 'Database', projects: '60+', experts: '20+', gradient: 'from-green-600 to-green-900' },
-    { name: 'Django', category: 'Backend', projects: '35+', experts: '10+', gradient: 'from-green-700 to-green-900' },
-    { name: '.NET', category: 'Backend', projects: '45+', experts: '15+', gradient: 'from-purple-600 to-blue-700' },
-    { name: 'Magento', category: 'E-commerce', projects: '30+', experts: '8+', gradient: 'from-orange-500 to-orange-700' },
-    { name: 'SQL', category: 'Database', projects: '150+', experts: '30+', gradient: 'from-blue-600 to-blue-800' },
-    { name: 'AI/ML', category: 'Artificial Intelligence', projects: '25+', experts: '12+', gradient: 'from-indigo-500 to-purple-700' },
-    { name: 'CSS', category: 'Frontend', projects: '100+', experts: '30+', gradient: 'from-pink-500 to-rose-600' }
-  ]
-
-  const technologies = [
-    'All', 'Odoo', 'iOS', 'jQuery', 'React', 'PHP', 'Shopify',
-    'Laravel', 'Django', 'Magento', 'Flutter', 'Cordova',
-    '.NET', 'Node.js', 'Express', 'MongoDB', 'SQL', 'Mobile App', 'AI/ML', 'CSS'
-  ]
-
-  const jobs = [
-    { id: 1, title: 'Senior Full Stack Developer', department: 'IT Services', location: 'Surat, Gujarat', type: 'Full-time', experience: '5-7 years', technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'CSS'], description: 'Lead development of enterprise web applications using modern tech stack.', openings: 3 },
-    { id: 2, title: 'Odoo Developer', department: 'ERP Solutions', location: 'Surat, Gujarat', type: 'Full-time', experience: '3-5 years', technologies: ['Odoo', 'Python', 'SQL'], description: 'Develop and customize Odoo ERP modules for diverse business needs.', openings: 2 },
-    { id: 3, title: 'iOS Developer', department: 'Mobile App Development', location: 'Surat, Gujarat', type: 'Full-time', experience: '2-4 years', technologies: ['iOS', 'Swift', 'Mobile App'], description: 'Build innovative iOS applications with clean architecture.', openings: 2 },
-    { id: 4, title: 'Flutter Developer', department: 'Mobile App Development', location: 'Surat, Gujarat', type: 'Full-time', experience: '2-5 years', technologies: ['Flutter', 'Mobile App', 'Dart'], description: 'Create cross-platform mobile solutions using Flutter framework.', openings: 3 },
-    { id: 5, title: 'Laravel Backend Developer', department: 'Web Development', location: 'Surat, Gujarat', type: 'Full-time', experience: '3-6 years', technologies: ['Laravel', 'PHP', 'SQL'], description: 'Design and develop robust backend systems using Laravel.', openings: 2 },
-    { id: 6, title: 'Shopify Developer', department: 'E-commerce Solutions', location: 'Surat, Gujarat', type: 'Full-time', experience: '2-4 years', technologies: ['Shopify', 'jQuery', 'React', 'CSS'], description: 'Customize Shopify stores and develop custom e-commerce solutions.', openings: 2 },
-    { id: 7, title: 'Magento Developer', department: 'E-commerce Solutions', location: 'Surat, Gujarat', type: 'Full-time', experience: '4-6 years', technologies: ['Magento', 'PHP', 'MySQL'], description: 'Build and maintain enterprise e-commerce platforms on Magento.', openings: 1 },
-    { id: 8, title: '.NET Developer', department: 'Enterprise Solutions', location: 'Surat, Gujarat', type: 'Full-time', experience: '3-5 years', technologies: ['.NET', 'C#', 'SQL'], description: 'Develop enterprise-grade applications using .NET framework.', openings: 2 },
-    { id: 9, title: 'Django Python Developer', department: 'Web Development', location: 'Surat, Gujarat', type: 'Full-time', experience: '2-4 years', technologies: ['Django', 'Python', 'SQL'], description: 'Build scalable web applications using Django framework.', openings: 2 },
-    { id: 10, title: 'React Frontend Developer', department: 'Web Development', location: 'Surat, Gujarat', type: 'Full-time', experience: '2-5 years', technologies: ['React', 'jQuery', 'JavaScript', 'CSS'], description: 'Create responsive and dynamic user interfaces using React.', openings: 4 },
-    { id: 11, title: 'DevOps Engineer', department: 'ICT Infrastructure', location: 'Surat, Gujarat', type: 'Full-time', experience: '4-7 years', technologies: ['Node.js', 'MongoDB', 'SQL'], description: 'Manage cloud infrastructure and deployment pipelines.', openings: 1 },
-    { id: 12, title: 'Mobile App Developer (Cordova)', department: 'Mobile App Development', location: 'Surat, Gujarat', type: 'Full-time', experience: '2-4 years', technologies: ['Cordova', 'JavaScript', 'Mobile App', 'CSS'], description: 'Develop hybrid mobile applications using Cordova framework.', openings: 1 },
-    { id: 13, title: 'AI/ML Engineer', department: 'Artificial Intelligence', location: 'Surat, Gujarat', type: 'Full-time', experience: '3-6 years', technologies: ['AI/ML', 'Python', 'TensorFlow', 'PyTorch'], description: 'Build intelligent systems using machine learning and AI technologies.', openings: 2 },
-    { id: 14, title: 'UI/UX Designer', department: 'Design', location: 'Surat, Gujarat', type: 'Full-time', experience: '2-5 years', technologies: ['CSS', 'HTML', 'Figma', 'React'], description: 'Design beautiful and intuitive user interfaces with modern CSS.', openings: 2 }
-  ]
-
-  const filteredJobs = jobs.filter(job => {
-    const techMatch = selectedTech.value === 'All' || job.technologies.some(tech =>
-      tech.toLowerCase().includes(selectedTech.value.toLowerCase())
-    )
-    const typeMatch = selectedType.value === 'All' || job.type === selectedType.value
-    return techMatch && typeMatch
-  })
-
-  const handleTechCardClick = (techName = null) => {
-    if (techName) navigate('/career/technologies', { state: { scrollToTech: techName } })
-    else navigate('/career/technologies')
-  }
-
-  const handleJobClick = (jobId) => navigate(`/career/job/${jobId}`)
-
-  const getTechLogo = (name) => {
-    const logos = {
-      'React': <svg viewBox="0 0 24 24" className="w-full h-full" fill="currentColor"><path d="M12 10.11c1.03 0 1.87.84 1.87 1.89 0 1-.84 1.85-1.87 1.85S10.13 13 10.13 12c0-1.05.84-1.89 1.87-1.89M7.37 20c.63.38 2.01-.2 3.6-1.7-.52-.59-1.03-1.23-1.51-1.9a22.7 22.7 0 0 1-2.4-.36c-.51 2.14-.32 3.61.31 3.96m.71-5.74l-.29-.51c-.11.29-.22.58-.29.86.27.06.57.11.88.16l-.3-.51m6.54-.76l.81-1.5-.81-1.5c-.3-.53-.62-1-.91-1.47C13.17 9 12.6 9 12 9c-.6 0-1.17 0-1.71.03-.29.47-.61.94-.91 1.47L8.57 12l.81 1.5c.3.53.62 1 .91 1.47.54.03 1.11.03 1.71.03.6 0 1.17 0 1.71-.03.29-.47.61-.94.91-1.47M12 6.78c-.19.22-.39.45-.59.72h1.18c-.2-.27-.4-.5-.59-.72m0 10.44c.19-.22.39-.45.59-.72h-1.18c.2.27.4.5.59.72M16.62 4c-.62-.38-2 .2-3.59 1.7.52.59 1.03 1.23 1.51 1.9.82.08 1.63.2 2.4.36.51-2.14.32-3.61-.32-3.96m-.7 5.74l.29.51c.11-.29.22-.58.29-.86-.27-.06-.57-.11-.88-.16l.3.51m1.45-7.05c1.47.84 1.63 3.05 1.01 5.63 2.54.75 4.37 1.99 4.37 3.68s-1.83 2.93-4.37 3.68c.62 2.58.46 4.79-1.01 5.63-1.46.84-3.45-.12-5.37-1.95-1.92 1.83-3.91 2.79-5.38 1.95-1.46-.84-1.62-3.05-1-5.63-2.54-.75-4.37-1.99-4.37-3.68s1.83-2.93 4.37-3.68c-.62-2.58-.46-4.79 1-5.63 1.47-.84 3.46.12 5.38 1.95 1.92-1.83 3.91-2.79 5.37-1.95M17.08 12c.34.75.64 1.5.89 2.26 2.1-.63 3.28-1.53 3.28-2.26s-1.18-1.63-3.28-2.26c-.25.76-.55 1.51-.89 2.26M6.92 12c-.34-.75-.64-1.5-.89-2.26-2.1.63-3.28 1.53-3.28 2.26s1.18 1.63 3.28 2.26c.25-.76.55-1.51.89-2.26m9 2.26l-.3.51c.31-.05.61-.10.88-.16-.07-.28-.18-.57-.29-.86l-.29.51m-2.89 4.04c1.59 1.5 2.97 2.08 3.59 1.7.64-.35.83-1.82.32-3.96-.77.16-1.58.28-2.4.36-.48.67-.99 1.31-1.51 1.9M8.08 9.74l.3-.51c-.31.05-.61.1-.88.16.07.28.18.57.29.86l.29-.51m2.89-4.04C9.38 4.2 8 3.62 7.37 4c-.63.35-.82 1.82-.31 3.96a22.7 22.7 0 0 1 2.4-.36c.48-.67.99-1.31 1.51-1.9z" /></svg>,
-      'Node.js': <svg viewBox="0 0 24 24" className="w-full h-full" fill="currentColor"><path d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z" /></svg>,
-      'AI/ML': <Brain className="w-full h-full" />,
-      'CSS': <Palette className="w-full h-full" />
-    }
-    return logos[name] || <Code className="w-full h-full" />
-  }
-
-  const selectStyles = {
-    control: (base, state) => ({
-      ...base,
-      background: 'rgba(255,255,255,0.12)',
-      border: state.isFocused ? '1.5px solid #fb923c' : '1.5px solid rgba(255,255,255,0.25)',
-      borderRadius: '12px',
-      padding: '2px 4px',
-      boxShadow: 'none',
-      cursor: 'pointer',
-      '&:hover': { border: '1.5px solid rgba(255,255,255,0.5)' },
-    }),
-    singleValue: (base) => ({ ...base, color: 'white', fontWeight: '600', fontSize: '15px' }),
-    placeholder: (base) => ({ ...base, color: 'rgba(255,255,255,0.45)' }),
-    input: (base) => ({ ...base, color: 'white' }),
-    dropdownIndicator: (base) => ({ ...base, color: 'rgba(255,255,255,0.6)', '&:hover': { color: 'white' } }),
-    clearIndicator: (base) => ({ ...base, color: 'rgba(255,255,255,0.6)' }),
-    indicatorSeparator: () => ({ display: 'none' }),
-    menu: (base) => ({
-      ...base,
-      background: '#1a0505',
-      borderRadius: '14px',
-      border: '1px solid rgba(255,100,50,0.2)',
-      boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
-      zIndex: 9999,
-      marginTop: '6px',
-    }),
-    menuList: (base) => ({
-      ...base,
-      padding: '6px',
-      maxHeight: '260px',
-      '&::-webkit-scrollbar': { width: '6px' },
-      '&::-webkit-scrollbar-track': { background: 'transparent' },
-      '&::-webkit-scrollbar-thumb': { background: 'rgba(255, 100, 50, 0.3)', borderRadius: '10px' },
-      '&::-webkit-scrollbar-thumb:hover': { background: 'rgba(255, 100, 50, 0.5)' },
-      scrollbarWidth: 'thin',
-      scrollbarColor: 'rgba(255, 100, 50, 0.3) transparent',
-    }),
-    option: (base, state) => ({
-      ...base,
-      background: state.isSelected ? 'linear-gradient(135deg,#ea580c,#dc2626)' : state.isFocused ? 'rgba(234,88,12,0.18)' : 'transparent',
-      backgroundColor: state.isSelected ? '#ea580c' : state.isFocused ? 'rgba(234,88,12,0.18)' : 'transparent',
-      color: state.isSelected ? 'white' : 'rgba(255,255,255,0.85)',
-      borderRadius: '8px',
-      fontWeight: state.isSelected ? '700' : '500',
-      fontSize: '14px',
-      cursor: 'pointer',
-      margin: '1px 0',
-      '&:active': { backgroundColor: '#ea580c' },
-    }),
-  }
+  useEffect(() => {
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-[76px]">
+    <div ref={ref} style={{ position: 'relative', marginBottom: '15px', userSelect: 'none' }}>
+      <div
+        onClick={() => setOpen(!open)}
+        style={{
+          width: '100%', padding: '12px 40px 12px 15px',
+          borderRadius: '8px',
+          border: open ? '1.5px solid #B83934' : '1.5px solid #E5C5C4',
+          background: open ? '#fff' : '#FFF5F5',
+          fontSize: '14px', fontFamily: 'inherit',
+          color: selected ? '#0A2540' : '#9CA3AF',
+          fontWeight: selected ? '500' : '400',
+          cursor: 'pointer', boxSizing: 'border-box',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          transition: 'border-color 0.2s, background 0.2s',
+        }}
+      >
+        <span>{selected || placeholder}</span>
+        <svg
+          width="12" height="12" viewBox="0 0 12 12" fill="none"
+          style={{ transition: 'transform 0.2s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)', flexShrink: 0 }}
+        >
+          <path d="M2 4L6 8L10 4" stroke="#B83934" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </div>
 
-      {/* ── HERO ── */}
-      <div className="relative bg-gradient-to-br from-orange-600 via-red-600 to-orange-300 text-white pt-12 pb-20 overflow-hidden">
-        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-sm border border-white/30 rounded-full mb-5 shadow-md opacity-0 animate-[slideDown_0.6s_ease-out_0.1s_forwards]">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-            <span className="text-white text-xs font-semibold tracking-widest uppercase">Join Our Team</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-          </div>
+      {open && (
+        <div style={{
+          position: 'absolute', top: 'calc(100% + 6px)', left: 0, right: 0,
+          background: '#fff', border: '1.5px solid #E5C5C4', borderRadius: '10px',
+          overflow: 'hidden', zIndex: 999, boxShadow: '0 8px 24px rgba(184,57,52,0.10)',
+        }}>
+          {options.map((opt, i) => (
+            <div
+              key={i}
+              onClick={() => { setSelected(opt); setOpen(false); }}
+              style={{
+                padding: '11px 16px', fontSize: '14px', fontFamily: 'inherit',
+                color: selected === opt ? '#B83934' : '#0A2540',
+                fontWeight: selected === opt ? '600' : '400',
+                background: selected === opt ? '#FFF0EF' : '#fff',
+                cursor: 'pointer', borderBottom: i < options.length - 1 ? '1px solid #FCE8E7' : 'none',
+              }}
+            >
+              {opt}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">
-            <span className="block text-white opacity-0 animate-[slideUp_0.7s_ease-out_0.2s_forwards]">Join Kavach</span>
-            <span className="block bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-100 bg-clip-text text-transparent opacity-0 animate-[slideUp_0.7s_ease-out_0.4s_forwards]">Global</span>
+const CareerPage = () => {
+  const navbarHeight = "80px";
+
+  const jobVacancies = [
+    { type: "Full Time/Part Time", title: "Operations Executive", desc: "Manage day-to-day operations, ensure smooth service delivery, and coordinate across teams for efficient execution." },
+    { type: "Full Time/Part Time", title: "Security Officer", desc: "Monitor Security Operations, Ensure Safety Protocols, And Handle Risk Management Across Facilities." },
+    { type: "Part Time", title: "Field Engineer", desc: "Support Installation, Maintenance, And Troubleshooting Of Systems And Infrastructure." },
+    { type: "Full Time/Part Time", title: "Security Officer", desc: "Monitor Security Operations, Ensure Safety Protocols, And Handle Risk Management Across Facilities." }
+  ];
+
+  const benefits = [
+    { title: "Career Growth", desc: "Opportunities For Continuous Learning, Skill Development, And Career Advancement." },
+    { title: "Competitive Benefits", desc: "Attractive Compensation Packages And Performance-Based Rewards." },
+    { title: "Work-Life Balance", desc: "A Supportive Environment That Values Productivity And Personal Well-Being." },
+    { title: "Job Stability", desc: "Be Part Of A Trusted Organization With Long-Term Career Opportunities." }
+  ];
+
+  return (
+    <div style={{ fontFamily: "'Poppins', sans-serif", overflowX: 'hidden', background: '#fff', paddingTop: navbarHeight }}>
+      <style>
+        {`
+          @media (max-width: 1024px) {
+            .section-container { padding: 40px 20px !important; }
+            .benefit-header { flex-direction: column !important; text-align: center !important; }
+            .benefit-header > div { width: 100% !important; max-width: 100% !important; }
+            .vacancy-layout { flex-direction: column !important; }
+            .application-form { width: 100% !important; }
+          }
+          @media (max-width: 768px) {
+            .hero-text-content { padding: 0 20px !important; }
+            .hero-text-content h1 { font-size: 26px !important; line-height: 1.2 !important; margin-bottom: 12px !important; }
+            .hero-text-content p { font-size: 14px !important; line-height: 1.5 !important; }
+            .career-sub-text { font-size: 14px !important; line-height: 1.5 !important; max-width: 100% !important; }
+          }
+          .input-field {
+            width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #E5E7EB;
+            background: #F3F4F6; margin-bottom: 15px; font-family: inherit;
+          }
+        `}
+      </style>
+
+      {/* ── Career Hero Section ── */}
+      <div style={{
+        width: '100%', minHeight: '600px',
+        backgroundImage: `linear-gradient(rgba(10, 37, 64, 0.75), rgba(10, 37, 64, 0.75)), url(${CarrerHero})`,
+        backgroundSize: 'cover', backgroundPosition: 'center',
+        display: 'flex', flexDirection: 'column',
+        justifyContent: 'center', alignItems: 'center', color: 'white', textAlign: 'center'
+      }}>
+        <div className="hero-text-content" style={{ maxWidth: '850px', margin: '0 auto' }}>
+          <h1 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: '700', marginBottom: '20px' }}>
+            Build Your Future With Kavach Global
           </h1>
+        </div>
+      </div>
 
-          <p className="text-white/85 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-8 opacity-0 animate-[fadeIn_0.8s_ease-out_0.6s_forwards]">
-            Build your career with a leading conglomerate providing comprehensive, integrated solutions across industries worldwide.
+      {/* ── Vacancies & Form Section ── */}
+      <div className="section-container" style={{ padding: '80px 100px', backgroundImage: `url(${AboutBg})`, backgroundSize: 'cover' }}>
+        <div style={{ textAlign: 'center', marginBottom: '50px' }}>
+          <div style={{ color: '#B42A26', fontSize: '14px', fontWeight: '600', letterSpacing: '1px' }}>VACANCY / CAREER</div>
+          <h2 style={{ fontSize: '38px', color: '#0A2540', marginBottom: '15px' }}>Join Our <span style={{ color: '#B83934' }}>Team!</span></h2>
+          <p className="career-sub-text" style={{ maxWidth: '800px', margin: '0 auto', color: '#494B4D', fontSize: '16px', lineHeight: '1.6' }}>
+            We’re here to help you find the right solutions for your business. Whether you have a question, need support, or want to discuss a project, our team is ready to assist you. Reach out to us and we’ll get back to you as soon as possible.
           </p>
+        </div>
 
-          {/* Stats */}
-          <div className="flex flex-wrap justify-center gap-4 opacity-0 animate-[fadeIn_0.8s_ease-out_0.8s_forwards]">
-            {[{ value: `${jobs.length}+`, label: 'Open Positions' }, { value: '20+', label: 'Technologies' }, { value: '10+', label: 'Departments' }].map((s, i) => (
-              <div key={i} className="flex flex-col items-center px-6 py-3 bg-white/15 backdrop-blur-sm rounded-xl border border-white/20 hover:bg-white/25 hover:-translate-y-1 transition-all duration-300">
-                <span className="text-2xl font-extrabold text-white">{s.value}</span>
-                <span className="text-white/70 text-xs font-medium mt-0.5">{s.label}</span>
+        <div className="vacancy-layout" style={{ display: 'flex', gap: '30px', maxWidth: '1200px', margin: '0 auto' }}>
+          {/* Job List */}
+          <div style={{ flex: '2', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+            {jobVacancies.map((job, index) => (
+              <div key={index} style={{ padding: '25px', background: 'white', borderRadius: '15px', borderBottom: '3px solid #B83934', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
+                <div style={{ color: '#6B7280', fontSize: '13px', marginBottom: '5px' }}>{job.type}</div>
+                <div style={{ color: '#B83934', fontSize: '20px', fontWeight: '700', marginBottom: '12px' }}>{job.title}</div>
+                <p style={{ color: '#494B4D', fontSize: '14px', lineHeight: '1.6', marginBottom: '20px' }}>{job.desc}</p>
+                <div style={{ color: '#B83934', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  Apply Now 
+                </div>
               </div>
             ))}
           </div>
-        </div>
 
-        <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
-          <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-16 md:h-20">
-            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="white" />
-          </svg>
-        </div>
-      </div>
-
-      {/* ── TECH STACK ── */}
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Technology Stack</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">Work with cutting-edge technologies and build amazing products using modern frameworks</p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4 mb-12">
-          {techStack.map((tech, idx) => (
-            <div key={idx} onClick={() => handleTechCardClick(tech.name)}
-              className="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border-2 border-gray-100 hover:border-orange-400 cursor-pointer transform hover:-translate-y-1 p-4">
-              <div className={`w-12 h-12 mx-auto mb-3 bg-gradient-to-br ${tech.gradient} rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300`}>
-                {getTechLogo(tech.name)}
-              </div>
-              <h3 className="text-center font-bold text-gray-900 text-sm mb-1 group-hover:text-orange-600 transition-colors">{tech.name}</h3>
-              <p className="text-center text-xs text-gray-500 mb-3">{tech.category}</p>
-              <div className="flex justify-between text-xs border-t pt-2 border-gray-100">
-                <div className="text-center"><div className="font-bold text-gray-800">{tech.projects}</div><div className="text-gray-500">Projects</div></div>
-                <div className="w-px bg-gray-200"></div>
-                <div className="text-center"><div className="font-bold text-gray-800">{tech.experts}</div><div className="text-gray-500">Experts</div></div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="text-center">
-          <button onClick={() => handleTechCardClick()}
-            className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-bold px-10 py-4 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
-            View All Technologies
-          </button>
-        </div>
-      </div>
-
-      {/* ── WHY JOIN US ── */}
-      <div className="max-w-7xl mx-auto px-6 py-16 bg-gray-50 rounded-3xl">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Why Join Kavach?</h2>
-        <div className="grid md:grid-cols-4 gap-8">
-          {[
-            { icon: <TrendingUp className="w-10 h-10 text-white" />, title: 'Career Growth', desc: 'Clear path for professional development and leadership roles' },
-            { icon: <Code className="w-10 h-10 text-white" />, title: 'Latest Tech Stack', desc: 'Work with cutting-edge technologies and frameworks' },
-            { icon: <Users className="w-10 h-10 text-white" />, title: 'Great Team', desc: 'Collaborate with talented professionals across industries' },
-            { icon: <Award className="w-10 h-10 text-white" />, title: 'Benefits & Perks', desc: 'Competitive salary, health benefits, and work-life balance' },
-          ].map((item, idx) => (
-            <div key={idx} className="text-center p-8 bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-orange-300 group">
-              <div className="w-20 h-20 bg-gradient-to-br from-orange-600 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">{item.icon}</div>
-              <h3 className="font-bold text-xl mb-3">{item.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── FILTERS + JOB LISTINGS ── */}
-      <div className="max-w-7xl mx-auto px-6 py-8 mt-16">
-        <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Open Positions</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">Find your perfect role and join our team of talented professionals</p>
-        </div>
-
-        {/* Filter Box */}
-        <div
-          className="relative rounded-2xl shadow-xl p-6 mb-8"
-          style={{
-            background: 'linear-gradient(135deg, #7f1d1d, #991b1b, #b91c1c, #c2410c)',
-            overflow: 'visible'
-          }}
-        >
-          <div className="absolute top-0 right-0 w-48 h-48 bg-orange-500 rounded-full blur-3xl opacity-10 pointer-events-none" style={{ zIndex: 0 }}></div>
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-red-900 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ zIndex: 0 }}></div>
-
-          <div className="relative flex flex-col md:flex-row gap-6" style={{ zIndex: 10 }}>
-            <div className="flex-1">
-              <label className="block text-sm font-bold text-white/80 mb-2">Filter by Technology</label>
-              <Select
-                options={technologies.map(t => ({ value: t, label: t }))}
-                value={selectedTech}
-                onChange={(opt) => setSelectedTech(opt)}
-                isSearchable
-                placeholder="Search technology..."
-                styles={selectStyles}
-                menuPortalTarget={document.body}
-                menuPosition="fixed"
+          {/* Application Form */}
+          <div className="application-form" style={{ flex: '1', background: '#FFF1F0', padding: '30px', borderRadius: '20px', height: 'fit-content' }}>
+            <h3 style={{ textAlign: 'center', color: '#0A2540', marginBottom: '25px' }}>Join Our Team</h3>
+            <form onSubmit={e => e.preventDefault()}>
+              <input type="text" placeholder="Your Name*" className="input-field" />
+              <input type="email" placeholder="Your Email*" className="input-field" />
+              <CustomSelect
+                placeholder="Position Applied For*"
+                options={['Operations Executive', 'Security Officer', 'Field Engineer']}
               />
-            </div>
-            <div className="flex-1">
-              <label className="block text-sm font-bold text-white/80 mb-2">Job Type</label>
-              <Select
-                options={[
-                  { value: 'All', label: 'All Types' },
-                  { value: 'Full-time', label: 'Full-time' },
-                  { value: 'Part-time', label: 'Part-time' },
-                  { value: 'Contract', label: 'Contract' },
-                ]}
-                value={selectedType}
-                onChange={(opt) => setSelectedType(opt)}
-                isSearchable={false}
-                styles={selectStyles}
-                menuPortalTarget={document.body}
-                menuPosition="fixed"
-              />
-            </div>
+              <textarea placeholder="Your Message" className="input-field" style={{ height: '100px', resize: 'none' }}></textarea>
+              <button style={{
+                width: '100%', padding: '15px', background: '#FFD128', color: '#0A2540',
+                border: 'none', borderRadius: '10px', fontWeight: '700', cursor: 'pointer', fontSize: '16px'
+              }}>
+                Send Application
+              </button>
+            </form>
           </div>
         </div>
+      </div>
 
-        {/* Job Cards */}
-        <div className="space-y-6">
-          {filteredJobs.map(job => (
-            <div key={job.id} onClick={() => handleJobClick(job.id)}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border-2 border-gray-100 hover:border-orange-300 cursor-pointer group">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between">
-                <div className="flex-1">
-                  <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 bg-gradient-to-br from-orange-600 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                      <Briefcase className="w-7 h-7 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">{job.title}</h3>
-                      <p className="text-gray-600 mb-4 leading-relaxed">{job.description}</p>
-                      <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
-                        <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-orange-500" /><span className="font-medium">{job.location}</span></div>
-                        <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-orange-500" /><span className="font-medium">{job.type}</span></div>
-                        <div className="flex items-center gap-2"><Briefcase className="w-4 h-4 text-orange-500" /><span className="font-medium">{job.experience}</span></div>
-                        <div className="flex items-center gap-2 font-bold text-orange-600">{job.openings} openings</div>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {job.technologies.map(tech => (
-                          <span key={tech} className="px-4 py-1.5 bg-gradient-to-r from-orange-100 to-red-100 text-orange-700 rounded-full text-sm font-semibold border border-orange-200">{tech}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-6 md:mt-0 md:ml-6 flex flex-col gap-3">
-                  <button className="w-full md:w-auto bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-bold px-8 py-3 rounded-xl transition-all transform hover:scale-105 shadow-lg">Apply Now</button>
-                  <button className="w-full md:w-auto border-2 border-orange-500 text-orange-500 hover:bg-orange-50 font-bold px-8 py-3 rounded-xl transition-all">View Details</button>
-                </div>
-              </div>
+      {/* ── Why Work With Us Section ── */}
+      <div className="section-container" style={{ padding: '80px 100px', background: 'linear-gradient(180deg, #fff 0%, #FFF1F0 100%)' }}>
+        <div className="benefit-header" style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', marginBottom: '50px' }}>
+          <div style={{ flex: '1' }}>
+            <div style={{ color: '#B42A26', fontSize: '16px', fontWeight: '600', marginBottom: '10px' }}>Our Benefit</div>
+            <h2 style={{ fontSize: '38px', color: '#0A2540', margin: 0 }}>Why Work <span style={{ color: '#B83934' }}>With</span> Us</h2>
+          </div>
+          <div style={{ flex: '1.2', color: '#494B4D', fontSize: '16px', lineHeight: '1.8' }}>
+            We Believe In Creating A Workplace That Supports Growth, Innovation, And Employee Well-Being. Our Team Members Are Empowered With Opportunities To Learn, Grow, And Succeed In A Collaborative Environment.
+          </div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+          {benefits.map((b, i) => (
+            <div key={i} style={{ padding: '30px 20px', background: 'white', borderRadius: '15px', borderBottom: '4px solid #B83934', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
+              <div style={{ color: '#B42A26', fontWeight: '700', fontSize: '18px', marginBottom: '10px' }}>{b.title}</div>
+              <div style={{ color: '#494B4D', fontSize: '14px', lineHeight: '1.6' }}>{b.desc}</div>
             </div>
           ))}
         </div>
+      </div>
 
-        {filteredJobs.length === 0 && (
-          <div className="text-center py-16 bg-gray-50 rounded-2xl">
-            <Briefcase className="w-20 h-20 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-2xl font-bold text-gray-600 mb-2">No positions found</h3>
-            <p className="text-gray-500">Try adjusting your filters to see more opportunities</p>
+      <section
+        className="w-full relative overflow-hidden"
+        style={{ backgroundImage: `url(${aboutLast})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
+      >
+        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(5, 15, 40, 0.85)', zIndex: 1 }} />
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-16 py-12 lg:py-[60px] relative flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-10" style={{ zIndex: 2 }}>
+          <div className="flex flex-col gap-3 w-full lg:max-w-[480px]">
+            <h2 style={{ margin: 0, lineHeight: 1.3 }}>
+              <span style={{ color: '#FFFFFF', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>READY TO PARTNER <br /> WITH </span>
+              <span style={{ color: '#FA221C', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>KAVACH</span>
+              <span style={{ color: '#FFFFFF', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}> GLOBAL!</span>
+            </h2>
+            <p style={{ margin: 0, color: '#FFFFFF', fontSize: '16px', fontWeight: 400, textTransform: 'capitalize', lineHeight: '1.6', letterSpacing: '0.36px' }}>
+              Let's Build Something Extraordinary Together. Our Experts Are Ready To Craft Tailored Solutions That Drive Real Results For Your Organization.
+            </p>
           </div>
-        )}
-      </div>
-
-      {/* ── DON'T SEE THE RIGHT ROLE ── */}
-      <div className="relative bg-gradient-to-br from-orange-900 via-red-800 to-orange-800 text-white py-20 mt-16 overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none rotate-180">
-          <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-16 md:h-20">
-            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="white" />
-          </svg>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto flex-shrink-0">
+            <a href="/new/contact" className="btn-yellow-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto" style={{ backgroundColor: '#FFD128', padding: '14px 32px', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              <span style={{ color: '#0A2540', fontSize: '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Get In Touch</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="8" y1="16" x2="16" y2="8" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" />
+                <polyline points="9,8 16,8 16,15" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+            </a>
+            <a href="/new/services" className="btn-outline-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto" style={{ backgroundColor: 'transparent', padding: '14px 32px', textDecoration: 'none', outline: '2px solid #FFD128', whiteSpace: 'nowrap' }}>
+              <span style={{ color: '#FFD128', fontSize: '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Explore Solutions</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="8" y1="16" x2="16" y2="8" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" />
+                <polyline points="9,8 16,8 16,15" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+            </a>
+          </div>
         </div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl opacity-10"></div>
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-red-500 rounded-full blur-3xl opacity-10"></div>
-        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Don't See the Right Role?</h2>
-          <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-            We're always looking for talented individuals. Send us your resume and we'll keep you in mind for future opportunities.
-          </p>
-          <button onClick={() => navigate("/contact")}
-            className="inline-block px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-orange-500/30 hover:scale-105 transition-all duration-300">
-            Submit Your Resume
-          </button>
-        </div>
-      </div>
-
-      <style dangerouslySetInnerHTML={{
-        __html: `
-          @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-          @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-          @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        `
-      }} />
+      </section>
     </div>
-  )
-}
+  );
+};
 
-export default CareerPage
+export default CareerPage;

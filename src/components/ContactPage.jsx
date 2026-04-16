@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { MapPin, Mail, Phone, Clock, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, ArrowRight } from 'lucide-react';
 import map from "../assets/map.png";
+import ContactBg from "../assets/ContactBg.png";
+import usBg from "../assets/AboutBg.png"; 
+import aboutLast from "../assets/AboutLast.png";
 
+// Updated MARKERS with specific offsets to prevent UK/Ireland overlap
 const MARKERS = [
   { name: "USA", cx: 180, cy: 165, region: "Americas" },
-  { name: "Ireland", cx: 445, cy: 115, region: "Europe", labelAnchor: "end", labelDx: -8 },
-  { name: "UK", cx: 458, cy: 110, region: "Europe", labelAnchor: "start", labelDx: 8 },
+  { name: "Ireland", cx: 445, cy: 115, region: "Europe", labelAnchor: "end", labelDx: -12, labelDy: 5 },
+  { name: "UK", cx: 458, cy: 110, region: "Europe", labelAnchor: "start", labelDx: 12, labelDy: -5 },
   { name: "Dubai", cx: 595, cy: 215, region: "Middle East" },
   { name: "India", cx: 655, cy: 235, region: "Asia", isHQ: true },
   { name: "Singapore", cx: 735, cy: 305, region: "Asia" },
@@ -15,20 +19,30 @@ const MARKERS = [
 function WorldMap({ activeLocation, onHover }) {
   return (
     <div style={{ position: "relative", width: "100%", background: "#f9fafb", borderRadius: 16, overflow: "hidden" }}>
-      <svg viewBox="0 0 960 500" width="100%" height="450" style={{ display: "block" }}>
+      <svg viewBox="0 0 960 500" width="100%" height="auto" style={{ display: "block", maxWidth: "100%" }}>
         <image href={map} x="0" y="0" width="960" height="500" preserveAspectRatio="xMidYMid slice" />
         {MARKERS.map(loc => {
           const isActive = activeLocation === loc.name;
           const r = loc.isHQ ? 7 : 6;
+          
+          // Use specific offsets if provided, otherwise default to center-top
+          const textX = loc.cx + (loc.labelDx || 0);
+          const textY = loc.cy + (loc.labelDy || -(r + 8));
+          const anchor = loc.labelAnchor || "middle";
+
           return (
             <g key={loc.name} style={{ cursor: "pointer" }} onMouseEnter={() => onHover(loc.name)} onMouseLeave={() => onHover(null)}>
-              <circle cx={loc.cx} cy={loc.cy} r={isActive ? r + 12 : r + 7} fill={isActive ? "rgba(239,68,68,0.20)" : "rgba(239,68,68,0.12)"} style={{ transition: "all 0.3s" }} />
-              <circle cx={loc.cx} cy={loc.cy} r={r} fill="none" stroke="#ef4444" strokeWidth="1" opacity="0">
-                <animate attributeName="r" values={`${r};${r + 14};${r}`} dur="2.4s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.5;0;0.5" dur="2.4s" repeatCount="indefinite" />
-              </circle>
-              <circle cx={loc.cx} cy={loc.cy} r={isActive ? r + 1.5 : r} fill="#ef4444" stroke="white" strokeWidth={loc.isHQ ? 2 : 1.5} style={{ transition: "all 0.25s" }} />
-              <text x={loc.cx + (loc.labelDx || 0)} y={loc.cy - r - 8} textAnchor={loc.labelAnchor || "middle"} fill={isActive ? "#111" : "#1f2937"} fontSize={isActive ? 11 : 10} fontWeight={isActive ? "800" : "600"} style={{ pointerEvents: "none", userSelect: "none", fontFamily: 'Barlow, sans-serif' }}>
+              <circle cx={loc.cx} cy={loc.cy} r={isActive ? r + 12 : r + 7} fill={isActive ? "rgba(184,57,52,0.20)" : "rgba(184,57,52,0.12)"} style={{ transition: "all 0.3s" }} />
+              <circle cx={loc.cx} cy={loc.cy} r={isActive ? r + 1.5 : r} fill="#B83934" stroke="white" strokeWidth={loc.isHQ ? 2 : 1.5} style={{ transition: "all 0.25s" }} />
+              <text 
+                x={textX} 
+                y={textY} 
+                textAnchor={anchor} 
+                fill={isActive ? "#0A2540" : "#494B4D"} 
+                fontSize={isActive ? 11 : 10} 
+                fontWeight={isActive ? "700" : "500"} 
+                style={{ pointerEvents: "none", userSelect: "none", fontFamily: 'Poppins, sans-serif' }}
+              >
                 {loc.name}
               </text>
             </g>
@@ -40,187 +54,232 @@ function WorldMap({ activeLocation, onHover }) {
 }
 
 function ContactPage() {
-  const [formData] = useState({ name: '', email: '', phone: '', service: '', message: '' });
   const [activeLocation, setActiveLocation] = useState(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("is-visible");
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll(".scroll-reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  const handleSubmit = e => { e.preventDefault(); console.log('Form submitted:', formData); };
-
   const offices = [
-    { title: 'Ahmedabad', address: 'A/53, 5th floor, New York Tower, Thaltej, S G Highway, Ahmedabad - 380015.', mapUrl: '#' },
-    { title: 'Himachal Pradesh', address: '29, First Floor, Block1, Dev Bhoomi Apartments, Deonghat, Solan - 173211', mapUrl: '#' },
-    { title: 'Ayodhya', address: '4th Floor, Arundhati Bhawan West, Tedhi Bajar, Ayodhya, UP - 224123', mapUrl: '#' }
+    { title: 'Ahmedabad', address: 'A/53, 5th floor, New York Tower, Thaltej, S G Highway, Ahmedabad - 380015.' },
+    { title: 'Himachal Pradesh', address: '29, First Floor, Block1, Dev Bhoomi Apartments, Deonghat, Solan - 173211' },
+    { title: 'Ayodhya', address: '4th Floor, Arundhati Bhawan West, Tedhi Bajar, Ayodhya, UP - 224123' }
   ];
 
-  return (
-    <div className="min-h-screen bg-white pt-[76px]" style={{ fontFamily: "'Barlow', sans-serif" }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800&family=Barlow:wght@400;500;600&display=swap');
-        :root { --org: #e05a00; --org2: #f97316; --dark: #1a2332; }
-        .kv-h { font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; line-height:1.05; }
-        .kv-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--org); display:flex; align-items:center; gap:6px; }
-        .kv-label::before { content:''; width:8px; height:8px; border-radius:50%; background:var(--org); }
-        .scroll-reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
-        .scroll-reveal.is-visible { opacity: 1; transform: translateY(0); }
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .dot-bg-dark { background-color: #1a2332; background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px); background-size:28px 28px; }
-        .dot-bg-light { background-image:radial-gradient(rgba(0,0,0,0.04) 1px,transparent 1px); background-size:28px 28px; }
+  const stats = [
+    { n: "8", l: "Offices In India" },
+    { n: "23,000+", l: "Team Members" },
+    { n: "50+", l: "Industries Served" },
+    { n: "7,500+", l: "Happy Clients" },
+    { n: "7+", l: "Global Footprints" }
+  ];
 
-        /* ── Desktop-only: tighten Global Presence section ── */
-        @media (min-width: 1024px) {
-          .gp-section {
-            padding-top: 40px !important;
-            padding-bottom: 40px !important;
-          }
-          .gp-header {
-            margin-bottom: 16px !important;
-          }
-          .gp-header h2 {
-            margin-bottom: 0 !important;
-          }
-          .gp-header .kv-label {
-            margin-bottom: 8px !important;
-          }
-          .gp-stats {
-            margin-bottom: 16px !important;
-          }
-          .gp-map {
-            margin-bottom: 0 !important;
-          }
-          .gp-pills {
-            margin-top: 16px !important;
-          }
+  const inputStyle = {
+    padding: "18px 15px",
+    background: "#F5F5F5",
+    borderRadius: 10,
+    border: "1px solid rgba(0,0,0,0.1)",
+    fontSize: 16,
+    fontFamily: "Poppins",
+    color: "#494B4D",
+    width: "100%",
+    boxSizing: "border-box"
+  };
+
+  return (
+    <div style={{ fontFamily: "'Poppins', sans-serif", backgroundColor: "#fff", overflowX: "hidden", width: "100%" }}>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .cp-hero { min-height: 260px !important; padding: 60px 20px !important; margin-top: 60px !important; width: 100% !important; box-sizing: border-box; }
+          .cp-hero h1 { font-size: 24px !important; }
+          .cp-contact-section { padding: 40px 16px !important; box-sizing: border-box; width: 100% !important; overflow: hidden; }
+          .cp-contact-row { flex-direction: column !important; gap: 20px !important; width: 100% !important; margin: 0 !important; }
+          .cp-info-card { flex: 1 1 100% !important; padding: 24px !important; width: 100% !important; box-sizing: border-box !important; min-width: 0 !important; }
+          .cp-form-card { flex: 1 1 100% !important; padding: 24px !important; width: 100% !important; box-sizing: border-box !important; min-width: 0 !important; }
+          .cp-form-grid { grid-template-columns: 1fr !important; }
+          .cp-office-section { padding: 50px 16px !important; width: 100% !important; box-sizing: border-box; }
+          .cp-office-grid { grid-template-columns: 1fr !important; width: 100% !important; }
+          .cp-office-map { min-height: 280px !important; height: 280px !important; width: 100% !important; }
+          .cp-global-section { padding: 50px 16px !important; width: 100% !important; box-sizing: border-box; }
+          .cp-global-chip { padding: 6px 14px !important; font-size: 13px !important; }
+          .cp-world-map svg { height: auto !important; width: 100% !important; }
+          .cp-stats-row { gap: 40px 12px !important; width: 100% !important; margin: 0 auto !important; display: flex !important; justify-content: center !important; }
+          .cp-stat-card { flex: 1 1 calc(50% - 12px) !important; padding: 40px 10px 24px !important; min-width: 0 !important; box-sizing: border-box !important; }
+          .cp-cta-inner { flex-direction: column !important; align-items: flex-start !important; padding: 40px 20px !important; gap: 24px !important; width: 100% !important; box-sizing: border-box; }
+          .cp-cta-buttons { flex-direction: column !important; width: 100% !important; }
+          .cp-cta-buttons a { width: 100% !important; justify-content: center !important; box-sizing: border-box !important; }
+          .cp-cta-title span { font-size: 24px !important; letter-spacing: 0.3px !important; }
         }
       `}</style>
 
-      {/* 1. HERO + FORM */}
-      <section className="relative py-24 px-4 overflow-hidden dot-bg-dark text-white">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="scroll-reveal">
-              <div className="kv-label mb-6">Contact Us</div>
-              <h1 className="kv-h text-white mb-6" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
-                FEEL FREE TO <span style={{ color: 'var(--org2)' }}>GET IN TOUCH</span> WITH US
-              </h1>
-              <p className="text-gray-400 text-xl leading-relaxed mb-8">
-                We're here to help and answer any question you might have. We look forward to hearing from you.
+      {/* 1. HERO SECTION */}
+      <div className="cp-hero" style={{
+        backgroundImage: `url(${ContactBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        padding: "100px 40px",
+        textAlign: "center",
+        minHeight: 600,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        color: "#fff",
+        marginTop: "80px",
+        width: "100%",
+        boxSizing: "border-box"
+      }}>
+        <div style={{ position: "absolute", inset: 0, background: "rgba(10, 31, 68, 0.75)" }} />
+        <div style={{ position: "relative", zIndex: 2 }}>
+          <h1 style={{ fontSize: "clamp(32px, 5vw, 42px)", fontWeight: 700, marginBottom: 15 }}>Get In Touch With Our Experts</h1>
+        </div>
+      </div>
+
+      {/* 2. CONTACT US SECTION */}
+      <section className="cp-contact-section" style={{ 
+        padding: "80px 20px", 
+        backgroundImage: `url(${usBg})`, 
+        backgroundSize: "cover", 
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative",
+        width: "100%",
+        boxSizing: "border-box",
+      }}>
+        <div style={{ position: "absolute", inset: 0, background: "rgba(255, 255, 255, 0.60)", zIndex: 1 }} />
+        
+        <div style={{ position: "relative", zIndex: 2, maxWidth: 1240, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 50 }}>
+            <p style={{ color: "#B42A26", fontSize: 18, fontWeight: 500, letterSpacing: "0.36px" }}>Contact Us</p>
+            <h2 style={{ fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 700, color: "#0A2540" }}>
+              Get In <span style={{ color: "#B83934" }}>Touch</span> With Our Experts
+            </h2>
+            <p style={{ maxWidth: 850, margin: "20px auto", color: "#494B4D", lineHeight: "33px", fontSize: 18 }}>
+              We're here to help you find the right solutions for your business.
+            </p>
+          </div>
+
+          <div className="cp-contact-row" style={{ display: "flex", flexWrap: "wrap", gap: 30, justifyContent: "center" }}>
+            <div className="cp-info-card" style={{ flex: "1 1 350px", padding: "35px", background: "linear-gradient(136deg, #FFF1F0 0%, #FFFAE8 100%)", borderRadius: 24, border: "1px solid rgba(0,0,0,0.05)", boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}>
+              <h3 style={{ fontSize: 24, fontWeight: 700, color: "#0A2540", borderBottom: "1px solid rgba(0,0,0,0.1)", paddingBottom: 15, marginBottom: 25 }}>Contact Information</h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
+                {[
+                  { label: "Office Address", val: "A-53, New York Tower-A, Cross Road, Sarkhej - Gandhinagar Hwy, Ahmedabad, Gujarat 380054, India" },
+                  { label: "Email Us", val: "info@kavachglobal.com" },
+                  { label: "Call Us", val: "+91 72288 88904" },
+                  { label: "Working Hours", val: "Mon - Sat: 8 AM - 6 PM" }
+                ].map((item, i) => (
+                  <div key={i} style={{ borderBottom: i === 3 ? "none" : "1px solid rgba(0,0,0,0.1)", paddingBottom: 20 }}>
+                    <p style={{ color: "#B83934", fontWeight: 600, fontSize: 16, marginBottom: 8 }}>{item.label}</p>
+                    <p style={{ color: "#494B4D", fontSize: 16, lineHeight: "29px" }}>{item.val}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="cp-form-card" style={{ flex: "1.5 1 450px", padding: "35px", background: "#fff", borderRadius: 24, border: "1px solid rgba(0,0,0,0.05)", boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}>
+              <h3 style={{ fontSize: 24, fontWeight: 700, color: "#0A2540", borderBottom: "1px solid rgba(0,0,0,0.1)", paddingBottom: 15, marginBottom: 25 }}>Send Us A Message</h3>
+              <div className="cp-form-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 20, marginBottom: 20 }}>
+                <input style={inputStyle} placeholder="Your Name*" />
+                <input style={inputStyle} placeholder="Your Email*" />
+                <input style={inputStyle} placeholder="Phone Number*" />
+                <input style={inputStyle} placeholder="Subject" />
+              </div>
+              <textarea style={{ ...inputStyle, height: 130, width: "100%", marginBottom: 30 }} placeholder="Your Message" />
+              <button style={{ width: "100%", padding: "20px", background: "#FFD128", borderRadius: 12, color: "#0A2540", fontSize: 20, fontWeight: 700, border: "none", cursor: "pointer" }}>Send Inquiry</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. CORPORATE OFFICE SECTION */}
+      <section className="cp-office-section" style={{ padding: "80px 20px", background: "#f9fafb", width: "100%", boxSizing: "border-box" }}>
+        <h2 style={{ textAlign: "center", fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 700, marginBottom: 50 }}>
+          Visit Our <span style={{ color: "#B83934" }}>Corporate</span> Office
+        </h2>
+        <div className="cp-office-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 30, maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            {offices.map((off, i) => (
+              <div key={i} style={{ padding: "25px", background: "#fff", borderRadius: 20, boxShadow: "0px 0px 8px rgba(0,0,0,0.1)", borderBottom: "3px solid #B83934" }}>
+                <div style={{ width: 50, height: 50, background: "#FFF1F0", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 15 }}>
+                  <MapPin size={24} color="#B42A26" />
+                </div>
+                <h4 style={{ color: "#B42A26", fontSize: 21, fontWeight: 700, marginBottom: 5 }}>{off.title}</h4>
+                <p style={{ color: "#494B4D", fontSize: 15, lineHeight: "26px", marginBottom: 15 }}>{off.address}</p>
+                <div style={{ color: "#B83934", fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", gap: 5 }}>
+                  View On Map <ArrowRight size={16} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="cp-office-map" style={{ borderRadius: 20, overflow: "hidden", border: "1px solid #ddd", minHeight: 400 }}>
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.6979267156947!2d72.50604437591632!3d23.03487011589133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b94093c8301%3A0xc3f1a2384a8677a2!2sNew%20York%20Tower!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" width="100%" height="100%" style={{ border: 0, minHeight: 400 }} allowFullScreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. GLOBAL PRESENCE SECTION */}
+      <section className="cp-global-section" style={{ padding: "80px 20px", textAlign: "center", backgroundColor: "#fff", width: "100%", boxSizing: "border-box" }}>
+        <p style={{ color: "#B42A26", fontSize: 16, fontWeight: 500 }}>Global Network</p>
+        <h2 style={{ fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 700, color: "#0A2540", marginBottom: 30 }}>
+          OUR <span style={{ color: "#B83934" }}>GLOBAL</span> PRESENCE
+        </h2>
+        
+        <div style={{ display: "flex", justifyContent: "center", gap: 10, marginBottom: 40, flexWrap: "wrap" }}>
+          {MARKERS.map(m => (
+            <div key={m.name} 
+              className="cp-global-chip"
+              onMouseEnter={() => setActiveLocation(m.name)}
+              onMouseLeave={() => setActiveLocation(null)}
+              style={{
+                padding: "8px 25px", borderRadius: 30, fontSize: 15, fontWeight: 500, cursor: "pointer",
+                backgroundColor: activeLocation === m.name ? "#B83934" : "#FFF1F0",
+                color: activeLocation === m.name ? "#fff" : "#B83934",
+                transition: "0.3s"
+              }}>
+              {m.name} {m.isHQ && <small style={{ fontSize: 10 }}>HQ</small>}
+            </div>
+          ))}
+        </div>
+
+        <div className="cp-world-map" style={{ maxWidth: 1200, margin: "0 auto 80px", padding: 10, background: "#fdfdfd", borderRadius: 20, boxShadow: "0 10px 30px rgba(0,0,0,0.05)", overflow: "hidden" }}>
+          <WorldMap activeLocation={activeLocation} onHover={setActiveLocation} />
+        </div>
+
+        <div className="cp-stats-row" style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", maxWidth: "1400px", margin: "0 auto", width: "100%" }}>
+          {stats.map((s, i) => (
+            <div className="cp-stat-card" key={i} style={{ flex: "1 1 220px", padding: "45px 15px 35px", background: "white", borderRadius: "20px", boxShadow: "0 10px 30px rgba(0,0,0,0.06)", position: "relative", border: "1px solid #f0f0f0" }}>
+              <div style={{ position: "absolute", top: "-25px", left: "50%", transform: "translateX(-50%)", width: "55px", height: "55px", borderRadius: "50%", border: "1.5px solid #B83934", background: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                 <MapPin size={22} color="#B83934" />
+              </div>
+              <div style={{ fontSize: "36px", fontWeight: "800", color: "#0A2540", marginBottom: "8px" }}>{s.n}</div>
+              <div style={{ color: "#494B4D", fontSize: "16px", fontWeight: "400" }}>{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. CTA SECTION */}
+      <section className="w-full relative overflow-hidden" style={{ backgroundImage: `url(${aboutLast})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: "100%" }}>
+          <div className="absolute inset-0" style={{ backgroundColor: 'rgba(5, 15, 40, 0.85)', zIndex: 1 }} />
+          <div className="cp-cta-inner max-w-[1280px] mx-auto px-4 py-12 relative flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-10" style={{ zIndex: 2 }}>
+            <div className="flex flex-col gap-3 w-full lg:max-w-[480px]">
+              <h2 className="cp-cta-title" style={{ margin: 0, lineHeight: 1.3 }}>
+                <span style={{ color: '#FFFFFF', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}>READY TO PARTNER <br /> WITH </span>
+                <span style={{ color: '#FA221C', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}>KAVACH</span>
+                <span style={{ color: '#FFFFFF', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}> GLOBAL!</span>
+              </h2>
+              <p style={{ margin: 0, color: '#FFFFFF', fontSize: '18px', fontWeight: 400, lineHeight: '33px' }}>
+                Let's Build Something Extraordinary Together.
               </p>
             </div>
-
-            <div className="scroll-reveal stagger-2">
-              <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-10 border-t-4 border-orange-500">
-                <h2 className="kv-h text-gray-900 text-2xl mb-6 text-center">Send Us a <span className="text-orange-500">Message</span></h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <input type="text" placeholder="Name" className="w-full px-4 py-3 bg-gray-100 rounded-xl border-none focus:ring-2 focus:ring-orange-500 text-gray-900" />
-                    <input type="email" placeholder="Email" className="w-full px-4 py-3 bg-gray-100 rounded-xl border-none focus:ring-2 focus:ring-orange-500 text-gray-900" />
-                  </div>
-                  <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 bg-gray-100 rounded-xl border-none focus:ring-2 focus:ring-orange-500 text-gray-900" />
-                  <textarea rows="4" placeholder="Your Message" className="w-full px-4 py-3 bg-gray-100 rounded-xl border-none focus:ring-2 focus:ring-orange-500 text-gray-900 resize-none" />
-                  <button type="submit" className="w-full py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold rounded-xl uppercase tracking-widest hover:shadow-lg transition-all">Send Inquiry</button>
-                </form>
-              </div>
+            <div className="cp-cta-buttons flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto">
+              <a href="/new/contact" style={{ backgroundColor: '#FFD128', padding: '14px 32px', textDecoration: 'none', borderRadius: '10px', color: '#0A2540', fontWeight: 600 }}>Get In Touch</a>
+              <a href="/new/services" style={{ border: '2px solid #FFD128', padding: '14px 32px', textDecoration: 'none', borderRadius: '10px', color: '#FFD128', fontWeight: 600 }}>Explore Solutions</a>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* 2. CONTACT INFO CARDS */}
-      <section className="py-20 px-4 bg-gray-50 dot-bg-light">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { icon: <Mail className="text-white" />, title: 'Email Us', text: 'info@kavachglobal.com' },
-              { icon: <Phone className="text-white" />, title: 'Call Us', text: '+91 72288 88904' },
-              { icon: <Clock className="text-white" />, title: 'Working Hours', text: 'Mon - Sat: 8 AM - 6 PM' }
-            ].map((card, i) => (
-              <div key={i} className={`scroll-reveal stagger-${i+1} bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:border-orange-500 transition-all`}>
-                <div className="w-12 h-12 bg-orange-600 rounded-xl flex items-center justify-center mb-6 shadow-orange-200 shadow-lg">{card.icon}</div>
-                <h3 className="kv-h text-gray-900 text-xl mb-2">{card.title}</h3>
-                <p className="text-gray-500 font-medium">{card.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. OFFICE LOCATIONS + IFRAME */}
-      <section className="py-24 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 scroll-reveal">
-            <div className="kv-label justify-center mb-4">Our Offices</div>
-            <h2 className="kv-h text-gray-900" style={{ fontSize: '2.8rem' }}>VISIT <span className="text-orange-500">OUR LOCATIONS</span></h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {offices.map((office, idx) => (
-              <div key={idx} className={`scroll-reveal stagger-${idx+1} group bg-gray-50 p-8 rounded-3xl border border-transparent hover:border-orange-500 transition-all`}>
-                <MapPin className="text-orange-600 mb-6" size={32} />
-                <h3 className="kv-h text-xl mb-4 text-gray-900">{office.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed mb-6">{office.address}</p>
-                <a href={office.mapUrl} className="text-orange-600 font-bold text-xs uppercase flex items-center gap-2">View on Map <ArrowRight size={14}/></a>
-              </div>
-            ))}
-          </div>
-
-          <div className="scroll-reveal rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-50">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.4158384567896!2d72.50633031496285!3d23.04503258491966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b3c6b6b6b6b%3A0x6b6b6b6b6b6b6b6b!2sThaltej%2C%20Ahmedabad%2C%20Gujarat%20380054!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin" width="100%" height="450" style={{ border: 0 }} loading="lazy" title="Office Location" />
-          </div>
-        </div>
-      </section>
-
-      {/* 4. GLOBAL PRESENCE — desktop padding tightened via .gp-* classes */}
-      <section className="py-24 px-4 dot-bg-dark gp-section" style={{ background: '#1a2332' }}>
-        <div className="max-w-6xl mx-auto">
-
-          <div className="text-center mb-10 scroll-reveal gp-header">
-            <div className="kv-label justify-center mb-6">Global Network</div>
-            <h2 className="kv-h text-white mb-4" style={{ fontSize: '3rem' }}>
-              OUR GLOBAL <span className="text-orange-500">PRESENCE</span>
-            </h2>
-          </div>
-
-          <div className="flex justify-center gap-12 mb-12 scroll-reveal stagger-2 gp-stats">
-            {[["7", "Countries"], ["3", "Continents"], ["500+", "Clients"]].map(([n, l]) => (
-              <div key={l} className="text-center">
-                <div className="text-3xl font-black text-orange-500">{n}</div>
-                <div className="text-[10px] uppercase font-bold text-gray-400 tracking-widest">{l}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="scroll-reveal p-2 rounded-3xl shadow-xl border border-white/10 gp-map" style={{ background: '#242f42' }}>
-            <WorldMap activeLocation={activeLocation} onHover={setActiveLocation} />
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-3 mt-10 scroll-reveal stagger-3 gp-pills">
-            {MARKERS.map(loc => (
-              <button key={loc.name}
-                onMouseEnter={() => setActiveLocation(loc.name)}
-                onMouseLeave={() => setActiveLocation(null)}
-                className={`px-6 py-2 rounded-full text-xs font-bold transition-all border ${activeLocation === loc.name ? 'bg-orange-600 text-white border-orange-600' : 'border-white/20 text-gray-300'}`}
-                style={activeLocation !== loc.name ? { background: 'rgba(255,255,255,0.05)' } : {}}
-              >
-                {loc.name} {loc.isHQ && <span className="ml-2 opacity-60 text-[8px] bg-white/10 px-1 rounded">HQ</span>}
-              </button>
-            ))}
-          </div>
-
-        </div>
       </section>
     </div>
   );
 }
 
 export default ContactPage;
+

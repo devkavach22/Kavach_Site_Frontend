@@ -1,292 +1,487 @@
-import { Link } from 'react-router-dom';
-import { Award, Zap, HeadphonesIcon, ArrowRight, Star, CheckCircle2 } from "lucide-react";
-import { MdSchool, MdLocalHospital, MdApartment } from "react-icons/md";
-import { FiTruck, FiCpu, FiBriefcase, FiTrendingUp, FiTool } from "react-icons/fi";
+import React, { useState } from 'react'
+import PersoLock from "../assets/PersonLock.png";
+import img3 from "../assets/gard.png"
+import software from "../assets/software.png"
+import EPCwork from "../assets/EPCWork.png"
+import FMT from "../assets/FMT.png"
+import ITC from "../assets/ITCIns.png"
+import projectBg from "../assets/AboutBg.png"
+import Book from "../assets/Book.png"
+import bookBulb from "../assets/bookBulb.png"
+import Bulb from "../assets/Bulb.png"
+import Person from "../assets/Person.png"
+import hand from "../assets/hand.png"
+import amnex from "../assets/Amnex.png";
+import Arvind from "../assets/Arvind.png";
+import green from "../assets/green.png";
+import Udgam from "../assets/Udgam.png";
+import Troikaa from "../assets/Troikaa.png";
+import Rubber from "../assets/Rubber.png";
+import Omspace from "../assets/Omspace.png";
+import Paras from "../assets/Paras.png";
+import Licoln from "../assets/Lincoln.png";
+import Adani from "../assets/Adani.png";
+import girl from "../assets/GIRL.png"
+import aboutLast from "../assets/AboutLast.png";
+
+const servicesData = [
+    {
+        id: 1,
+        image: ITC,
+        title: "ICT Infrastructure",
+        description: "We Provide Comprehensive ICT Infrastructure Solutions Across Telecom, IT, System Integration, Data Centers, And Smart City Technologies—Enabling Secure, Scalable, And Efficient Operations.",
+        link: "#",
+    },
+    {
+        id: 2,
+        image: img3,
+        title: "Security Services",
+        description: "Reliable Security Solutions Including Guarding, Armed Protection, Industrial Security, And Investigation Services—Ensuring Safety And Peace Of Mind.",
+        link: "#",
+    },
+    {
+        id: 3,
+        image: EPCwork,
+        title: "EPC Works",
+        description: "Comprehensive EPC Solutions Across Urban Development, Power Distribution, And Renewable Energy—Delivering Reliable And Sustainable Infrastructure.",
+        link: "#",
+    },
+    {
+        id: 4,
+        image: software,
+        title: "Software Development",
+        description: "We Deliver Customized Software Solutions That Are Scalable, Secure, And Performance-Driven—Helping Businesses Streamline Operations And Accelerate Digital Transformation.",
+        link: "#",
+    },
+    {
+        id: 5,
+        image: FMT,
+        title: "Integrated Facility Management",
+        description: "End-To-End Facility Management Solutions Including Managed Services, Security Systems, Remote Monitoring, And Command Centers—Ensuring Efficiency, Safety, And Control.",
+        link: "#",
+    },
+]
+
+const whyData = [
+    {
+        id: 1,
+        icon: bookBulb,
+        title: "We Think Differently",
+        description: "Crafting innovative solutions that empower, protect, and transform the way you thrive.",
+    },
+    {
+        id: 2,
+        icon: hand,
+        title: "High Quality Projects",
+        description: "Every project undergoes rigorous quality control and is executed by certified professionals.",
+    },
+    {
+        id: 3,
+        icon: bookBulb,
+        title: "Expert Team Members",
+        description: "Our diverse team of industry specialists brings a wealth of knowledge to every engagement.",
+    },
+    {
+        id: 4,
+        icon: Person,
+        title: "24/7 Customer Support",
+        description: "Round-the-clock support ensuring your operations run smoothly and resolve issues.",
+    },
+    {
+        id: 5,
+        icon: Bulb,
+        title: "Innovative Technology",
+        description: "From AI-powered analytics to IoT integration leveraging the latest advancements.",
+    },
+    {
+        id: 6,
+        icon: Book,
+        title: "Proven Track Record",
+        description: "Hundreds of successful project implementations across diverse industries worldwide.",
+    },
+]
+
+const faqData = [
+    {
+        id: 1,
+        question: "Why did you choose Kavach Global?",
+        answer: "We chose Kavach Global for their integrated approach and ability to deliver multiple services under one roof with consistent quality."
+    },
+    {
+        id: 2,
+        question: "How has Kavach Global impacted your operations?",
+        answer: "Their solutions have streamlined our security protocols and enhanced our overall operational efficiency significantly."
+    },
+    {
+        id: 3,
+        question: "What stands out about their services?",
+        answer: "Their attention to detail and proactive maintenance culture sets them apart from other service providers."
+    },
+    {
+        id: 4,
+        question: "Would you recommend Kavach Global?",
+        answer: "Absolutely. We recommend them to any organization seeking scalable and reliable infrastructure and security solutions."
+    },
+    {
+        id: 5,
+        question: "How is their service quality?",
+        answer: "The quality is top-notch; they use industry-grade materials and follow international safety standards."
+    },
+    {
+        id: 6,
+        question: "Is customer support responsive?",
+        answer: "Yes, their support team is available 24/7 and addresses technical issues with remarkable speed."
+    }
+];
+
+const customStyles = `
+    .service-card-main {
+        display: flex;
+        flex-direction: column;
+        border-radius: 16px;
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+        max-width: 420px;
+        /* REDUCED DESKTOP HEIGHT */
+        min-height: 400px; 
+    }
+
+    @media (max-width: 768px) {
+        .service-card-main {
+            min-height: auto; 
+            margin-bottom: 20px;
+        }
+    }
+
+    .why-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        width: 100%;
+    }
+    
+    .why-card-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 12px;
+        width: 100%;
+    }
+
+    @media (max-width: 1100px) {
+        .why-cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+        .why-cards-grid { grid-template-columns: 1fr; padding: 0 10px; }
+        .why-card-container {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+    }
+`;
+
+function ServiceCard({ image, title, description, link }) {
+    return (
+        <div className="service-card-main">
+            <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${projectBg})` }} />
+            <div className="absolute inset-0" style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }} />
+
+            <div className="relative z-10 flex flex-col h-full flex-grow">
+                {/* Image Section - Reduced height for desktop compactness */}
+                <div className="w-full overflow-hidden flex-shrink-0" style={{ height: '200px', borderBottom: '4px solid #B42A26' }}>
+                    <img src={image} alt={title} className="w-full h-full object-cover object-center" />
+                </div>
+
+                {/* Content Section - Reduced padding to shorten card height */}
+                <div className="flex flex-col p-5 flex-grow">
+                    <h3 style={{ color: '#000000', fontSize: '22px', fontWeight: 700, marginBottom: '8px' }}>{title}</h3>
+                    <div className="flex-grow">
+                        <p style={{
+                            color: '#494B4D',
+                            fontSize: '15px',
+                            lineHeight: '1.5',
+                            marginBottom: '10px'
+                        }}>{description}</p>
+                    </div>
+
+                    <a href={link} className="flex items-center gap-1 group w-fit" style={{
+                        color: '#DA3934', fontSize: '16px', fontWeight: 600, textDecoration: 'none', marginTop: 'auto'
+                    }}>
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function WhyCard({ icon, title, description }) {
+    return (
+        <div style={{ width: '100%', minHeight: '140px', padding: '20px', background: 'white', boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.15)', borderRadius: '20px', borderBottom: '3px solid #B83934', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
+            <div className="why-card-container">
+                <div style={{ width: '55px', height: '55px', position: 'relative', flexShrink: 0 }}>
+                    <div style={{ width: '55px', height: '50px', position: 'absolute', top: '2px', left: 0, background: 'linear-gradient(144deg, #FFBCBA 0%, rgba(255, 188, 186, 0) 100%)', borderRadius: '50%' }} />
+                    <img src={icon} alt={title} style={{ width: '45px', height: '45px', position: 'absolute', bottom: 0, right: 0, objectFit: 'contain' }} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', flex: 1 }}>
+                    <h3 style={{ color: '#B42A26', fontSize: '19px', fontFamily: "'Poppins', sans-serif", fontWeight: 700, margin: 0 }}>{title}</h3>
+                    <p style={{ color: '#494B4D', fontSize: '15px', fontFamily: "'Poppins', sans-serif", fontWeight: 400, lineHeight: '1.4', marginTop: "10px" }}>{description}</p>
+                </div>
+            </div>
+        </div>
+    )
+}
 
 function Services() {
-    const industries = [
-        { icon: <MdSchool size={34} />, name: "Education", desc: "Empowering institutions with innovative educational technology and smart infrastructure management systems." },
-        { icon: <MdLocalHospital size={34} />, name: "Health Care", desc: "World-class healthcare support through cutting-edge medical technology and integrated health management." },
-        { icon: <FiTruck size={34} />, name: "Automobile", desc: "Manufacturing excellence in the automotive sector with precision-engineered facility solutions." },
-        { icon: <MdApartment size={34} />, name: "Hospital", desc: "Comprehensive hospital management for 24/7 seamless operations and critical infrastructure support." },
-        { icon: <FiBriefcase size={34} />, name: "Government", desc: "Public sector digital transformation through robust infrastructure, security, and smart-city solutions." },
-        { icon: <FiCpu size={34} />, name: "IT Industries", desc: "Leading-edge IT infrastructure and technology services powering the digital ecosystem of modern enterprises." },
-        { icon: <FiTool size={34} />, name: "Business", desc: "Integrated facility management and professional solutions allowing organisations to focus on core goals." },
-        { icon: <FiTrendingUp size={34} />, name: "Marketing", desc: "Strategic marketing and branding solutions that elevate your presence and drive measurable business growth." },
-    ];
-
-    const whyChooseUs = [
-        { icon: <Zap className="w-5 h-5" />, title: "We Think Differently", desc: "Crafting innovative solutions that empower, protect, and transform the way you thrive." },
-        { icon: <Award className="w-5 h-5" />, title: "High Quality Projects", desc: "Every project undergoes rigorous quality control and is executed by certified professionals." },
-        { icon: <CheckCircle2 className="w-5 h-5" />, title: "Expert Team Members", desc: "Our diverse team of industry specialists brings a wealth of knowledge to every engagement." },
-        { icon: <HeadphonesIcon className="w-5 h-5" />, title: "24/7 Customer Support", desc: "Round-the-clock support ensuring your operations run smoothly and resolve issues." },
-        { icon: <Zap className="w-5 h-5" />, title: "Innovative Technology", desc: "From AI-powered analytics to IoT integration leveraging the latest advancements." },
-        { icon: <Award className="w-5 h-5" />, title: "Proven Track Record", desc: "Hundreds of successful project implementations across diverse industries worldwide." },
-    ];
-
-    const testimonials = [
-        { name: "Troikka Pharma", role: "Verified Client", text: "Kavach Global Konnects Pvt. Ltd. has been an exceptional partner in facility management. Their proactive approach and timely services ensure seamless operation." },
-        { name: "Lincoln Pharma", role: "Verified Client", text: "The expertise and dedication of Kavach Global Konnects have significantly improved the efficiency of our facility management." },
-        { name: "Rubberking Group", role: "Verified Client", text: "We have been availing Kavach Global's services for over two years. They have consistently exceeded our expectations for quality." },
-        { name: "Marengo Asia", role: "Verified Client", text: "Kavach Global Konnects has been instrumental in ensuring the smooth functioning of our facility with highest standards." },
-    ];
+    const [openId, setOpenId] = useState(1);
 
     return (
-        <div className="min-h-screen" style={{ fontFamily: "'Barlow', sans-serif" }}>
+        <div style={{ fontFamily: "'Poppins', sans-serif" }}>
+            <style>{customStyles}</style>
 
-            <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800&family=Barlow:wght@400;500;600&display=swap');
+            {/* Hero Section */}
+            <section className="relative w-full flex items-center justify-center overflow-hidden" style={{ minHeight: 'clamp(320px, 50vw, 690px)', paddingTop: '80px' }}>
 
-                :root {
-                    --org:   #e05a00;
-                    --org2:  #f97316;
-                    --dark:  #1a2332;
-                    --dark2: #111827;
-                    --gray:  #f3f4f6;
-                    --txt:   #4b5563;
-                    --txt2:  #6b7280;
-                }
+                <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${PersoLock})` }} />
+                <div className="absolute inset-0 bg-[#0d1f3c] opacity-80" />
+                <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                    <h1 className="text-white mb-4" style={{ fontSize: 'clamp(22px, 3.5vw, 38px)', fontWeight: 700, textTransform: 'capitalize', lineHeight: '1.35' }}>
+                        Integrated Solutions For <br className="hidden sm:block" /> Efficient & Scalable Operations
+                    </h1>
+                </div>
+            </section>
 
-                .kv-h { font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; line-height:1.05; }
-                .kv-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--org); display:flex; align-items:center; gap:6px; }
-                .kv-label::before { content:''; display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--org); flex-shrink:0; }
+            {/* Services Cards Section */}
+            <section className="relative w-full py-16 overflow-hidden" style={{ backgroundImage: `url(${projectBg})`, backgroundSize: 'cover' }}>
+                <div className="relative z-10 max-w-[1320px] mx-auto px-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                        {servicesData.slice(0, 3).map((service) => (
+                            <div key={service.id} className="flex justify-center h-full"><ServiceCard {...service} /></div>
+                        ))}
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-[960px] mx-auto">
+                        {servicesData.slice(3).map((service) => (
+                            <div key={service.id} className="flex justify-center h-full"><ServiceCard {...service} /></div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-                .kv-btn {
-                    position: relative; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase;
-                    padding: 14px 32px; border-radius: 24px 0px 24px 0px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease;
-                    text-decoration: none; overflow: hidden; border: none; z-index: 10;
-                    background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #c2410c 100%); color: #fff; box-shadow: 0 4px 15px rgba(234, 88, 12, 0.3);
-                }
-                .kv-btn:hover {
-                    background:#c94e00;
-                    transform:translateY(-3px);
-                    box-shadow: 0 8px 35px rgba(234,88,12,0.7), 0 0 20px rgba(249,115,22,0.4);
-                    border-radius:0px 24px 0px 24px;
-                }
-
-                /* ── INDUSTRY CARDS ── */
-                .ind-card-white {
-                    background: #ffffff !important;
-                    border: 1px solid #e5e7eb !important;
-                    transition: all 0.35s ease;
-                }
-                .ind-card-white:hover {
-                    transform: translateY(-8px);
-                    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-                    border-color: var(--org) !important;
-                }
-                .ind-card-white .ind-icon-wrap {
-                    background: #fff3ee !important;
-                    color: var(--org) !important;
-                    border: 1px solid #fed7aa !important;
-                }
-                .ind-card-white:hover .ind-icon-wrap {
-                    background: var(--org) !important;
-                    color: #fff !important;
-                }
-
-                /* ── TESTIMONIAL CARD ── */
-                .testi-card-premium {
-                    background: #1a2332;
-                    border: 1px solid rgba(255,255,255,0.05);
-                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                    position: relative;
-                }
-                .testi-card-premium:hover {
-                    border-color: var(--org);
-                    box-shadow: 0 10px 30px rgba(224, 90, 0, 0.15);
-                    transform: scale(1.02);
-                }
-                .testi-card-premium .testi-text {
-                    color: #ffffff !important;
-                    opacity: 0.9;
-                }
-
-                /* ── WHY CHOOSE US CARD — GLOW ON HOVER ── */
-                .why-card-animated {
-                    transition: all 0.4s ease;
-                    position: relative;
-                }
-                .why-card-animated:hover {
-                    transform: translateY(-5px);
-                    border-color: #f97316 !important;
-                    box-shadow:
-                        0 8px 25px rgba(234, 88, 12, 0.25),
-                        0 0 0 1px rgba(249, 115, 22, 0.3),
-                        0 0 30px rgba(249, 115, 22, 0.15),
-                        inset 0 0 20px rgba(249, 115, 22, 0.04);
-                }
-                .why-card-animated .why-icon-wrap {
-                    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-                }
-                .why-card-animated:hover .why-icon-wrap {
-                    background-color: var(--org2) !important;
-                    color: #ffffff !important;
-                    box-shadow: 0 0 16px rgba(249, 115, 22, 0.6);
-                }
-
-                /* ── CTA GLOW ── */
-                @keyframes ctaGlowPulse {
-                    0%, 100% { opacity: 0.5; transform: scale(1); }
-                    50%       { opacity: 1;   transform: scale(1.08); }
-                }
-                .cta-glow-orb-1 {
-                    position: absolute;
-                    top: -60px; left: 50%;
-                    transform: translateX(-50%);
-                    width: 520px; height: 220px;
-                    border-radius: 50%;
-                    background: radial-gradient(ellipse, rgba(249,115,22,0.22) 0%, transparent 70%);
-                    animation: ctaGlowPulse 3.5s ease-in-out infinite;
-                    pointer-events: none;
-                    filter: blur(18px);
-                }
-                .cta-glow-orb-2 {
-                    position: absolute;
-                    bottom: -40px; left: 50%;
-                    transform: translateX(-50%);
-                    width: 380px; height: 160px;
-                    border-radius: 50%;
-                    background: radial-gradient(ellipse, rgba(224,90,0,0.15) 0%, transparent 70%);
-                    animation: ctaGlowPulse 4s ease-in-out infinite reverse;
-                    pointer-events: none;
-                    filter: blur(14px);
-                }
-                .cta-heading-glow {
-                    text-shadow: 0 0 40px rgba(249,115,22,0.25), 0 0 80px rgba(249,115,22,0.1);
-                }
-
-                @keyframes bobA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
-                .bob-a { animation:bobA 2.8s ease-in-out infinite; }
-
-                .dot-bg-light { background-image:radial-gradient(rgba(0,0,0,0.04) 1px,transparent 1px); background-size:28px 28px; }
-                .dot-bg-dark  { background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px); background-size:28px 28px; }
-            `}</style>
-
-            {/* ══ 1. SECTORS WE SERVE ══ */}
-            <section className="relative py-24 px-4 overflow-hidden dot-bg-dark" style={{ background: '#1a2332' }}>
-                <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="text-center mb-14">
-                        <div className="kv-label justify-center mb-4">Sectors We Serve</div>
-                        <h2 className="kv-h text-white" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.8rem)' }}>
-                            OUR CLIENT <span style={{ color: 'var(--org)' }}>INDUSTRIES</span>
+            {/* Why Choose Section */}
+            <section style={{ width: '100%', padding: '60px clamp(20px, 5vw, 80px)', background: 'linear-gradient(180deg, #FFF1F0 0%, #FFFDF5 100%)' }}>
+                <div className="flex flex-col items-center gap-8">
+                    <div className="text-center">
+                        <p style={{ color: '#B42A26', fontSize: '18px', fontWeight: 500, marginBottom: '5px' }}>Our Excellence</p>
+                        <h2 style={{ fontSize: 'clamp(24px, 5vw, 38px)', fontWeight: 700, margin: 0 }}>
+                            <span style={{ color: '#0A2540' }}>WHY CHOOSE </span>
+                            <span style={{ color: '#B42A26' }}>KAVACH GLOBAL</span>
                         </h2>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {industries.map((ind, idx) => (
-                            <div key={idx} className="ind-card-white bob-a rounded-xl p-7 flex flex-col items-center text-center">
-                                <div className="ind-icon-wrap w-16 h-16 rounded-xl flex items-center justify-center mb-4 transition-all duration-300">
-                                    {ind.icon}
-                                </div>
-                                <h3 className="kv-h leading-snug mb-2" style={{ fontSize: '0.95rem', color: 'var(--dark)' }}>{ind.name}</h3>
-                                <p className="text-xs leading-relaxed" style={{ color: 'var(--txt2)' }}>{ind.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 z-20">
-                    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full" style={{ height: '50px' }}>
-                        <path d="M0,40 L1440,0 L1440,60 L0,60 Z" fill="#ffffff" />
-                    </svg>
-                </div>
-            </section>
-
-            {/* ══ 2. WHY CHOOSE US — WITH GLOW ══ */}
-            <section className="relative py-16 px-4 dot-bg-light" style={{ background: '#ffffff' }}>
-                <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="text-center mb-10">
-                        <div className="kv-label justify-center mb-3">Our Excellence</div>
-                        <h2 className="kv-h" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.8rem)', color: 'var(--dark)' }}>
-                            WHY CHOOSE <span style={{ color: 'var(--org)' }}>KAVACH GLOBAL</span>
-                        </h2>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {whyChooseUs.map((item, idx) => (
-                            <div key={idx} className="why-card-animated flex items-start gap-4 p-6 rounded-lg border border-gray-100 bg-white">
-                                <div className="why-icon-wrap flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center bg-orange-100 text-orange-600">
-                                    {item.icon}
-                                </div>
-                                <div>
-                                    <h4 className="kv-h mb-1" style={{ fontSize: '1rem', color: 'var(--dark)' }}>{item.title}</h4>
-                                    <p className="text-sm leading-relaxed text-gray-500">{item.desc}</p>
-                                </div>
-                            </div>
-                        ))}
+                    <div className="why-cards-grid">
+                        {whyData.map((item) => <WhyCard key={item.id} {...item} />)}
                     </div>
                 </div>
             </section>
 
-            {/* ══ 3. TESTIMONIALS ══ */}
-            <section className="py-24 px-4 dot-bg-dark" style={{ background: '#111827' }}>
-                <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-14">
-                        <div className="kv-label justify-center mb-4">Testimonials</div>
-                        <h2 className="kv-h text-white" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)' }}>CLIENT FEEDBACK</h2>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {testimonials.map((t, idx) => (
-                            <div key={idx} className="testi-card-premium rounded-2xl p-8 overflow-hidden group">
-                                <div className="absolute top-4 right-8 text-6xl text-white opacity-5 font-serif pointer-events-none">"</div>
-                                <div className="flex gap-1 mb-5">
-                                    {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-orange-500 text-orange-500" />)}
-                                </div>
-                                <p className="testi-text text-base italic leading-relaxed mb-8 relative z-10">{t.text}</p>
-                                <div className="flex items-center gap-4 pt-6 border-t border-white/10">
-                                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                                        {t.name.charAt(0)}
-                                    </div>
-                                    <div>
-                                        <div className="font-bold text-white text-base tracking-wide uppercase">{t.name}</div>
-                                        <div className="text-xs text-orange-400 font-semibold uppercase tracking-widest">{t.role}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* ══ 4. CTA — WITH GLOW ══ */}
-            <section className="relative py-16 px-4 overflow-hidden dot-bg-light" style={{ background: '#f9fafb' }}>
 
-                {/* Animated glow orbs */}
-                <div className="cta-glow-orb-1" />
-                <div className="cta-glow-orb-2" />
-
-                {/* Static side orbs */}
-                <div className="absolute pointer-events-none" style={{ top: '10%', right: '5%', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 70%)', filter: 'blur(10px)' }} />
-                <div className="absolute pointer-events-none" style={{ bottom: '-10%', left: '-5%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%)', filter: 'blur(10px)' }} />
-
-                <div className="max-w-4xl mx-auto relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-100 mb-6">
-                        <div className="w-2 h-2 rounded-full bg-orange-600 animate-pulse"></div>
-                        <span className="kv-label !p-0 !m-0" style={{ fontSize: '0.65rem', color: 'var(--org)' }}>Get In Touch</span>
-                    </div>
-
-                    <h2 className="kv-h cta-heading-glow mb-2" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)', color: '#1a2332' }}>
-                        READY TO <span style={{ color: 'var(--org2)' }}>TRANSFORM</span>
+            <section className="w-full bg-white py-20">
+                <div className="max-w-[1280px] mx-auto px-6 text-center">
+                    <h2 style={{ fontSize: '38px', fontWeight: 700, margin: 0 }}>
+                        <span style={{ color: '#0A2540' }}>Our </span>
+                        <span style={{ color: '#B42A26' }}>Clients</span>
                     </h2>
-                    <h2 className="kv-h mb-8" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)', color: '#1a2332' }}>
-                        YOUR BUSINESS?
-                    </h2>
-
-                    <p className="text-lg leading-relaxed mb-10 max-w-2xl mx-auto" style={{ color: '#4b5563' }}>
-                        Join hundreds of satisfied clients who trust <strong>Kavach Global Konnects</strong> for their facility management and technology solutions.
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                        <Link to="/contact" className="kv-btn shadow-xl">
-                            Get A Quote <ArrowRight className="w-5 h-5 ml-1" />
-                        </Link>
-                        <div className="flex items-center gap-2 text-gray-400 font-medium uppercase tracking-widest text-[10px]">
-                            OR CALL US TODAY
+                    <p style={{ color: '#494B4D', marginTop: '10px' }}>Trusted By Leading Organizations Across Industries Worldwide</p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-12">
+                        {[Adani, amnex, Arvind, green, Udgam, Troikaa, Rubber, Omspace, Paras, Licoln].map((src, i) => (
+                            <div key={i} style={{ padding: '25px', borderRadius: '13px', outline: '1px solid rgba(10, 37, 64, 0.1)', display: 'flex', justifyContent: 'center', backgroundColor: '#fff' }}>
+                                <img src={src} alt="Client" style={{ width: '100px', height: '42px', objectFit: 'contain' }} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+            {/* FAQ Section */}
+            <section style={{ width: '100%', padding: '80px clamp(20px, 5vw, 80px)', background: 'linear-gradient(180deg, #FFFDF5 0%, #FFF1F0 100%)' }}>
+                <div className="max-w-[1320px] mx-auto flex flex-col lg:flex-row items-start gap-12">
+                    <div className="w-full lg:w-1/2 flex-shrink-0">
+                        <img src={girl} alt="Client Support" style={{ width: '100%', borderRadius: '20px', objectFit: 'cover' }} />
+                    </div>
+                    <div className="w-full lg:w-1/2 flex flex-col gap-6">
+                        <div>
+                            <p style={{ color: '#B42A26', fontSize: '18px', fontWeight: 500 }}>Frequently Asked Questions</p>
+                            <h2 style={{ fontSize: 'clamp(24px, 4vw, 38px)', fontWeight: 700, color: '#0A2540', lineHeight: 1.2 }}>
+                                Why Our Clients Trust Us For <span style={{ color: '#B42A26' }}>Reliable & Scalable</span> Solutions
+                            </h2>
+                        </div>
+                        <div className="flex flex-col gap-4">
+                            {faqData.map((faq) => (
+                                <div key={faq.id}
+                                    onClick={() => setOpenId(openId === faq.id ? null : faq.id)}
+                                    style={{ background: 'white', borderRadius: '10px', borderBottom: '3px solid #B42A26', padding: '15px 20px', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+                                    <div className="flex justify-between items-center">
+                                        <div className="flex gap-4 items-center">
+                                            <span style={{ color: '#B42A26', fontWeight: 600, fontSize: '18px' }}>{faq.id})</span>
+                                            <h4 style={{ color: '#0A2540', fontWeight: 500, fontSize: '16px', margin: 0 }}>{faq.question}</h4>
+                                        </div>
+                                        <div style={{ transform: openId === faq.id ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.3s' }}>
+                                            <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1L7 7L13 1" stroke="#0A2540" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                        </div>
+                                    </div>
+                                    {openId === faq.id && (
+                                        <div style={{ marginTop: '15px', color: '#494B4D', fontSize: '15px', lineHeight: '24px', borderTop: '1px solid #eee', paddingTop: '10px' }}>
+                                            {faq.answer}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
             </section>
 
+            <section
+                className="w-full relative overflow-hidden"
+                style={{
+                    backgroundImage: `url(${aboutLast})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                }}
+            >
+                <div
+                    className="absolute inset-0"
+                    style={{ backgroundColor: 'rgba(5, 15, 40, 0.85)', zIndex: 1 }}
+                />
+
+                <div
+                    className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-16 py-12 lg:py-[60px] relative flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-10"
+                    style={{ zIndex: 2 }}
+                >
+
+                    <div className="flex flex-col gap-3 w-full lg:max-w-[480px]">
+                        <h2 style={{ margin: 0, lineHeight: 1.3 }}>
+                            <span
+                                style={{
+                                    color: '#FFFFFF',
+                                    fontSize: '38px',
+                                    fontWeight: 700,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.76px',
+                                }}
+                            >
+                                READY TO PARTNER <br /> WITH{' '}
+                            </span>
+                            <span
+                                style={{
+                                    color: '#FA221C',
+                                    fontSize: '38px',
+                                    fontWeight: 700,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.76px',
+                                }}
+                            >
+                                KAVACH
+                            </span>
+                            <span
+                                style={{
+                                    color: '#FFFFFF',
+                                    fontSize: '38px',
+                                    fontWeight: 700,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.76px',
+                                }}
+                            >
+                                {' '}GLOBAL!
+                            </span>
+                        </h2>
+
+                        <p
+                            style={{
+                                margin: 0,
+                                color: '#FFFFFF',
+                                fontSize: '18px',
+                                fontWeight: 400,
+                                textTransform: 'capitalize',
+                                lineHeight: '33px',
+                                letterSpacing: '0.36px',
+                            }}
+                        >
+                            Let's Build Something Extraordinary Together. Our Experts Are Ready To Craft Tailored Solutions That Drive Real Results For Your Organization.
+                        </p>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto flex-shrink-0">
+
+                        {/* Get In Touch button with hover */}
+                        <a
+                            href="/new/contact"
+                            className="btn-yellow-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto"
+                            style={{
+                                backgroundColor: '#FFD128',
+                                padding: '14px 32px',
+                                textDecoration: 'none',
+                                whiteSpace: 'nowrap',
+                            }}
+                        >
+                            <span
+                                style={{
+                                    color: '#0A2540',
+                                    fontSize: '18px',
+                                    fontWeight: 600,
+                                    textTransform: 'capitalize',
+                                    letterSpacing: '0.42px',
+                                }}
+                            >
+                                Get In Touch
+                            </span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="8" y1="16" x2="16" y2="8" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" />
+                                <polyline points="9,8 16,8 16,15" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                            </svg>
+                        </a>
+
+                        {/* Explore Solutions button with hover */}
+                        <a
+                            href="/new/services"
+                            className="btn-outline-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto"
+                            style={{
+                                backgroundColor: 'transparent',
+                                padding: '14px 32px',
+                                textDecoration: 'none',
+                                outline: '2px solid #FFD128',
+                                whiteSpace: 'nowrap',
+                            }}
+                        >
+                            <span
+                                style={{
+                                    color: '#FFD128',
+                                    fontSize: '18px',
+                                    fontWeight: 600,
+                                    textTransform: 'capitalize',
+                                    letterSpacing: '0.42px',
+                                }}
+                            >
+                                Explore Solutions
+                            </span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="8" y1="16" x2="16" y2="8" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" />
+                                <polyline points="9,8 16,8 16,15" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                            </svg>
+                        </a>
+
+                    </div>
+
+                </div>
+            </section>
+
+
         </div>
-    );
+    )
 }
 
-export default Services;
+export default Services

@@ -1,568 +1,696 @@
-// import React, { useState, useEffect, useRef } from "react";
-// import { useNavigate, Link } from "react-router-dom";
-// import { Download, Award, Star, Trophy, Medal, ArrowRight } from "lucide-react";
-
-// // Import award images
+// import React from 'react'
 // import Award1 from "../assets/Award1.jpeg";
 // import Award2 from "../assets/Award2.jpeg";
 // import Award3 from "../assets/Award3.jpeg";
-
-// // Import team images
-// import RajwantImg from "../assets/rajwant.jpg";
-// import TakshImg from "../assets/taksh.jpg";
-// import AnkitImg from "../assets/anitk.jpg";
-// import AbhijeetImg from "../assets/abijeet.jpg";
-// import JitinImg from "../assets/jitin.jpg";
-
-// // Import team group images
 // import Team1 from "../assets/Team1.jpeg";
 // import Team2 from "../assets/Team2.jpeg";
 // import Team3 from "../assets/Team3.jpeg";
+// import AwardBg from '../assets/Awards.png';
+// import aboutLast from "../assets/AboutLast.png";
+// import rajwant from "../assets/rajwant.jpg";
+// import taksh from "../assets/taksh.jpg";
+// import anitk from "../assets/anitk.jpg";
+// import abijeet from "../assets/abijeet.jpg";
+// import jitin from "../assets/jitin.jpg";
 
-// // --- Helper Component for Counter Animation ---
-// const Counter = ({ end, duration = 2000 }) => {
-//     const [count, setCount] = useState(0);
-//     const [isVisible, setIsVisible] = useState(false);
-//     const countRef = useRef(null);
+// function Awards() {
+//   const awards = [
+//     {
+//       img: Award1,
+//       title: "Excellence In Innovation Award",
+//       desc: "Recognized For Pioneering Cutting-Edge ICT Infrastructure Solutions.",
+//       downloadUrl: Award1, // Points to the image file for download
+//     },
+//     {
+//       img: Award2,
+//       title: "Best Managed Services Provider",
+//       desc: "Awarded For Delivering World-Class Facility Management And IT Outsourcing.",
+//       downloadUrl: Award2,
+//     },
+//     {
+//       img: Award3,
+//       title: "Outstanding Growth & Leadership",
+//       desc: "Honored For Exceptional Leadership In Scaling Global Operations.",
+//       downloadUrl: Award3,
+//     },
+//   ];
 
-//     useEffect(() => {
-//         const observer = new IntersectionObserver(
-//             ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
-//             { threshold: 0.1 }
-//         );
-//         if (countRef.current) observer.observe(countRef.current);
-//         return () => observer.disconnect();
-//     }, []);
+//   const team = [
+//     { img: Team1, title: "Annual Leadership Summit 2023" },
+//     { img: Team2, title: "Team Kavach — Building Tomorrow" },
+//     { img: Team3, title: "Award Ceremony Celebration" },
+//   ];
 
-//     useEffect(() => {
-//         if (!isVisible) return;
-//         let start = 0;
-//         const increment = end / (duration / 16);
-//         const timer = setInterval(() => {
-//             start += increment;
-//             if (start >= end) {
-//                 setCount(end);
-//                 clearInterval(timer);
-//             } else {
-//                 setCount(Math.floor(start));
-//             }
-//         }, 16);
-//         return () => clearInterval(timer);
-//     }, [end, duration, isVisible]);
+//   return (
+//     <div style={{ fontFamily: "'Poppins', sans-serif" }}>
 
-//     return <span ref={countRef}>{count}+</span>;
-// };
+//       {/* ── HERO BANNER ── */}
+//       <div style={{
+//         marginTop: "80px",
+//         backgroundImage: `url(${AwardBg})`,
+//         backgroundSize: "cover",
+//         backgroundPosition: "center",
+//         backgroundRepeat: "no-repeat",
+//         position: "relative",
+//         overflow: "hidden",
+//         padding: "60px 40px",
+//         textAlign: "center",
+//         minHeight: 600,
+//         display: "flex",
+//         flexDirection: "column",
+//         alignItems: "center",
+//         justifyContent: "center",
+//       }}>
+//         <div style={{
+//           position: "absolute", inset: 0,
+//           background: "rgba(10, 31, 68, 0.78)",
+//         }} />
 
-// const Awards = () => {
-//     const navigate = useNavigate();
-//     const [downloadingId, setDownloadingId] = useState(null);
-
-//     // --- Enhanced Scroll Reveal Logic ---
-//     useEffect(() => {
-//         const observerOptions = {
-//             threshold: 0.1,
-//             rootMargin: "0px 0px -50px 0px" // Triggers slightly before the element hits the view
-//         };
-
-//         const observer = new IntersectionObserver((entries) => {
-//             entries.forEach((entry) => {
-//                 if (entry.isIntersecting) {
-//                     entry.target.classList.add("is-visible");
-//                 }
-//             });
-//         }, observerOptions);
-
-//         const scrollElements = document.querySelectorAll(".scroll-reveal");
-//         scrollElements.forEach((el) => observer.observe(el));
-
-//         return () => observer.disconnect();
-//     }, []);
-
-//     const awards = [
-//         { id: 1, image: Award1, filename: "Award1.jpeg", title: "Excellence in Innovation Award", year: "2023", issuer: "India Business Council", description: "Recognized for pioneering cutting-edge ICT infrastructure solutions.", icon: <Trophy className="w-5 h-5" /> },
-//         { id: 2, image: Award2, filename: "Award2.jpeg", title: "Best Managed Services Provider", year: "2022", issuer: "National IT Summit", description: "Awarded for delivering world-class facility management and IT outsourcing.", icon: <Award className="w-5 h-5" /> },
-//         { id: 3, image: Award3, filename: "Award3.jpeg", title: "Outstanding Growth & Leadership", year: "2021", issuer: "Asia Business Forum", description: "Honored for exceptional leadership in scaling global operations.", icon: <Medal className="w-5 h-5" /> },
-//     ];
-
-//     const teamMembers = [
-//         { id: "rajwant-rai", name: "Dr. Rajwant Rai", position: "Chairman, Kavach Group", image: RajwantImg },
-//         { id: "taksh-raval", name: "Mr. Taksh Raval", position: "Group Marketing Director (CMO)", image: TakshImg },
-//         { id: "ankit-sudrania", name: "CA Ankit Sudrania", position: "Chief Financial Officer (CFO)", image: AnkitImg },
-//         { id: "abhijeet-wadikar", name: "Mr. Abhijeet Wadekar", position: "Chief Technology Officer (CTO)", image: AbhijeetImg },
-//         { id: "jitendra-kumar", name: "Mr. Jitendra Kumar", position: "Director – Operations & Business", image: JitinImg },
-//     ];
-
-//     const teamGallery = [
-//         { image: Team1, caption: "Annual Leadership Summit 2023" },
-//         { image: Team2, caption: "Team Kavach — Building Tomorrow" },
-//         { image: Team3, caption: "Award Ceremony Celebration" },
-//     ];
-
-//     const handleDownload = async (award) => {
-//         setDownloadingId(award.id);
-//         try {
-//             const response = await fetch(award.image);
-//             const blob = await response.blob();
-//             const url = URL.createObjectURL(blob);
-//             const link = document.createElement("a");
-//             link.href = url;
-//             link.download = award.filename;
-//             document.body.appendChild(link);
-//             link.click();
-//             document.body.removeChild(link);
-//             URL.revokeObjectURL(url);
-//         } catch { window.open(award.image, "_blank"); }
-//         setTimeout(() => setDownloadingId(null), 1500);
-//     };
-
-//     return (
-//         <div className="min-h-screen bg-white pt-[76px]" style={{ fontFamily: "'Barlow', sans-serif" }}>
-//             <style>{`
-//                 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800&family=Barlow:wght@400;500;600&display=swap');
-
-//                 :root { --org: #e05a00; --org2: #f97316; --dark: #1a2332; }
-
-//                 .kv-h { font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; line-height:1.05; }
-//                 .kv-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--org); display:flex; align-items:center; gap:6px; }
-//                 .kv-label::before { content:''; width:8px; height:8px; border-radius:50%; background:var(--org); }
-
-//                 .kv-btn {
-//                     font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
-//                     padding: 12px 24px; border-radius: 20px 0px 20px 0px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease;
-//                     background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #c2410c 100%); color: #fff; border:none; cursor:pointer;
-//                 }
-//                 .kv-btn:hover { background:#c94e00; transform:translateY(-2px); box-shadow: 0 8px 25px rgba(234,88,12,0.4); border-radius:0px 20px 0px 20px; }
-
-//                 .dot-bg-light { background-image:radial-gradient(rgba(0,0,0,0.04) 1px,transparent 1px); background-size:28px 28px; }
-//                 .dot-bg-dark  { background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px); background-size:28px 28px; }
-
-//                 /* --- ADVANCED SCROLL REVEAL --- */
-//                 .scroll-reveal {
-//                     opacity: 0;
-//                     transform: translateY(60px) scale(0.95);
-//                     transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-//                     will-change: transform, opacity;
-//                 }
-                
-//                 .scroll-reveal.is-visible {
-//                     opacity: 1;
-//                     transform: translateY(0) scale(1);
-//                 }
-
-//                 /* Staggered Delays for Children */
-//                 .stagger-1 { transition-delay: 0.1s; }
-//                 .stagger-2 { transition-delay: 0.2s; }
-//                 .stagger-3 { transition-delay: 0.3s; }
-//                 .stagger-4 { transition-delay: 0.4s; }
-//                 .stagger-5 { transition-delay: 0.5s; }
-
-//                 /* Floating Stats */
-//                 @keyframes floatStat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-//                 .stat-box { animation: floatStat 4s ease-in-out infinite; }
-                
-//                 @keyframes bobA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
-//                 .bob-a { animation:bobA 2.8s ease-in-out infinite; }
-//             `}</style>
-
-//             {/* ── HERO ── */}
-//             <section className="relative py-20 px-4 overflow-hidden dot-bg-dark" style={{ background: '#1a2332' }}>
-//                 <div className="max-w-4xl mx-auto text-center scroll-reveal is-visible">
-//                     <div className="kv-label justify-center mb-5">Recognition & Excellence</div>
-//                     <h1 className="kv-h text-white mb-6" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
-//                         OUR AWARDS & <span style={{ color: 'var(--org)' }}>ACHIEVEMENTS</span>
-//                     </h1>
-//                     <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-10">
-//                         Recognized by leading industry bodies for our commitment to innovation and excellence.
-//                     </p>
-//                     <div className="flex flex-wrap justify-center gap-6">
-//                         {[{v:15, l:"Awards"}, {v:10, l:"Years"}, {v:7, l:"Countries"}].map((s, i) => (
-//                             <div key={i} className={`stat-box flex flex-col items-center px-10 py-6 bg-white/5 border border-white/10 rounded-xl stagger-${i+1}`}>
-//                                 <span className="text-4xl font-bold text-white"><Counter end={s.v} /></span>
-//                                 <span className="text-orange-500 text-[10px] font-bold uppercase tracking-widest">{s.l}</span>
-//                             </div>
-//                         ))}
-//                     </div>
-//                 </div>
-//             </section>
-
-//             {/* ── AWARDS GRID ── */}
-//             <section className="py-24 px-4 bg-white dot-bg-light">
-//                 <div className="max-w-7xl mx-auto">
-//                     <div className="text-center mb-16 scroll-reveal">
-//                         <div className="kv-label justify-center mb-4">The Hall of Fame</div>
-//                         <h2 className="kv-h text-gray-900" style={{ fontSize: '2.5rem' }}>PRESTIGIOUS <span style={{ color: 'var(--org)' }}>RECOGNITIONS</span></h2>
-//                     </div>
-//                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-//                         {awards.map((award, idx) => (
-//                             <div key={award.id} className={`scroll-reveal stagger-${idx+1} group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500`}>
-//                                 <div className="relative h-64 overflow-hidden">
-//                                     <img src={award.image} alt={award.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-//                                     <div className="absolute top-4 left-4 bg-orange-600 text-white px-3 py-1 rounded-full text-xs font-bold">{award.year}</div>
-//                                 </div>
-//                                 <div className="p-6">
-//                                     <h3 className="kv-h text-xl mb-2">{award.title}</h3>
-//                                     <p className="text-gray-500 text-sm mb-6">{award.description}</p>
-//                                     <button onClick={() => handleDownload(award)} className="kv-btn w-full justify-center">
-//                                         {downloadingId === award.id ? "Saving..." : "Download"}
-//                                     </button>
-//                                 </div>
-//                             </div>
-//                         ))}
-//                     </div>
-//                 </div>
-//             </section>
-
-//             {/* ── TEAM GALLERY ── */}
-//             <section className="py-24 px-4 dot-bg-dark" style={{ background: '#111827' }}>
-//                 <div className="max-w-7xl mx-auto">
-//                     <div className="text-center mb-14 scroll-reveal">
-//                         <h2 className="kv-h text-white" style={{ fontSize: '2.5rem' }}>THE SPIRIT OF <span style={{ color: 'var(--org)' }}>OUR TEAM</span></h2>
-//                     </div>
-//                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//                         {teamGallery.map((item, idx) => (
-//                             <div key={idx} className={`scroll-reveal stagger-${idx+1} bob-a relative rounded-xl overflow-hidden h-64 border border-white/5`}>
-//                                 <img src={item.image} alt={item.caption} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
-//                                 <div className="absolute inset-0 bg-gradient-to-t from-black p-6 flex flex-col justify-end">
-//                                     <p className="text-white text-sm font-bold uppercase">{item.caption}</p>
-//                                 </div>
-//                             </div>
-//                         ))}
-//                     </div>
-//                 </div>
-//             </section>
-
-//             {/* ── VISIONARIES (Unchanged visual, added stagger reveal) ── */}
-//             <section className="py-24 px-4 dot-bg-light bg-white border-t border-gray-100">
-//                 <div className="max-w-7xl mx-auto">
-//                     <div className="text-center mb-12 scroll-reveal">
-//                         <div className="kv-label justify-center mb-4">Our Visionaries</div>
-//                         <h2 className="kv-h text-gray-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)' }}>
-//                             LEADERSHIP <span style={{ color: 'var(--org)' }}>EXCELLENCE</span>
-//                         </h2>
-//                     </div>
-//                     <div className="flex flex-wrap justify-center gap-8">
-//                         {teamMembers.map((member, idx) => (
-//                             <div 
-//                                 key={member.id} 
-//                                 onClick={() => navigate(`/team/${member.id}`)} 
-//                                 className={`scroll-reveal stagger-${idx+1} group w-52 bg-white rounded-xl overflow-hidden cursor-pointer border border-gray-200 shadow-sm hover:shadow-xl hover:border-orange-500 transition-all duration-300`}
-//                             >
-//                                 <div className="h-60 overflow-hidden bg-gray-100">
-//                                     <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
-//                                 </div>
-//                                 <div className="p-5 text-center">
-//                                     <h4 className="text-gray-900 font-bold text-xs uppercase tracking-tight group-hover:text-orange-600 transition-colors">{member.name}</h4>
-//                                     <p className="text-orange-600 text-[9px] font-bold uppercase mt-1 leading-tight tracking-widest">{member.position}</p>
-//                                 </div>
-//                             </div>
-//                         ))}
-//                     </div>
-//                 </div>
-//             </section>
-
-//             {/* ── CTA ── */}
-//             <section className="relative py-24 px-4 overflow-hidden dot-bg-light" style={{ background: '#f9fafb' }}>
-//                 <div className="max-w-4xl mx-auto text-center scroll-reveal">
-//                     <h2 className="kv-h mb-2" style={{ fontSize: '3rem', color: '#1a2332' }}>PARTNER WITH THE <span style={{ color: 'var(--org2)' }}>BEST</span></h2>
-//                     <p className="text-lg text-gray-600 mb-10">Experience award-winning service today.</p>
-//                     <Link to="/contact" className="kv-btn shadow-xl">Work With Us <ArrowRight className="w-5 h-5 ml-1" /></Link>
-//                 </div>
-//             </section>
+//         <div style={{
+//           position: "absolute", top: "50%", left: "50%",
+//           transform: "translate(-50%, -50%)",
+//           fontSize: 90, fontWeight: 900,
+//           color: "rgba(255,255,255,0.06)",
+//           textTransform: "uppercase", letterSpacing: 10,
+//           whiteSpace: "nowrap", pointerEvents: "none", lineHeight: 1.1,
+//           zIndex: 1,
+//         }}>
+//           AWARDS<br />NOMINATIONS
 //         </div>
-//     );
-// };
+
+//         <h1 style={{
+//           color: "#fff", fontSize: 38, fontWeight: 700,
+//           textTransform: "uppercase", letterSpacing: 0.76,
+//           position: "relative", zIndex: 2, margin: 0,
+//         }}>
+//           Our Awards &amp; Achievements
+//         </h1>
+//       </div>
+
+//       {/* ── PRESTIGIOUS RECOGNITIONS ── */}
+//       <div style={{ padding: "60px 40px", background: "#fff" }}>
+//         <p style={{
+//           color: "#B42A26", fontSize: 18, fontWeight: 500,
+//           textAlign: "center", letterSpacing: 0.36, marginBottom: 8,
+//         }}>
+//           He Hall Of Fame
+//         </p>
+//         <h2 style={{
+//           textAlign: "center", fontSize: 38, fontWeight: 700,
+//           letterSpacing: 0.76, marginBottom: 40,
+//         }}>
+//           <span style={{ color: "#0A2540" }}>PRESTIGIOUS </span>
+//           <span style={{ color: "#B83934" }}>RECOGNITIONS</span>
+//         </h2>
+
+//         <div style={{
+//           display: "grid",
+//           gridTemplateColumns: "repeat(3, 1fr)",
+//           gap: 28,
+//           maxWidth: 1200,
+//           margin: "0 auto",
+//           alignItems: "stretch",
+//         }}>
+//           {awards.map((a, i) => (
+//             <div key={i} style={{
+//               border: "1px solid #e5e7eb",
+//               borderRadius: 12,
+//               overflow: "hidden",
+//               display: "flex",
+//               flexDirection: "column",
+//             }}>
+//               <img
+//                 src={a.img}
+//                 alt={a.title}
+//                 style={{ width: "100%", height: 280, objectFit: "cover", display: "block" }}
+//               />
+//               <div style={{
+//                 padding: "20px 22px 24px",
+//                 borderTop: "3px solid #DA3934",
+//                 display: "flex",
+//                 flexDirection: "column",
+//                 flex: 1,
+//               }}>
+//                 <p style={{
+//                   fontSize: 22, fontWeight: 700, color: "#000",
+//                   letterSpacing: 0.44, marginBottom: 10,
+//                 }}>
+//                   {a.title}
+//                 </p>
+//                 <p style={{
+//                   fontSize: 16, color: "#494B4D",
+//                   lineHeight: "28px", letterSpacing: 0.32,
+//                   marginBottom: 16, flex: 1,
+//                 }}>
+//                   {a.desc}
+//                 </p>
+//                 {/* Updated Download Link: Added 'download' attribute and removed arrow */}
+//                 <a 
+//                   href={a.downloadUrl} 
+//                   download={a.title}
+//                   style={{
+//                     color: "#DA3934", fontSize: 18, fontWeight: 500,
+//                     letterSpacing: 0.36, textDecoration: "none",
+//                     marginTop: "auto",
+//                   }}
+//                 >
+//                   Download Now
+//                 </a>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* ── THE SPIRIT OF OUR TEAM ── */}
+//       <div style={{ padding: "60px 40px", background: "#fdf6f0" }}>
+//         <h2 style={{
+//           textAlign: "center", fontSize: 38, fontWeight: 700,
+//           letterSpacing: 0.76, marginBottom: 40,
+//         }}>
+//           <span style={{ color: "#0A2540" }}>THE SPIRIT OF OUR </span>
+//           <span style={{ color: "#B83934" }}>TEAM</span>
+//         </h2>
+//         <div style={{
+//           display: "grid",
+//           gridTemplateColumns: "repeat(3, 1fr)",
+//           gap: 28,
+//           maxWidth: 1200,
+//           margin: "0 auto",
+//         }}>
+//           {team.map((t, i) => (
+//             <div key={i} style={{ textAlign: "center" }}>
+//               <img
+//                 src={t.img}
+//                 alt={t.title}
+//                 style={{
+//                   width: "100%", height: 260, objectFit: "cover",
+//                   borderRadius: 12, display: "block", marginBottom: 18,
+//                 }}
+//               />
+//               <p style={{
+//                 fontSize: 22, fontWeight: 700, color: "#000", letterSpacing: 0.44,
+//               }}>
+//                 {t.title}
+//               </p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* ── LEADERSHIP SECTION ── */}
+//       <section className="w-full" style={{ backgroundColor: '#FFFFFF' }}>
+//         <div
+//           className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-16"
+//           style={{ paddingTop: '72px', paddingBottom: '72px' }}
+//         >
+//           <div style={{ textAlign: 'center', marginBottom: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+//             <span style={{ color: '#B42A26', fontSize: '18px', fontWeight: 500, textTransform: 'capitalize', letterSpacing: '0.36px' }}>
+//               Leadership
+//             </span>
+//             <h2 style={{ margin: 0, lineHeight: 1.3, textAlign: 'center' }}>
+//               <span style={{ color: '#0A2540', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
+//                 The Team Turning{' '}
+//               </span>
+//               <span style={{ color: '#B83934', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
+//                 Ideas
+//               </span>
+//               <span style={{ color: '#0A2540', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
+//                 {' '}Into Reality
+//               </span>
+//             </h2>
+//             <p style={{ margin: 0, color: '#494B4D', fontSize: '16px', fontWeight: 400, textTransform: 'capitalize', letterSpacing: '0.32px' }}>
+//               Meet The Visionary Leaders Driving Innovation And Excellence At Kavach Global.
+//             </p>
+//           </div>
+
+//           <div
+//             className="hide-scrollbar"
+//             style={{
+//               display: 'flex',
+//               gap: '32px',
+//               overflowX: 'auto',
+//               paddingBottom: '16px',
+//               paddingTop: '12px',
+//               paddingLeft: '10px',
+//               scrollbarWidth: 'none',
+//               msOverflowStyle: 'none',
+//             }}
+//           >
+//             {[
+//               { img: rajwant, name: 'Dr. Rajwant Rai', role: 'Chairman, Kavach Group' },
+//               { img: taksh, name: 'Mr. Taksh Raval', role: 'Group Marketing Director (CMO)' },
+//               { img: anitk, name: 'CA Ankit Sudrania', role: 'Group Chief Financial Officer' },
+//               { img: abijeet, name: 'Mr. Abhijeet Wadekar', role: 'Chief Technology Officer (CTO)' },
+//               { img: jitin, name: 'Mr. Jitin', role: 'Director, Kavach Group' },
+//             ].map((person, i) => (
+//               <div
+//                 key={i}
+//                 style={{
+//                   flexShrink: 0,
+//                   width: '260px',
+//                   position: 'relative',
+//                   paddingLeft: '8px',
+//                   paddingTop: '8px',
+//                 }}
+//               >
+//                 <div style={{ position: 'absolute', left: '0px', top: '0px', width: '260px', height: '370px', borderRadius: '20px', backgroundColor: '#B83934', zIndex: 0 }} />
+//                 <div className="person-card-hover" style={{ position: 'relative', zIndex: 1, borderRadius: '20px', backgroundColor: '#FFFFFF', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.10)', overflow: 'hidden' }}>
+//                   <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
+//                     <img src={person.img} alt={person.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+//                   </div>
+//                   <div style={{ padding: '14px 16px 16px', backgroundColor: '#FFFFFF', borderTop: '1px solid rgba(10, 37, 64, 0.08)', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+//                     <span style={{ color: '#0A2540', fontSize: '16px', fontWeight: 700, textTransform: 'capitalize', letterSpacing: '0.32px' }}>{person.name}</span>
+//                     <span style={{ color: '#494B4D', fontSize: '13px', fontWeight: 400, textTransform: 'capitalize', letterSpacing: '0.26px' }}>{person.role}</span>
+//                   </div>
+//                 </div>
+//               </div>
+//             ))}
+//             <div style={{ flexShrink: 0, width: '10px' }} />
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* ── FOOTER CTA ── */}
+//       <section
+//         className="w-full relative overflow-hidden"
+//         style={{
+//           backgroundImage: `url(${aboutLast})`,
+//           backgroundSize: 'cover',
+//           backgroundPosition: 'center',
+//           backgroundRepeat: 'no-repeat',
+//         }}
+//       >
+//         <div className="absolute inset-0" style={{ backgroundColor: 'rgba(5, 15, 40, 0.85)', zIndex: 1 }} />
+//         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-16 py-12 lg:py-[60px] relative flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-10" style={{ zIndex: 2 }}>
+//           <div className="flex flex-col gap-3 w-full lg:max-w-[480px]">
+//             <h2 style={{ margin: 0, lineHeight: 1.3 }}>
+//               <span style={{ color: '#FFFFFF', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>READY TO PARTNER <br /> WITH </span>
+//               <span style={{ color: '#FA221C', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>KAVACH</span>
+//               <span style={{ color: '#FFFFFF', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}> GLOBAL!</span>
+//             </h2>
+//             <p style={{ margin: 0, color: '#FFFFFF', fontSize: '18px', fontWeight: 400, textTransform: 'capitalize', lineHeight: '33px', letterSpacing: '0.36px' }}>
+//               Let's Build Something Extraordinary Together. Our Experts Are Ready To Craft Tailored Solutions That Drive Real Results For Your Organization.
+//             </p>
+//           </div>
+//           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto flex-shrink-0">
+//             <a href="/new/contact" className="btn-yellow-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto" style={{ backgroundColor: '#FFD128', padding: '14px 32px', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+//               <span style={{ color: '#0A2540', fontSize: '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Get In Touch</span>
+//               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                 <line x1="8" y1="16" x2="16" y2="8" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" />
+//                 <polyline points="9,8 16,8 16,15" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+//               </svg>
+//             </a>
+//             <a href="/new/services" className="btn-outline-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto" style={{ backgroundColor: 'transparent', padding: '14px 32px', textDecoration: 'none', outline: '2px solid #FFD128', whiteSpace: 'nowrap' }}>
+//               <span style={{ color: '#FFD128', fontSize: '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Explore Solutions</span>
+//               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                 <line x1="8" y1="16" x2="16" y2="8" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" />
+//                 <polyline points="9,8 16,8 16,15" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+//               </svg>
+//             </a>
+//           </div>
+//         </div>
+//       </section>
+//     </div>
+//   );
+// }
 
 // export default Awards;
 
-
-
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { Download, Award, Star, Trophy, Medal, ArrowRight } from "lucide-react";
-
-// Import award images
+import React, { useEffect, useState } from 'react'
 import Award1 from "../assets/Award1.jpeg";
 import Award2 from "../assets/Award2.jpeg";
 import Award3 from "../assets/Award3.jpeg";
-
-// Import team images
-import RajwantImg from "../assets/rajwant.jpg";
-import TakshImg from "../assets/taksh.jpg";
-import AnkitImg from "../assets/anitk.jpg";
-import AbhijeetImg from "../assets/abijeet.jpg";
-import JitinImg from "../assets/jitin.jpg";
-
-// Import team group images
 import Team1 from "../assets/Team1.jpeg";
 import Team2 from "../assets/Team2.jpeg";
 import Team3 from "../assets/Team3.jpeg";
+import AwardBg from '../assets/Awards.png';
+import aboutLast from "../assets/AboutLast.png";
+import rajwant from "../assets/rajwant.jpg";
+import taksh from "../assets/taksh.jpg";
+import anitk from "../assets/anitk.jpg";
+import abijeet from "../assets/abijeet.jpg";
+import jitin from "../assets/jitin.jpg";
 
-// --- Helper Component for Counter Animation ---
-const Counter = ({ end, duration = 2000 }) => {
-    const [count, setCount] = useState(0);
-    const [isVisible, setIsVisible] = useState(false);
-    const countRef = useRef(null);
+function Awards() {
+  const [isMobile, setIsMobile] = useState(false);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
-            { threshold: 0.1 }
-        );
-        if (countRef.current) observer.observe(countRef.current);
-        return () => observer.disconnect();
-    }, []);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
-    useEffect(() => {
-        if (!isVisible) return;
-        let start = 0;
-        const increment = end / (duration / 16);
-        const timer = setInterval(() => {
-            start += increment;
-            if (start >= end) {
-                setCount(end);
-                clearInterval(timer);
-            } else {
-                setCount(Math.floor(start));
-            }
-        }, 16);
-        return () => clearInterval(timer);
-    }, [end, duration, isVisible]);
+  const awards = [
+    {
+      img: Award1,
+      title: "Excellence In Innovation Award",
+      desc: "Recognized For Pioneering Cutting-Edge ICT Infrastructure Solutions.",
+      downloadUrl: Award1,
+    },
+    {
+      img: Award2,
+      title: "Best Managed Services Provider",
+      desc: "Awarded For Delivering World-Class Facility Management And IT Outsourcing.",
+      downloadUrl: Award2,
+    },
+    {
+      img: Award3,
+      title: "Outstanding Growth & Leadership",
+      desc: "Honored For Exceptional Leadership In Scaling Global Operations.",
+      downloadUrl: Award3,
+    },
+  ];
 
-    return <span ref={countRef}>{count}+</span>;
-};
+  const team = [
+    { img: Team1, title: "Annual Leadership Summit 2023" },
+    { img: Team2, title: "Team Kavach — Building Tomorrow" },
+    { img: Team3, title: "Award Ceremony Celebration" },
+  ];
 
-const Awards = () => {
-    const navigate = useNavigate();
-    const [downloadingId, setDownloadingId] = useState(null);
+  return (
+    <div style={{ fontFamily: "'Poppins', sans-serif" }}>
 
-    // --- Enhanced Scroll Reveal Logic ---
-    useEffect(() => {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
+      {/* ── HERO BANNER ── */}
+      <div style={{
+        marginTop: "80px",
+        backgroundImage: `url(${AwardBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative",
+        overflow: "hidden",
+        padding: isMobile ? "40px 20px" : "60px 40px",
+        textAlign: "center",
+        minHeight: isMobile ? 300 : 600,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}>
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "rgba(10, 31, 68, 0.78)",
+        }} />
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("is-visible");
-                }
-            });
-        }, observerOptions);
-
-        const scrollElements = document.querySelectorAll(".scroll-reveal");
-        scrollElements.forEach((el) => observer.observe(el));
-
-        return () => observer.disconnect();
-    }, []);
-
-    const awards = [
-        { id: 1, image: Award1, filename: "Award1.jpeg", title: "Excellence in Innovation Award", year: "2023", issuer: "India Business Council", description: "Recognized for pioneering cutting-edge ICT infrastructure solutions.", icon: <Trophy className="w-5 h-5" /> },
-        { id: 2, image: Award2, filename: "Award2.jpeg", title: "Best Managed Services Provider", year: "2022", issuer: "National IT Summit", description: "Awarded for delivering world-class facility management and IT outsourcing.", icon: <Award className="w-5 h-5" /> },
-        { id: 3, image: Award3, filename: "Award3.jpeg", title: "Outstanding Growth & Leadership", year: "2021", issuer: "Asia Business Forum", description: "Honored for exceptional leadership in scaling global operations.", icon: <Medal className="w-5 h-5" /> },
-    ];
-
-    const teamMembers = [
-        { id: "rajwant-rai", name: "Dr. Rajwant Rai", position: "Chairman, Kavach Group", image: RajwantImg },
-        { id: "taksh-raval", name: "Mr. Taksh Raval", position: "Group Marketing Director (CMO)", image: TakshImg },
-        { id: "ankit-sudrania", name: "CA Ankit Sudrania", position: "Chief Financial Officer (CFO)", image: AnkitImg },
-        { id: "abhijeet-wadikar", name: "Mr. Abhijeet Wadekar", position: "Chief Technology Officer (CTO)", image: AbhijeetImg },
-        { id: "jitendra-kumar", name: "Mr. Jitendra Kumar", position: "Director – Operations & Business", image: JitinImg },
-    ];
-
-    const teamGallery = [
-        { image: Team1, caption: "Annual Leadership Summit 2023" },
-        { image: Team2, caption: "Team Kavach — Building Tomorrow" },
-        { image: Team3, caption: "Award Ceremony Celebration" },
-    ];
-
-    const handleDownload = async (award) => {
-        setDownloadingId(award.id);
-        try {
-            const response = await fetch(award.image);
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = award.filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        } catch { window.open(award.image, "_blank"); }
-        setTimeout(() => setDownloadingId(null), 1500);
-    };
-
-    return (
-        <div className="min-h-screen bg-white pt-[76px]" style={{ fontFamily: "'Barlow', sans-serif" }}>
-            <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800&family=Barlow:wght@400;500;600&display=swap');
-
-                :root { --org: #e05a00; --org2: #f97316; --dark: #1a2332; }
-
-                .kv-h { font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:0.02em; line-height:1.05; }
-                .kv-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--org); display:flex; align-items:center; gap:6px; }
-                .kv-label::before { content:''; width:8px; height:8px; border-radius:50%; background:var(--org); }
-
-                .kv-btn {
-                    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
-                    padding: 12px 24px; border-radius: 20px 0px 20px 0px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease;
-                    background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #c2410c 100%); color: #fff; border:none; cursor:pointer;
-                }
-                .kv-btn:hover { background:#c94e00; transform:translateY(-2px); box-shadow: 0 8px 25px rgba(234,88,12,0.4); border-radius:0px 20px 0px 20px; }
-
-                .dot-bg-light { background-image:radial-gradient(rgba(0,0,0,0.04) 1px,transparent 1px); background-size:28px 28px; }
-                .dot-bg-dark  { background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px); background-size:28px 28px; }
-
-                /* --- ADVANCED SCROLL REVEAL --- */
-                .scroll-reveal {
-                    opacity: 0;
-                    transform: translateY(60px) scale(0.95);
-                    transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-                    will-change: transform, opacity;
-                }
-                
-                .scroll-reveal.is-visible {
-                    opacity: 1;
-                    transform: translateY(0) scale(1);
-                }
-
-                /* Staggered Delays for Children */
-                .stagger-1 { transition-delay: 0.1s; }
-                .stagger-2 { transition-delay: 0.2s; }
-                .stagger-3 { transition-delay: 0.3s; }
-                .stagger-4 { transition-delay: 0.4s; }
-                .stagger-5 { transition-delay: 0.5s; }
-
-                /* Floating Stats */
-                @keyframes floatStat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-                .stat-box { animation: floatStat 4s ease-in-out infinite; }
-                
-                @keyframes bobA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
-                .bob-a { animation:bobA 2.8s ease-in-out infinite; }
-
-                /* Team Gallery Image Brightness */
-                .team-gallery-img {
-                    filter: brightness(1.15) contrast(1.05);
-                    transition: filter 0.7s ease, transform 0.7s ease;
-                }
-                .team-gallery-img:hover {
-                    filter: brightness(1.3) contrast(1.08);
-                    transform: scale(1.05);
-                }
-            `}</style>
-
-            {/* ── HERO ── */}
-            <section className="relative py-20 px-4 overflow-hidden dot-bg-dark" style={{ background: '#1a2332' }}>
-                <div className="max-w-4xl mx-auto text-center scroll-reveal is-visible">
-                    <div className="kv-label justify-center mb-5">Recognition & Excellence</div>
-                    <h1 className="kv-h text-white mb-6" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
-                        OUR AWARDS & <span style={{ color: 'var(--org)' }}>ACHIEVEMENTS</span>
-                    </h1>
-                    <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-10">
-                        Recognized by leading industry bodies for our commitment to innovation and excellence.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-6">
-                        {[{v:15, l:"Awards"}, {v:10, l:"Years"}, {v:7, l:"Countries"}].map((s, i) => (
-                            <div key={i} className={`stat-box flex flex-col items-center px-10 py-6 bg-white/5 border border-white/10 rounded-xl stagger-${i+1}`}>
-                                <span className="text-4xl font-bold text-white"><Counter end={s.v} /></span>
-                                <span className="text-orange-500 text-[10px] font-bold uppercase tracking-widest">{s.l}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── AWARDS GRID ── */}
-            <section className="py-24 px-4 bg-white dot-bg-light">
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-16 scroll-reveal">
-                        <div className="kv-label justify-center mb-4">The Hall of Fame</div>
-                        <h2 className="kv-h text-gray-900" style={{ fontSize: '2.5rem' }}>PRESTIGIOUS <span style={{ color: 'var(--org)' }}>RECOGNITIONS</span></h2>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {awards.map((award, idx) => (
-                            <div key={award.id} className={`scroll-reveal stagger-${idx+1} group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500`}>
-                                <div className="relative h-64 overflow-hidden">
-                                    <img src={award.image} alt={award.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                                    <div className="absolute top-4 left-4 bg-orange-600 text-white px-3 py-1 rounded-full text-xs font-bold">{award.year}</div>
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="kv-h text-xl mb-2">{award.title}</h3>
-                                    <p className="text-gray-500 text-sm mb-6">{award.description}</p>
-                                    <button onClick={() => handleDownload(award)} className="kv-btn w-full justify-center">
-                                        {downloadingId === award.id ? "Saving..." : "Download"}
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── TEAM GALLERY ── */}
-            <section className="py-24 px-4 dot-bg-dark" style={{ background: '#111827' }}>
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-14 scroll-reveal">
-                        <h2 className="kv-h text-white" style={{ fontSize: '2.5rem' }}>THE SPIRIT OF <span style={{ color: 'var(--org)' }}>OUR TEAM</span></h2>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {teamGallery.map((item, idx) => (
-                            <div key={idx} className={`scroll-reveal stagger-${idx+1} bob-a relative rounded-xl overflow-hidden h-64 border border-white/10`}>
-                                {/* ✅ UPDATED: Removed grayscale, added brightness for lighter, colorful images */}
-                                <img
-                                    src={item.image}
-                                    alt={item.caption}
-                                    className="w-full h-full object-cover team-gallery-img"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent p-6 flex flex-col justify-end">
-                                    <p className="text-white text-sm font-bold uppercase tracking-wider">{item.caption}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── VISIONARIES ── */}
-            <section className="py-24 px-4 dot-bg-light bg-white border-t border-gray-100">
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-12 scroll-reveal">
-                        <div className="kv-label justify-center mb-4">Our Visionaries</div>
-                        <h2 className="kv-h text-gray-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)' }}>
-                            LEADERSHIP <span style={{ color: 'var(--org)' }}>EXCELLENCE</span>
-                        </h2>
-                    </div>
-                    <div className="flex flex-wrap justify-center gap-8">
-                        {teamMembers.map((member, idx) => (
-                            <div 
-                                key={member.id} 
-                                onClick={() => navigate(`/team/${member.id}`)} 
-                                className={`scroll-reveal stagger-${idx+1} group w-52 bg-white rounded-xl overflow-hidden cursor-pointer border border-gray-200 shadow-sm hover:shadow-xl hover:border-orange-500 transition-all duration-300`}
-                            >
-                                <div className="h-60 overflow-hidden bg-gray-100">
-                                    <img src={member.image} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
-                                </div>
-                                <div className="p-5 text-center">
-                                    <h4 className="text-gray-900 font-bold text-xs uppercase tracking-tight group-hover:text-orange-600 transition-colors">{member.name}</h4>
-                                    <p className="text-orange-600 text-[9px] font-bold uppercase mt-1 leading-tight tracking-widest">{member.position}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── CTA ── */}
-            <section className="relative py-24 px-4 overflow-hidden dot-bg-light" style={{ background: '#f9fafb' }}>
-                <div className="max-w-4xl mx-auto text-center scroll-reveal">
-                    <h2 className="kv-h mb-2" style={{ fontSize: '3rem', color: '#1a2332' }}>PARTNER WITH THE <span style={{ color: 'var(--org2)' }}>BEST</span></h2>
-                    <p className="text-lg text-gray-600 mb-10">Experience award-winning service today.</p>
-                    <Link to="/contact" className="kv-btn shadow-xl">Work With Us <ArrowRight className="w-5 h-5 ml-1" /></Link>
-                </div>
-            </section>
+        <div style={{
+          position: "absolute", top: "50%", left: "50%",
+          transform: "translate(-50%, -50%)",
+          fontSize: isMobile ? 36 : 90,
+          fontWeight: 900,
+          color: "rgba(255,255,255,0.06)",
+          textTransform: "uppercase",
+          letterSpacing: isMobile ? 4 : 10,
+          whiteSpace: "nowrap",
+          pointerEvents: "none",
+          lineHeight: 1.1,
+          zIndex: 1,
+        }}>
+          AWARDS<br />NOMINATIONS
         </div>
-    );
-};
+
+        <h1 style={{
+          color: "#fff",
+          fontSize: isMobile ? 24 : 38,
+          fontWeight: 700,
+          textTransform: "uppercase",
+          letterSpacing: 0.76,
+          position: "relative",
+          zIndex: 2,
+          margin: 0,
+        }}>
+          Our Awards &amp; Achievements
+        </h1>
+      </div>
+
+      {/* ── PRESTIGIOUS RECOGNITIONS ── */}
+      <div style={{ padding: isMobile ? "40px 20px" : "60px 40px", background: "#fff" }}>
+        <p style={{
+          color: "#B42A26", fontSize: isMobile ? 15 : 18, fontWeight: 500,
+          textAlign: "center", letterSpacing: 0.36, marginBottom: 8,
+        }}>
+          He Hall Of Fame
+        </p>
+        <h2 style={{
+          textAlign: "center",
+          fontSize: isMobile ? 26 : 38,
+          fontWeight: 700,
+          letterSpacing: 0.76,
+          marginBottom: 40,
+        }}>
+          <span style={{ color: "#0A2540" }}>PRESTIGIOUS </span>
+          <span style={{ color: "#B83934" }}>RECOGNITIONS</span>
+        </h2>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+          gap: 28,
+          maxWidth: 1200,
+          margin: "0 auto",
+          alignItems: "stretch",
+        }}>
+          {awards.map((a, i) => (
+            <div key={i} style={{
+              border: "1px solid #e5e7eb",
+              borderRadius: 12,
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+            }}>
+              <img
+                src={a.img}
+                alt={a.title}
+                style={{ width: "100%", height: isMobile ? 220 : 280, objectFit: "cover", display: "block" }}
+              />
+              <div style={{
+                padding: "20px 22px 24px",
+                borderTop: "3px solid #DA3934",
+                display: "flex",
+                flexDirection: "column",
+                flex: 1,
+              }}>
+                <p style={{
+                  fontSize: isMobile ? 18 : 22, fontWeight: 700, color: "#000",
+                  letterSpacing: 0.44, marginBottom: 10,
+                }}>
+                  {a.title}
+                </p>
+                <p style={{
+                  fontSize: isMobile ? 14 : 16, color: "#494B4D",
+                  lineHeight: "28px", letterSpacing: 0.32,
+                  marginBottom: 16, flex: 1,
+                }}>
+                  {a.desc}
+                </p>
+                <a
+                  href={a.downloadUrl}
+                  download={a.title}
+                  style={{
+                    color: "#DA3934", fontSize: isMobile ? 15 : 18, fontWeight: 500,
+                    letterSpacing: 0.36, textDecoration: "none",
+                    marginTop: "auto",
+                  }}
+                >
+                  Download Now
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── THE SPIRIT OF OUR TEAM ── */}
+      <div style={{ padding: isMobile ? "40px 20px" : "60px 40px", background: "#fdf6f0" }}>
+        <h2 style={{
+          textAlign: "center",
+          fontSize: isMobile ? 26 : 38,
+          fontWeight: 700,
+          letterSpacing: 0.76,
+          marginBottom: 40,
+        }}>
+          <span style={{ color: "#0A2540" }}>THE SPIRIT OF OUR </span>
+          <span style={{ color: "#B83934" }}>TEAM</span>
+        </h2>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+          gap: 28,
+          maxWidth: 1200,
+          margin: "0 auto",
+        }}>
+          {team.map((t, i) => (
+            <div key={i} style={{ textAlign: "center" }}>
+              <img
+                src={t.img}
+                alt={t.title}
+                style={{
+                  width: "100%",
+                  height: isMobile ? 200 : 260,
+                  objectFit: "cover",
+                  borderRadius: 12,
+                  display: "block",
+                  marginBottom: 18,
+                }}
+              />
+              <p style={{
+                fontSize: isMobile ? 17 : 22, fontWeight: 700, color: "#000", letterSpacing: 0.44,
+              }}>
+                {t.title}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── LEADERSHIP SECTION ── */}
+      <section className="w-full" style={{ backgroundColor: '#FFFFFF' }}>
+        <div
+          className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-16"
+          style={{ paddingTop: '72px', paddingBottom: '72px' }}
+        >
+          <div style={{ textAlign: 'center', marginBottom: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+            <span style={{ color: '#B42A26', fontSize: isMobile ? '15px' : '18px', fontWeight: 500, textTransform: 'capitalize', letterSpacing: '0.36px' }}>
+              Leadership
+            </span>
+            <h2 style={{ margin: 0, lineHeight: 1.3, textAlign: 'center' }}>
+              <span style={{ color: '#0A2540', fontSize: isMobile ? '24px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
+                The Team Turning{' '}
+              </span>
+              <span style={{ color: '#B83934', fontSize: isMobile ? '24px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
+                Ideas
+              </span>
+              <span style={{ color: '#0A2540', fontSize: isMobile ? '24px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
+                {' '}Into Reality
+              </span>
+            </h2>
+            <p style={{ margin: 0, color: '#494B4D', fontSize: isMobile ? '13px' : '16px', fontWeight: 400, textTransform: 'capitalize', letterSpacing: '0.32px' }}>
+              Meet The Visionary Leaders Driving Innovation And Excellence At Kavach Global.
+            </p>
+          </div>
+
+          <div
+            className="hide-scrollbar"
+            style={{
+              display: 'flex',
+              gap: isMobile ? '20px' : '32px',
+              overflowX: 'auto',
+              paddingBottom: '16px',
+              paddingTop: '12px',
+              paddingLeft: '10px',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
+          >
+            {[
+              { img: rajwant, name: 'Dr. Rajwant Rai', role: 'Chairman, Kavach Group' },
+              { img: taksh, name: 'Mr. Taksh Raval', role: 'Group Marketing Director (CMO)' },
+              { img: anitk, name: 'CA Ankit Sudrania', role: 'Group Chief Financial Officer' },
+              { img: abijeet, name: 'Mr. Abhijeet Wadekar', role: 'Chief Technology Officer (CTO)' },
+              { img: jitin, name: 'Mr. Jitin', role: 'Director, Kavach Group' },
+            ].map((person, i) => (
+              <div
+                key={i}
+                style={{
+                  flexShrink: 0,
+                  width: isMobile ? '200px' : '260px',
+                  position: 'relative',
+                  paddingLeft: '8px',
+                  paddingTop: '8px',
+                }}
+              >
+                <div style={{
+                  position: 'absolute', left: '0px', top: '0px',
+                  width: isMobile ? '200px' : '260px',
+                  height: isMobile ? '290px' : '370px',
+                  borderRadius: '20px', backgroundColor: '#B83934', zIndex: 0
+                }} />
+                <div className="person-card-hover" style={{
+                  position: 'relative', zIndex: 1, borderRadius: '20px',
+                  backgroundColor: '#FFFFFF', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.10)', overflow: 'hidden'
+                }}>
+                  <div style={{ width: '100%', height: isMobile ? '230px' : '300px', overflow: 'hidden' }}>
+                    <img src={person.img} alt={person.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+                  </div>
+                  <div style={{
+                    padding: '14px 16px 16px', backgroundColor: '#FFFFFF',
+                    borderTop: '1px solid rgba(10, 37, 64, 0.08)',
+                    display: 'flex', flexDirection: 'column', gap: '3px'
+                  }}>
+                    <span style={{ color: '#0A2540', fontSize: isMobile ? '13px' : '16px', fontWeight: 700, textTransform: 'capitalize', letterSpacing: '0.32px' }}>{person.name}</span>
+                    <span style={{ color: '#494B4D', fontSize: isMobile ? '11px' : '13px', fontWeight: 400, textTransform: 'capitalize', letterSpacing: '0.26px' }}>{person.role}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div style={{ flexShrink: 0, width: '10px' }} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER CTA ── */}
+      <section
+        className="w-full relative overflow-hidden"
+        style={{
+          backgroundImage: `url(${aboutLast})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(5, 15, 40, 0.85)', zIndex: 1 }} />
+        <div
+          style={{
+            maxWidth: '1280px',
+            margin: '0 auto',
+            padding: isMobile ? '40px 20px' : '60px 64px',
+            position: 'relative',
+            zIndex: 2,
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: isMobile ? 'flex-start' : 'center',
+            justifyContent: 'space-between',
+            gap: isMobile ? '24px' : '40px',
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: isMobile ? '100%' : '480px' }}>
+            <h2 style={{ margin: 0, lineHeight: 1.3 }}>
+              <span style={{ color: '#FFFFFF', fontSize: isMobile ? '26px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>READY TO PARTNER <br /> WITH </span>
+              <span style={{ color: '#FA221C', fontSize: isMobile ? '26px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>KAVACH</span>
+              <span style={{ color: '#FFFFFF', fontSize: isMobile ? '26px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}> GLOBAL!</span>
+            </h2>
+            <p style={{ margin: 0, color: '#FFFFFF', fontSize: isMobile ? '14px' : '18px', fontWeight: 400, textTransform: 'capitalize', lineHeight: '33px', letterSpacing: '0.36px' }}>
+              Let's Build Something Extraordinary Together. Our Experts Are Ready To Craft Tailored Solutions That Drive Real Results For Your Organization.
+            </p>
+          </div>
+          <div style={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: 'stretch',
+            gap: '16px',
+            width: isMobile ? '100%' : 'auto',
+            flexShrink: 0,
+          }}>
+            <a href="/new/contact" className="btn-yellow-hover flex items-center justify-center gap-2 rounded-[10px]" style={{ backgroundColor: '#FFD128', padding: '14px 32px', textDecoration: 'none', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', borderRadius: '10px' }}>
+              <span style={{ color: '#0A2540', fontSize: isMobile ? '15px' : '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Get In Touch</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="8" y1="16" x2="16" y2="8" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" />
+                <polyline points="9,8 16,8 16,15" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+            </a>
+            <a href="/new/services" className="btn-outline-hover flex items-center justify-center gap-2 rounded-[10px]" style={{ backgroundColor: 'transparent', padding: '14px 32px', textDecoration: 'none', outline: '2px solid #FFD128', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', borderRadius: '10px' }}>
+              <span style={{ color: '#FFD128', fontSize: isMobile ? '15px' : '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Explore Solutions</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="8" y1="16" x2="16" y2="8" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" />
+                <polyline points="9,8 16,8 16,15" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
 
 export default Awards;

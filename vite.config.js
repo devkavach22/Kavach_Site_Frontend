@@ -8,8 +8,12 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    host: true,          // ✅ Any IP allowed (0.0.0.0)
+    port: 3000           // (optional) port change karna ho to
+  },
   build: {
-    outDir: 'build',     // 👈 Output folder renamed
-    emptyOutDir: true    // clear old files
+    outDir: 'build',
+    emptyOutDir: true
   }
 })

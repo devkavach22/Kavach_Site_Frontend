@@ -1,288 +1,382 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import KavachLogo2 from '../assets/KavachLogo2.png';
+import { MapPin, Mail, Phone } from 'lucide-react';
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  const [openSection, setOpenSection] = useState(null);
-
-  const toggle = (section) => setOpenSection(openSection === section ? null : section);
-
-  const services = [
-    'Facilities Management Services',
-    'ICT Infra – Solutions & Services',
-    'Energy and Utilities',
-    'Healthcare',
-    'Solutions For Urban Development',
-    'Telecom Network Solutions',
-    'System Integration',
-    'Managed Services',
-    'Smart and Safe Cities',
-  ];
-
-  const quickLinks = [
-    { label: 'Home',       path: '/'        },
-    { label: 'About us',   path: '/about'   },
-    { label: 'Services',   path: '/services'},
-    { label: 'Awards',     path: '/awards'  },
-    { label: 'Contact us', path: '/contact' },
-  ];
-
-  const socials = [
-    { label: 'Twitter',   href: 'https://x.com/Kavach_Security',                           icon: '𝕏'  },
-    { label: 'Facebook',  href: 'https://www.facebook.com/kavachglobal/',                   icon: 'f'  },
-    { label: 'LinkedIn',  href: 'https://in.linkedin.com/company/kavach-security-services', icon: 'in' },
-    { label: 'Instagram', href: 'https://www.instagram.com/kavachglobal/',                  icon: 'ig' },
-  ];
-
+function Footer() {
   return (
-    <footer className="relative bg-gradient-to-br from-orange-950 via-[#2d0a0a] to-black text-white overflow-hidden border-t border-white/10">
+    <footer
+      style={{
+        background: 'linear-gradient(180deg, #FFFDF5 0%, #FFF1F0 100%)',
+        width: '100%',
+      }}
+    >
+      {/* ── HOVER STYLES ── */}
       <style>{`
-        .footer-accordion-body {
-          max-height: 0;
-          overflow: hidden;
-          transition: max-height 0.35s ease;
+        .social-hover {
+          transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
         }
-        .footer-accordion-body.open {
-          max-height: 600px;
+        .social-hover:hover {
+          transform: translateY(-3px);
+          box-shadow: 0px 6px 16px rgba(180, 42, 38, 0.18);
+          border-color: rgba(180, 42, 38, 0.40) !important;
+          background-color: #FFF1F0 !important;
         }
-        .footer-chevron {
-          transition: transform 0.3s ease;
+        .footer-link-hover {
+          transition: color 0.2s ease, letter-spacing 0.2s ease, padding-left 0.2s ease;
         }
-        .footer-chevron.open {
-          transform: rotate(180deg);
+        .footer-link-hover:hover {
+          color: #B42A26 !important;
+          padding-left: 4px;
+        }
+        .contact-link-hover {
+          transition: color 0.2s ease;
+        }
+        .contact-link-hover:hover {
+          color: #B42A26 !important;
+        }
+        .bottom-link-hover {
+          transition: color 0.2s ease;
+        }
+        .bottom-link-hover:hover {
+          color: #B42A26 !important;
         }
       `}</style>
 
-      {/* Background glows */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-[120px] -z-0"></div>
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-red-600/10 rounded-full blur-[100px] -z-0"></div>
+      {/* ── Main Footer Content ── */}
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-16 pt-12 pb-10">
 
-      {/* Top Wave */}
-      <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none rotate-180 z-10">
-        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-12 md:h-16">
-          <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="white" />
-        </svg>
-      </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
 
-      <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-10 xl:px-20 pt-24 pb-10 relative z-10">
+          {/* ── Col 1: Logo + About + Social ── */}
+          <div className="flex flex-col gap-4">
 
-        {/* ── DESKTOP: 4-col grid | MOBILE: brand block only ── */}
+            <img
+              src={KavachLogo2}
+              alt="Kavach Logo"
+              className="w-[140px] object-contain"
+            />
 
-        {/* Mobile-only brand block */}
-        <div className="flex flex-col items-center md:hidden mb-2">
-          <Link to="/" className="inline-flex items-center gap-2 group hover:scale-105 transition-transform duration-300 mb-4">
-            <div className="overflow-hidden flex-shrink-0" style={{ width: '48px', height: '56px' }}>
-              <img src={KavachLogo2} alt="Kavach Shield" className="h-14 w-auto object-contain object-left" style={{ maxWidth: 'none', width: '160px' }} />
-            </div>
-            <span style={{ fontFamily: "'Barlow Condensed', 'Arial Narrow', sans-serif", fontWeight: 800, fontSize: '1.6rem', letterSpacing: '0.08em', color: '#ffffff', textTransform: 'uppercase', lineHeight: 1 }}>KAVACH</span>
-          </Link>
-          <p className="text-gray-400 text-sm leading-relaxed text-center border-l-2 border-orange-500/50 pl-4 max-w-xs mb-5">
-            The Kavach Group is a leading conglomerate providing comprehensive, integrated solutions across Facility Management, ICT Infrastructure, and Analytics.
-          </p>
-          <div className="flex gap-3 justify-center mb-2">
-            {socials.map((s) => (
-              <a key={s.label} href={s.href} className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-tr hover:from-orange-500 hover:to-red-600 hover:border-transparent transition-all duration-300 hover:-translate-y-1 shadow-lg">
-                <span className="font-bold text-sm italic">{s.icon}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Desktop 4-col grid */}
-        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-
-          {/* Col 1: Brand */}
-          <div className="flex flex-col items-start space-y-6">
-            <Link to="/" className="inline-flex items-center gap-2 group hover:scale-105 transition-transform duration-300">
-              <div className="overflow-hidden flex-shrink-0" style={{ width: '48px', height: '56px' }}>
-                <img src={KavachLogo2} alt="Kavach Shield" className="h-14 w-auto object-contain object-left" style={{ maxWidth: 'none', width: '160px' }} />
-              </div>
-              <span style={{ fontFamily: "'Barlow Condensed', 'Arial Narrow', sans-serif", fontWeight: 800, fontSize: '1.6rem', letterSpacing: '0.08em', color: '#ffffff', textTransform: 'uppercase', lineHeight: 1 }}>KAVACH</span>
-            </Link>
-            <p className="text-gray-400 text-sm leading-relaxed text-justify border-l-2 border-orange-500/50 pl-4">
-              The Kavach Group is a leading conglomerate providing comprehensive, integrated solutions. We specialize in Facility Management, ICT Infrastructure, and Data-Driven Analytics.
+            <p
+              style={{
+                margin: 0,
+                color: '#494B4D',
+                fontSize: '14px',
+                fontWeight: 400,
+                textTransform: 'capitalize',
+                lineHeight: '26px',
+                letterSpacing: '0.28px',
+              }}
+            >
+              The Kavach Group Is A Leading Conglomerate Providing Comprehensive, Integrated Solutions. We Specialize In Facility Management, ICT Infrastructure, And Data-Driven Analytics.
             </p>
-            <div className="flex gap-4">
-              {socials.map((s) => (
-                <a key={s.label} href={s.href} className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-tr hover:from-orange-500 hover:to-red-600 hover:border-transparent transition-all duration-300 hover:-translate-y-1 shadow-lg">
-                  <span className="font-bold text-sm italic">{s.icon}</span>
+
+            {/* Social Icons */}
+            <div className="flex gap-2 items-center">
+              {[
+                {
+                  href: 'https://x.com/Kavach_Security',
+                  icon: (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#494B4D">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  ),
+                },
+                {
+                  href: 'https://www.facebook.com/kavachglobal/',
+                  icon: (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#494B4D">
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="#494B4D" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  ),
+                },
+                {
+                  href: 'https://in.linkedin.com/company/kavach-security-services',
+                  icon: (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#494B4D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                      <rect x="2" y="9" width="4" height="12" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
+                  ),
+                },
+                {
+                  href: 'https://www.instagram.com/kavachglobal/',
+                  icon: (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#494B4D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                    </svg>
+                  ),
+                },
+              ].map((social, i) => (
+                <a
+                  key={i}
+                  href={social.href}
+                  className="social-hover flex items-center justify-center flex-shrink-0 bg-white rounded-[8px]"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    border: '1px solid rgba(10, 37, 64, 0.20)',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {social.icon}
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Col 2: Services */}
-          <div className="flex flex-col items-start">
-            <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
-              <span className="w-2 h-6 bg-orange-600 rounded-full"></span>
-              Our Services
+          {/* ── Col 2: Our Services ── */}
+          <div className="flex flex-col gap-4">
+            <h3
+              style={{
+                margin: 0,
+                color: '#0A2540',
+                fontSize: '18px',
+                fontWeight: 700,
+                textTransform: 'capitalize',
+                letterSpacing: '0.36px',
+              }}
+            >
+              Services
             </h3>
-            <ul className="flex flex-col gap-3">
-              {services.map((service) => (
-                <li key={service} className="group">
-                  <Link to="/services" className="text-gray-400 text-sm group-hover:text-white flex items-center gap-3 transition-all duration-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-orange-600 group-hover:scale-150 transition-transform flex-shrink-0"></div>
+            <ul className="m-0 p-0 list-none flex flex-col gap-[10px]">
+              {[
+                'Facilities Management Services',
+                'CT Infra - Solutions & Services',
+                'Energy And Utilities',
+                'Healthcare',
+                'Solutions For Urban Development',
+                'Telecom Network Solutions',
+                'System Integration',
+                'Managed Services',
+                'Smart And Safe Cities',
+              ].map((service, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <span style={{ color: '#B42A26', fontSize: '16px', lineHeight: 1 }}>•</span>
+                  <a
+                    href="#"
+                    className="footer-link-hover"
+                    style={{
+                      color: '#494B4D',
+                      fontSize: '14px',
+                      fontWeight: 400,
+                      textTransform: 'capitalize',
+                      letterSpacing: '0.28px',
+                      textDecoration: 'none',
+                    }}
+                  >
                     {service}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Col 3: Quick Links */}
-          <div className="flex flex-col items-start">
-            <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
-              <span className="w-2 h-6 bg-orange-600 rounded-full"></span>
+          {/* ── Col 3: Quick Links ── */}
+          <div className="flex flex-col gap-4">
+            <h3
+              style={{
+                margin: 0,
+                color: '#0A2540',
+                fontSize: '18px',
+                fontWeight: 700,
+                textTransform: 'capitalize',
+                letterSpacing: '0.36px',
+              }}
+            >
               Quick Links
             </h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.path}>
-                  <Link to={link.path} className="text-gray-400 text-sm hover:text-white flex items-center gap-3 group transition-all">
-                    <div className="w-1.5 h-1.5 rounded-full bg-orange-600 group-hover:scale-150 transition-transform flex-shrink-0"></div>
+            <ul className="m-0 p-0 list-none flex flex-col gap-[10px]">
+              {[
+                { label: 'Home',       href: '/' },
+                { label: 'About Us',   href: '/about' },
+                { label: 'Services',   href: '/services' },
+                { label: 'Awards',     href: '/awards' },
+                { label: 'Contact Us', href: '/contact' },
+              ].map((link, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <span style={{ color: '#B42A26', fontSize: '16px', lineHeight: 1 }}>•</span>
+                  <a
+                    href={link.href}
+                    className="footer-link-hover"
+                    style={{
+                      color: '#494B4D',
+                      fontSize: '14px',
+                      fontWeight: 400,
+                      textTransform: 'capitalize',
+                      letterSpacing: '0.28px',
+                      textDecoration: 'none',
+                    }}
+                  >
                     {link.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Col 4: Contact */}
-          <div className="flex flex-col items-start">
-            <h3 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
-              <span className="w-2 h-6 bg-orange-600 rounded-full"></span>
+          {/* ── Col 4: Contact Info ── */}
+          <div className="flex flex-col gap-4">
+            <h3
+              style={{
+                margin: 0,
+                color: '#0A2540',
+                fontSize: '18px',
+                fontWeight: 700,
+                textTransform: 'capitalize',
+                letterSpacing: '0.36px',
+              }}
+            >
               Contact Info
             </h3>
-            <div className="bg-white/5 p-5 rounded-2xl border border-white/10 backdrop-blur-md space-y-4 w-full">
-              <div className="flex items-start gap-3">
-                <span className="text-orange-500">📍</span>
-                <p className="text-gray-400 text-xs leading-relaxed">A/53, 5th floor, New York Tower, Thaltej, Ahmedabad – 380015.</p>
+
+            <div className="flex flex-col gap-3">
+
+              {/* Address */}
+              <div className="flex items-start gap-[10px]">
+                <MapPin size={18} color="#B42A26" className="flex-shrink-0 mt-[2px]" />
+                <span
+                  style={{
+                    color: '#494B4D',
+                    fontSize: '14px',
+                    fontWeight: 400,
+                    textTransform: 'capitalize',
+                    lineHeight: '24px',
+                    letterSpacing: '0.28px',
+                  }}
+                >
+                  A/53, 5th Floor, New York Tower, Thaltej, Ahmedabad – 380015.
+                </span>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="text-orange-500">✉️</span>
-                <a href="mailto:info@kavachglobal.com" className="text-gray-400 text-xs hover:text-white">info@kavachglobal.com</a>
+
+              {/* Email */}
+              <div className="flex items-center gap-[10px]">
+                <Mail size={18} color="#B42A26" className="flex-shrink-0" />
+                <a
+                  href="mailto:Info@Kavachglobal.Com"
+                  className="contact-link-hover"
+                  style={{
+                    color: '#494B4D',
+                    fontSize: '14px',
+                    fontWeight: 400,
+                    textTransform: 'lowercase',
+                    letterSpacing: '0.28px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  Info@Kavachglobal.Com
+                </a>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="text-orange-500">📞</span>
-                <a href="tel:+917228888904" className="text-gray-400 text-xs hover:text-white">+91 72288 88904</a>
+
+              {/* Phone */}
+              <div className="flex items-center gap-[10px]">
+                <Phone size={18} color="#B42A26" className="flex-shrink-0" />
+                <a
+                  href="tel:+917228888904"
+                  className="contact-link-hover"
+                  style={{
+                    color: '#494B4D',
+                    fontSize: '14px',
+                    fontWeight: 400,
+                    letterSpacing: '0.28px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  +91 72288 88904
+                </a>
               </div>
-              <div className="mt-4 rounded-xl overflow-hidden border border-white/20 group relative">
-                <div className="absolute inset-0 bg-orange-600/20 group-hover:opacity-0 transition-opacity"></div>
-                <iframe title="map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.196!2d72.51!3d23.04!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDAyJzI0LjAiTiA3MsKwMzAnMzYuMCJF!5e0!3m2!1sen!2sin!4v1"
-                  width="100%" height="100"
-                  className="grayscale hover:grayscale-0 transition-all duration-700"
-                  style={{ border: 0 }}
-                ></iframe>
+
+              {/* Map */}
+              <div
+                className="w-full rounded-[12px] overflow-hidden mt-1"
+                style={{
+                  height: '140px',
+                  border: '1px solid rgba(10, 37, 64, 0.15)',
+                  position: 'relative',
+                }}
+              >
+                <iframe
+                  title="Kavach Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.1815971668984!2d72.50992547507385!3d23.056464279160928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b2889d1a7e7%3A0x5c5b5b5b5b5b5b5b!2sNew%20York%20Tower%2C%20Thaltej%2C%20Ahmedabad%2C%20Gujarat%20380054!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                  width="100%"
+                  height="180"
+                  style={{
+                    border: 0,
+                    borderRadius: '12px',
+                    marginTop: '-40px',
+                    display: 'block',
+                  }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
+
             </div>
           </div>
+
         </div>
-
-        {/* ── MOBILE ACCORDION ── */}
-        <div className="md:hidden mt-2 border-t border-white/10">
-
-          {/* Services Accordion */}
-          <div className="border-b border-white/10">
-            <button onClick={() => toggle('services')}
-              className="w-full flex items-center justify-between py-4 text-left">
-              <span className="text-white font-bold text-sm flex items-center gap-2">
-                <span className="w-1.5 h-5 bg-orange-600 rounded-full"></span>
-                Our Services
-              </span>
-              <svg className={`footer-chevron ${openSection === 'services' ? 'open' : ''} w-4 h-4 text-orange-500`}
-                fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div className={`footer-accordion-body ${openSection === 'services' ? 'open' : ''}`}>
-              <ul className="pb-4 flex flex-col gap-2.5 pl-4">
-                {services.map((service) => (
-                  <li key={service}>
-                    <Link to="/services" className="text-gray-400 text-xs hover:text-white flex items-center gap-2.5 transition-colors">
-                      <div className="w-1 h-1 rounded-full bg-orange-600 flex-shrink-0"></div>
-                      {service}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Quick Links Accordion */}
-          <div className="border-b border-white/10">
-            <button onClick={() => toggle('links')}
-              className="w-full flex items-center justify-between py-4 text-left">
-              <span className="text-white font-bold text-sm flex items-center gap-2">
-                <span className="w-1.5 h-5 bg-orange-600 rounded-full"></span>
-                Quick Links
-              </span>
-              <svg className={`footer-chevron ${openSection === 'links' ? 'open' : ''} w-4 h-4 text-orange-500`}
-                fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div className={`footer-accordion-body ${openSection === 'links' ? 'open' : ''}`}>
-              <ul className="pb-4 flex flex-col gap-2.5 pl-4">
-                {quickLinks.map((link) => (
-                  <li key={link.path}>
-                    <Link to={link.path} className="text-gray-400 text-xs hover:text-white flex items-center gap-2.5 transition-colors">
-                      <div className="w-1 h-1 rounded-full bg-orange-600 flex-shrink-0"></div>
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Contact Accordion */}
-          <div className="border-b border-white/10">
-            <button onClick={() => toggle('contact')}
-              className="w-full flex items-center justify-between py-4 text-left">
-              <span className="text-white font-bold text-sm flex items-center gap-2">
-                <span className="w-1.5 h-5 bg-orange-600 rounded-full"></span>
-                Contact Info
-              </span>
-              <svg className={`footer-chevron ${openSection === 'contact' ? 'open' : ''} w-4 h-4 text-orange-500`}
-                fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div className={`footer-accordion-body ${openSection === 'contact' ? 'open' : ''}`}>
-              <div className="pb-4 pl-2 space-y-3">
-                <div className="flex items-start gap-3">
-                  <span className="text-orange-500 text-sm">📍</span>
-                  <p className="text-gray-400 text-xs leading-relaxed">A/53, 5th floor, New York Tower, Thaltej, Ahmedabad – 380015.</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-orange-500 text-sm">✉️</span>
-                  <a href="mailto:info@kavachglobal.com" className="text-gray-400 text-xs hover:text-white">info@kavachglobal.com</a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-orange-500 text-sm">📞</span>
-                  <a href="tel:+917228888904" className="text-gray-400 text-xs hover:text-white">+91 72288 88904</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── BOTTOM BAR ── */}
-        <div className="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-3 text-center">
-          <p className="text-gray-500 text-xs tracking-wide">
-            © {currentYear} <span className="text-orange-500 font-bold uppercase tracking-tighter">Kavach Global</span>. All Rights Reserved.
-          </p>
-          <div className="flex gap-6">
-            <Link to="/privacy" className="text-gray-500 text-xs hover:text-orange-500 transition-colors">Privacy Policy</Link>
-            <Link to="/terms"   className="text-gray-500 text-xs hover:text-orange-500 transition-colors">Terms of Use</Link>
-          </div>
-        </div>
-
       </div>
+
+      {/* ── Bottom Bar ── */}
+      <div
+        style={{
+          borderTop: '1px solid rgba(10, 37, 64, 0.12)',
+          backgroundColor: 'rgba(255,255,255,0.4)',
+        }}
+      >
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-16 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-center">
+          <span
+            style={{
+              color: '#494B4D',
+              fontSize: '14px',
+              fontWeight: 400,
+              letterSpacing: '0.28px',
+            }}
+          >
+            © 2026{' '}
+            <span style={{ color: '#B42A26', fontWeight: 600 }}>Kavach Global.</span>
+            {' '}All Rights Reserved.
+          </span>
+
+          <div className="flex gap-4 items-center">
+            <a
+              href="/privacy-policy"
+              className="bottom-link-hover"
+              style={{
+                color: '#494B4D',
+                fontSize: '14px',
+                fontWeight: 400,
+                textDecoration: 'none',
+                letterSpacing: '0.28px',
+              }}
+            >
+              Privacy Policy
+            </a>
+            <span style={{ color: '#494B4D' }}>|</span>
+            <a
+              href="/terms"
+              className="bottom-link-hover"
+              style={{
+                color: '#494B4D',
+                fontSize: '14px',
+                fontWeight: 400,
+                textDecoration: 'none',
+                letterSpacing: '0.28px',
+              }}
+            >
+              Terms Of Use
+            </a>
+          </div>
+        </div>
+      </div>
+
     </footer>
   );
-};
+}
 
 export default Footer;
