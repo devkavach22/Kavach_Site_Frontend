@@ -73,13 +73,13 @@ const CareerPage = () => {
   // ── Controlled form state ──
   const [formData, setFormData] = useState({ name: '', email: '', position: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   const handleSubmit = () => {
     if (!formData.name || !formData.email || !formData.position) {
       alert('Please fill in all required fields.');
       return;
     }
-    // Submit logic here (e.g. API call)
     setSubmitted(true);
     setFormData({ name: '', email: '', position: '', message: '' });
     setTimeout(() => setSubmitted(false), 4000);
@@ -156,7 +156,20 @@ const CareerPage = () => {
           {/* Job List */}
           <div style={{ flex: '2', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
             {jobVacancies.map((job, index) => (
-              <div key={index} style={{ padding: '25px', background: 'white', borderRadius: '15px', borderBottom: '3px solid #B83934', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
+              <div
+                key={index}
+                onMouseEnter={() => setHoveredCard(`job-${index}`)}
+                onMouseLeave={() => setHoveredCard(null)}
+                style={{
+                  padding: '25px', background: 'white', borderRadius: '15px',
+                  borderBottom: '3px solid #B83934',
+                  boxShadow: hoveredCard === `job-${index}`
+                    ? '0 12px 30px rgba(184,57,52,0.18)' : '0 4px 10px rgba(0,0,0,0.05)',
+                  transform: hoveredCard === `job-${index}` ? 'translateY(-6px)' : 'translateY(0)',
+                  transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+                  cursor: 'pointer',
+                }}
+              >
                 <div style={{ color: '#6B7280', fontSize: '13px', marginBottom: '5px' }}>{job.type}</div>
                 <div style={{ color: '#B83934', fontSize: '20px', fontWeight: '700', marginBottom: '12px' }}>{job.title}</div>
                 <p style={{ color: '#494B4D', fontSize: '14px', lineHeight: '1.6', marginBottom: '20px' }}>{job.desc}</p>
@@ -189,7 +202,6 @@ const CareerPage = () => {
               maxLength={100}
               onChange={e => {
                 const value = e.target.value;
-                // Only allow letters and spaces
                 if (/^[a-zA-Z\s]*$/.test(value)) {
                   setFormData({ ...formData, name: value });
                 }
@@ -202,7 +214,6 @@ const CareerPage = () => {
               value={formData.email}
               onChange={e => {
                 const value = e.target.value;
-                // Support letters, numbers, and @ . _ + -
                 if (/^[a-zA-Z0-9@._+-]*$/.test(value)) {
                   setFormData({ ...formData, email: value });
                 }
@@ -252,7 +263,20 @@ const CareerPage = () => {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
           {benefits.map((b, i) => (
-            <div key={i} style={{ padding: '30px 20px', background: 'white', borderRadius: '15px', borderBottom: '4px solid #B83934', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
+            <div
+              key={i}
+              onMouseEnter={() => setHoveredCard(`benefit-${i}`)}
+              onMouseLeave={() => setHoveredCard(null)}
+              style={{
+                padding: '30px 20px', background: 'white', borderRadius: '15px',
+                borderBottom: '4px solid #B83934',
+                boxShadow: hoveredCard === `benefit-${i}`
+                  ? '0 12px 30px rgba(184,57,52,0.18)' : '0 4px 15px rgba(0,0,0,0.05)',
+                transform: hoveredCard === `benefit-${i}` ? 'translateY(-6px)' : 'translateY(0)',
+                transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+                cursor: 'pointer',
+              }}
+            >
               <div style={{ color: '#B42A26', fontWeight: '700', fontSize: '18px', marginBottom: '10px' }}>{b.title}</div>
               <div style={{ color: '#494B4D', fontSize: '14px', lineHeight: '1.6' }}>{b.desc}</div>
             </div>

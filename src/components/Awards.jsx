@@ -52,6 +52,35 @@ function Awards() {
 
   return (
     <div style={{ }}>
+      <style>{`
+        /* The entire card lifts together */
+        .full-card-hover {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          overflow: hidden;
+        }
+        .full-card-hover:hover {
+          transform: translateY(-10px);
+          box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* The image inside zooms while the card lifts */
+        .img-zoom {
+          transition: transform 0.5s ease;
+        }
+        .full-card-hover:hover .img-zoom {
+          transform: scale(1.05);
+        }
+
+        .person-card-hover {
+          transition: all 0.3s ease;
+        }
+        .person-card-hover:hover {
+          transform: translateY(-5px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
 
       {/* ── HERO BANNER ── */}
       <div style={{
@@ -133,18 +162,22 @@ function Awards() {
           alignItems: "stretch",
         }}>
           {awards.map((a, i) => (
-            <div key={i} style={{
+            <div key={i} className="full-card-hover" style={{
               border: "1px solid #e5e7eb",
               borderRadius: 12,
-              overflow: "hidden",
               display: "flex",
               flexDirection: "column",
+              background: "#fff"
             }}>
-              <img
-                src={a.img}
-                alt={a.title}
-                style={{ width: "100%", height: isMobile ? 220 : 280, objectFit: "cover", display: "block" }}
-              />
+              <div style={{ overflow: "hidden" }}>
+                <img
+                  src={a.img}
+                  alt={a.title}
+                  className="img-zoom"
+                  style={{ width: "100%", height: isMobile ? 220 : 280, objectFit: "cover", display: "block" }}
+                />
+              </div>
+              
               <div style={{
                 padding: "20px 22px 24px",
                 borderTop: "3px solid #DA3934",
@@ -202,21 +235,23 @@ function Awards() {
           margin: "0 auto",
         }}>
           {team.map((t, i) => (
-            <div key={i} style={{ textAlign: "center" }}>
-              <img
-                src={t.img}
-                alt={t.title}
-                style={{
-                  width: "100%",
-                  height: isMobile ? 200 : 260,
-                  objectFit: "cover",
-                  borderRadius: 12,
-                  display: "block",
-                  marginBottom: 18,
-                }}
-              />
+            <div key={i} className="full-card-hover" style={{ textAlign: "center", background: "#fff", borderRadius: 12, paddingBottom: '16px' }}>
+              <div style={{ borderRadius: '12px 12px 0 0', overflow: 'hidden' }}>
+                <img
+                  src={t.img}
+                  alt={t.title}
+                  className="img-zoom"
+                  style={{
+                    width: "100%",
+                    height: isMobile ? 200 : 260,
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              </div>
+              
               <p style={{
-                fontSize: isMobile ? 17 : 22, fontWeight: 700, color: "#000", letterSpacing: 0.44,
+                fontSize: isMobile ? 17 : 22, fontWeight: 700, color: "#000", letterSpacing: 0.44, marginTop: '18px', padding: '0 10px'
               }}>
                 {t.title}
               </p>

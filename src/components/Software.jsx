@@ -68,6 +68,26 @@ function Software() {
 
     return (
         <div className="min-h-screen bg-white">
+            <style>{`
+                /* The entire card lifts together */
+                .full-card-hover {
+                    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+                    cursor: pointer;
+                }
+                .full-card-hover:hover {
+                    transform: translateY(-12px);
+                    box-shadow: 0px 15px 35px rgba(0,0,0,0.1);
+                }
+
+                /* The icon container zooms slightly on hover */
+                .icon-container {
+                    transition: transform 0.5s ease;
+                }
+                .full-card-hover:hover .icon-container {
+                    transform: scale(1.1);
+                }
+            `}</style>
+
             {/* Hero Section */}
             <section
                 style={heroStyle}
@@ -139,9 +159,9 @@ function Software() {
                         {solutions.map((item, index) => (
                             <div
                                 key={index}
-                                className="bg-white p-8 rounded-[20px] shadow-sm border-b-4 border-transparent hover:border-[#B83934] transition-all duration-300 group"
+                                className="full-card-hover bg-white p-8 rounded-[20px] shadow-sm border-b-4 border-transparent hover:border-[#B83934]"
                             >
-                                <div className="mb-6 w-16 h-16 bg-[#FDF2F2] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <div className="icon-container mb-6 w-16 h-16 bg-[#FDF2F2] rounded-2xl flex items-center justify-center">
                                     {item.icon}
                                 </div>
                                 <h3 className="text-[#B83934] text-xl font-bold mb-4 leading-tight">
