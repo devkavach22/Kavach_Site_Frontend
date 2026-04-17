@@ -7,14 +7,15 @@ import aboutLast from "../assets/AboutLast.png";
 
 // Updated MARKERS with specific offsets to prevent UK/Ireland overlap
 const MARKERS = [
-  { name: "USA", cx: 180, cy: 165, region: "Americas" },
-  { name: "Ireland", cx: 418, cy: 108, region: "Europe", labelAnchor: "middle", labelDx: 0, labelDy: -14 },
-  { name: "UK", cx: 462, cy: 118, region: "Europe", labelAnchor: "middle", labelDx: 0, labelDy: -14 },
-  { name: "Dubai", cx: 595, cy: 215, region: "Middle East" },
-  { name: "India", cx: 655, cy: 235, region: "Asia", isHQ: true },
-  { name: "Singapore", cx: 735, cy: 305, region: "Asia" },
-  { name: "Australia", cx: 810, cy: 385, region: "Oceania" },
+  { name: "USA", cx: 210, cy: 185, region: "Americas" },
+  { name: "Ireland", cx: 445, cy: 135, region: "Europe", labelAnchor: "end", labelDx: -10, labelDy: 0 },
+  { name: "UK", cx: 465, cy: 145, region: "Europe", labelAnchor: "start", labelDx: 10, labelDy: 0 },
+  { name: "Dubai", cx: 595, cy: 245, region: "Middle East" },
+  { name: "India", cx: 665, cy: 270, region: "Asia", isHQ: true },
+  { name: "Singapore", cx: 745, cy: 345, region: "Asia" },
+  { name: "Australia", cx: 820, cy: 410, region: "Oceania" },
 ];
+
 function WorldMap({ activeLocation, onHover }) {
   return (
     <div style={{ position: "relative", width: "100%", background: "#f9fafb", borderRadius: 16, overflow: "hidden" }}>
@@ -24,7 +25,6 @@ function WorldMap({ activeLocation, onHover }) {
           const isActive = activeLocation === loc.name;
           const r = loc.isHQ ? 7 : 6;
           
-          // Use specific offsets if provided, otherwise default to center-top
           const textX = loc.cx + (loc.labelDx || 0);
           const textY = loc.cy + (loc.labelDy || -(r + 8));
           const anchor = loc.labelAnchor || "middle";
@@ -56,9 +56,21 @@ function ContactPage() {
   const [activeLocation, setActiveLocation] = useState(null);
 
   const offices = [
-    { title: 'Ahmedabad', address: 'A/53, 5th floor, New York Tower, Thaltej, S G Highway, Ahmedabad - 380015.' },
-    { title: 'Himachal Pradesh', address: '29, First Floor, Block1, Dev Bhoomi Apartments, Deonghat, Solan - 173211' },
-    { title: 'Ayodhya', address: '4th Floor, Arundhati Bhawan West, Tedhi Bajar, Ayodhya, UP - 224123' }
+    { 
+      title: 'Ahmedabad', 
+      address: 'A/53, 5th floor, New York Tower, Thaltej, S G Highway, Ahmedabad - 380015.',
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=New+York+Tower+Thaltej+Ahmedabad' 
+    },
+    { 
+      title: 'Himachal Pradesh', 
+      address: '29, First Floor, Block1, Dev Bhoomi Apartments, Deonghat, Solan - 173211',
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=Dev+Bhoomi+Apartments+Deonghat+Solan' 
+    },
+    { 
+      title: 'Ayodhya', 
+      address: '4th Floor, Arundhati Bhawan West, Tedhi Bajar, Ayodhya, UP - 224123',
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=Arundhati+Bhawan+West+Ayodhya' 
+    }
   ];
 
   const stats = [
@@ -202,14 +214,29 @@ function ContactPage() {
                 </div>
                 <h4 style={{ color: "#B42A26", fontSize: 21, fontWeight: 700, marginBottom: 5 }}>{off.title}</h4>
                 <p style={{ color: "#494B4D", fontSize: 15, lineHeight: "26px", marginBottom: 15 }}>{off.address}</p>
-                <div style={{ color: "#B83934", fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", gap: 5 }}>
+                
+                <a 
+                  href={off.mapUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  style={{ color: "#B83934", fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", gap: 5, textDecoration: "none" }}
+                >
                   View On Map <ArrowRight size={16} />
-                </div>
+                </a>
               </div>
             ))}
           </div>
           <div className="cp-office-map" style={{ borderRadius: 20, overflow: "hidden", border: "1px solid #ddd", minHeight: 400 }}>
-             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.6979267156947!2d72.50604437591632!3d23.03487011589133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b94093c8301%3A0xc3f1a2384a8677a2!2sNew%20York%20Tower!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" width="100%" height="100%" style={{ border: 0, minHeight: 400 }} allowFullScreen="" loading="lazy"></iframe>
+             {/* Updated iframe for Thaltej, Ahmedabad location */}
+             <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.213715206981!2d72.50503037592497!3d23.052602715197845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b9800000001%3A0xc3f5247926715f3e!2sNew+York+Tower!5e0!3m2!1sen!2sin!4v1713400000000!5m2!1sen!2sin" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0, minHeight: 400 }} 
+                allowFullScreen="" 
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+             ></iframe>
           </div>
         </div>
       </section>

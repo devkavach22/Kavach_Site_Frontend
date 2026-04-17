@@ -74,6 +74,7 @@ const slides = [
     img: img5,
     title: 'Software Development',
     desc: 'Delivering Scalable, Secure, And Customized Software Solutions Tailored To Meet Evolving Business Needs.',
+    mobileObjectPosition: 'left center',
   },
 ];
 const extendedSlides = [slides[slides.length - 1], ...slides, slides[0]];
@@ -325,7 +326,7 @@ function Home() {
                 src={slide.img}
                 alt={`Slide ${index}`}
                 className="w-full h-full object-cover pointer-events-none"
-                style={{ objectPosition: 'center center' }}
+                style={{ objectPosition: isMobile ? (slide.mobileObjectPosition || 'center center') : 'center center' }}
                 draggable={false}
               />
 
@@ -333,14 +334,15 @@ function Home() {
               <div
                 style={{
                   position: 'absolute',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
+                  ...(isMobile
+                    ? { bottom: '28px', top: 'auto', transform: 'none' }
+                    : { top: '50%', transform: 'translateY(-50%)' }),
                   right: isMobile ? '16px' : '6%',
                   left: isMobile ? '16px' : 'auto',
                   maxWidth: isMobile ? 'calc(100% - 32px)' : '45%',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: isMobile ? '12px' : '24px',
+                  gap: isMobile ? '0px' : '24px',
                   textAlign: isMobile ? 'left' : 'left',
                 }}
               >
@@ -349,12 +351,15 @@ function Home() {
                   pointerEvents: 'none',
                   background: isMobile ? 'rgba(0, 0, 0, 0.45)' : 'none',
                   borderRadius: isMobile ? '10px' : '0',
-                  padding: isMobile ? '10px 14px' : '0',
+                  padding: isMobile ? '14px 14px 16px' : '0',
                   backdropFilter: isMobile ? 'blur(2px)' : 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: isMobile ? '12px' : '0',
                 }}>
                   <h2
                     style={{
-                      margin: '0 0 12px 0',
+                      margin: isMobile ? '0' : '0 0 12px 0',
                       color: '#B42A26',
                       fontSize: isMobile ? '22px' : '48px',
                       fontWeight: 800,
@@ -379,41 +384,77 @@ function Home() {
                   >
                     {slide.desc}
                   </p>
+
+                  {/* Get In Touch button — inside dark box on mobile */}
+                  {isMobile && (
+                    <div style={{ pointerEvents: 'auto' }}>
+                      <a
+                        href="/contact"
+                        className="inline-flex items-center gap-2 bg-[#F5C518] hover:brightness-105 transition-all no-underline text-[13px] px-[14px] py-[8px]"
+                        style={{
+                          color: '#0A2540',
+                          fontWeight: 600,
+                          textTransform: 'capitalize',
+                          letterSpacing: '0.42px',
+                          whiteSpace: 'nowrap',
+                          textDecoration: 'none',
+                          borderRadius: '10px',
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Get In Touch
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#0A2540"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <line x1="7" y1="17" x2="17" y2="7" />
+                          <polyline points="7 7 17 7 17 17" />
+                        </svg>
+                      </a>
+                    </div>
+                  )}
                 </div>
 
-                {/* Get In Touch button */}
-                <div>
-                  <a
-                    href="/contact"
-                    className="inline-flex items-center gap-2 bg-[#F5C518] hover:brightness-105 transition-all no-underline pointer-events-auto text-[13px] px-[14px] py-[8px] md:text-[16px] md:px-[20px] md:py-[10px]"
-                    style={{
-                      color: '#0A2540',
-                      fontWeight: 600,
-                      textTransform: 'capitalize',
-                      letterSpacing: '0.42px',
-                      whiteSpace: 'nowrap',
-                      textDecoration: 'none',
-                      borderRadius: '10px',
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Get In Touch
-                    <svg
-                      width="14"
-                      height="14"
-                      className="md:w-4 md:h-4"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#0A2540"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                {/* Get In Touch button — outside box on desktop */}
+                {!isMobile && (
+                  <div>
+                    <a
+                      href="/contact"
+                      className="inline-flex items-center gap-2 bg-[#F5C518] hover:brightness-105 transition-all no-underline pointer-events-auto md:text-[16px] md:px-[20px] md:py-[10px]"
+                      style={{
+                        color: '#0A2540',
+                        fontWeight: 600,
+                        textTransform: 'capitalize',
+                        letterSpacing: '0.42px',
+                        whiteSpace: 'nowrap',
+                        textDecoration: 'none',
+                        borderRadius: '10px',
+                      }}
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      <line x1="7" y1="17" x2="17" y2="7" />
-                      <polyline points="7 7 17 7 17 17" />
-                    </svg>
-                  </a>
-                </div>
+                      Get In Touch
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#0A2540"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <line x1="7" y1="17" x2="17" y2="7" />
+                        <polyline points="7 7 17 7 17 17" />
+                      </svg>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           ))}
