@@ -167,7 +167,7 @@ const CareerPage = () => {
             ))}
           </div>
 
-          {/* Application Form — NO <form> tag, fully controlled */}
+          {/* Application Form */}
           <div className="application-form" style={{ flex: '1', background: '#FFF1F0', padding: '30px', borderRadius: '20px', height: 'fit-content' }}>
             <h3 style={{ textAlign: 'center', color: '#0A2540', marginBottom: '25px' }}>Join Our Team</h3>
 
@@ -186,14 +186,27 @@ const CareerPage = () => {
               placeholder="Your Name*"
               className="input-field"
               value={formData.name}
-              onChange={e => setFormData({ ...formData, name: e.target.value })}
+              maxLength={100}
+              onChange={e => {
+                const value = e.target.value;
+                // Only allow letters and spaces
+                if (/^[a-zA-Z\s]*$/.test(value)) {
+                  setFormData({ ...formData, name: value });
+                }
+              }}
             />
             <input
               type="email"
               placeholder="Your Email*"
               className="input-field"
               value={formData.email}
-              onChange={e => setFormData({ ...formData, email: e.target.value })}
+              onChange={e => {
+                const value = e.target.value;
+                // Support letters, numbers, and @ . _ + -
+                if (/^[a-zA-Z0-9@._+-]*$/.test(value)) {
+                  setFormData({ ...formData, email: value });
+                }
+              }}
             />
             <CustomSelect
               placeholder="Position Applied For*"
@@ -206,8 +219,12 @@ const CareerPage = () => {
               className="input-field"
               style={{ height: '100px', resize: 'none' }}
               value={formData.message}
+              maxLength={250}
               onChange={e => setFormData({ ...formData, message: e.target.value })}
             />
+            <div style={{ textAlign: 'right', fontSize: '12px', color: '#6B7280', marginTop: '-10px', marginBottom: '10px' }}>
+              {formData.message.length}/250
+            </div>
             <button
               type="button"
               onClick={handleSubmit}

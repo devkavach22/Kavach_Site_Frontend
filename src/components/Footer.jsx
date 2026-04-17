@@ -40,6 +40,12 @@ function Footer() {
         .bottom-link-hover:hover {
           color: #B42A26 !important;
         }
+        .address-hover {
+          transition: color 0.2s ease;
+        }
+        .address-hover:hover {
+          color: #B42A26 !important;
+        }
       `}</style>
 
       {/* ── Main Footer Content ── */}
@@ -198,7 +204,6 @@ function Footer() {
                 { label: 'Awards', href: '/new/awards' },
                 { label: 'Career', href: '/new/career' },
                 { label: 'Contact Us', href: '/new/contact' },
-
               ].map((link, i) => (
                 <li key={i} className="flex items-center gap-2">
                   <span style={{ color: '#B42A26', fontSize: '16px', lineHeight: 1 }}>•</span>
@@ -238,10 +243,14 @@ function Footer() {
 
             <div className="flex flex-col gap-3">
 
-              {/* Address */}
+              {/* Address — clickable Google Maps link */}
               <div className="flex items-start gap-[10px]">
                 <MapPin size={18} color="#B42A26" className="flex-shrink-0 mt-[2px]" />
-                <span
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=A%2F53+5th+Floor+New+York+Tower+Thaltej+Ahmedabad+380054"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="address-hover"
                   style={{
                     color: '#494B4D',
                     fontSize: '14px',
@@ -249,10 +258,11 @@ function Footer() {
                     textTransform: 'capitalize',
                     lineHeight: '24px',
                     letterSpacing: '0.28px',
+                    textDecoration: 'none',
                   }}
                 >
                   A/53, 5th Floor, New York Tower, Thaltej, Ahmedabad – 380054.
-                </span>
+                </a>
               </div>
 
               {/* Email */}
@@ -303,7 +313,7 @@ function Footer() {
               >
                 <iframe
                   title="Kavach Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.1815971668984!2d72.50992547507385!3d23.056464279160928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b2889d1a7e7%3A0x5c5b5b5b5b5b5b5b!2sNew%20York%20Tower%2C%20Thaltej%2C%20Ahmedabad%2C%20Gujarat%20380054!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.187523235021!2d72.5169978113869!3d23.053585679065186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e8548c0dc0ac7%3A0xa0ee50a3ce97e719!2sKavach%20Global%20Konnects%20Pvt%20Ltd%20%7C%20Best%20Facility%20Management%20Services!5e0!3m2!1sen!2sin!4v1776426004857!5m2!1sen!2sin"
                   width="100%"
                   height="180"
                   style={{

@@ -57,6 +57,7 @@ const slides = [
     img: img2,
     title: 'EPC Works',
     desc: 'Delivering End-To-End EPC Solutions Across Urban Development, Power Transmission & Distribution, And Renewable Energy Projects.',
+    mobileObjectPosition: 'left center',
   },
   {
     img: img3,
