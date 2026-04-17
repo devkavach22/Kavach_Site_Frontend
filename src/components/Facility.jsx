@@ -41,33 +41,40 @@ function Facility() {
             icon: <Monitor className="w-8 h-8 text-[#B83934]" />
         },
         {
-            title: "Building Management",
-            desc: "Integrated solutions for optimizing energy use, lighting, and climate control within facilities.",
+            title: "Command Control Center",
+            desc: "Centralized control hubs that integrate systems for better decision-making, coordination, and operational efficiency.",
             icon: <Layout className="w-8 h-8 text-[#B83934]" />
         },
         {
-            title: "Preventive Maintenance",
-            desc: "Scheduled inspections and repairs to avoid unexpected failures and extend asset life.",
+            title: "Asset & Maintenance Management",
+            desc: "Proactive maintenance and asset tracking solutions to ensure optimal performance, reduced downtime, and extended lifecycle of infrastructure.",
             icon: <Wrench className="w-8 h-8 text-[#B83934]" />
-        },
+        }
+    ];
+
+    const approaches = [
         {
-            title: "Risk Assessment",
-            desc: "Comprehensive evaluation of potential vulnerabilities to develop effective mitigation strategies.",
+            number: "01",
+            title: "Understand",
+            desc: "We analyze your requirements, challenges, and objectives to design the right solution.",
             icon: <Search className="w-8 h-8 text-[#B83934]" />
         },
         {
-            title: "Inventory & Asset Tracking",
-            desc: "Systematic monitoring of equipment and supplies for better accountability and resource planning.",
+            number: "02",
+            title: "Plan",
+            desc: "We create a customized strategy with clear timelines and resource allocation.",
             icon: <ClipboardList className="w-8 h-8 text-[#B83934]" />
         },
         {
-            title: "Energy Optimization",
-            desc: "Strategies to reduce power consumption and improve sustainability across facility operations.",
+            number: "03",
+            title: "Execute",
+            desc: "Our expert teams implement solutions with precision, quality, and efficiency.",
             icon: <Zap className="w-8 h-8 text-[#B83934]" />
         },
         {
-            title: "Performance Analytics",
-            desc: "Data-driven insights to measure efficiency and identify areas for operational improvement.",
+            number: "04",
+            title: "Monitor & Optimize",
+            desc: "We continuously monitor performance and optimize operations for better results.",
             icon: <TrendingUp className="w-8 h-8 text-[#B83934]" />
         }
     ];
@@ -139,58 +146,75 @@ function Facility() {
             </section>
 
             {/* Capabilities Grid */}
-            <section className="py-20 px-6 bg-[#FAF9F6]">
-                <div className="max-w-7xl mx-auto">
-                    <h2 className="text-[#0A2540] text-3xl md:text-[42px] font-bold text-center mb-16">
-                        Our Capabilities
-                    </h2>
+         {/* Capabilities Grid */}
+<section className="py-20 px-6 bg-[#FAF9F6]">
+    <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+            <h2 className="text-[#0A2540] text-3xl md:text-[42px] font-bold">
+                Our Capabilities
+            </h2>
+            <h3 className="text-[#0A2540] text-2xl md:text-[32px] font-bold mt-2">
+                Enabling Seamless <br className="md:hidden" />
+                <span className="text-[#B83934]">Connectivity & Smart</span> Operations
+            </h3>
+        </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {capabilities.map((item, index) => (
+        {/* Updated container to center last row items */}
+        <div className="flex flex-wrap justify-center gap-8">
+            {capabilities.map((item, index) => (
+                <div
+                    key={index}
+                    className="bg-white p-8 rounded-[20px] shadow-sm border-b-4 border-transparent hover:border-[#B83934] transition-all duration-300 group w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)]"
+                >
+                    <div className="mb-6 w-16 h-16 bg-[#FDF2F2] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        {item.icon}
+                    </div>
+                    <h3 className="text-[#B83934] text-xl font-bold mb-4 leading-tight">
+                        {item.title}
+                    </h3>
+                    <p className="text-[#494B4D] text-base leading-relaxed">
+                        {item.desc}
+                    </p>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+            {/* Our Approach Section */}
+            <section className="py-20 px-6 bg-white">
+                <div className="max-w-7xl mx-auto text-center">
+                    <span className="text-[#B42A26] text-lg font-medium tracking-wide">
+                        Our Approach
+                    </span>
+                    <h2 className="text-[#0A2540] text-3xl md:text-[42px] font-bold mt-4 mb-6">
+                        Delivering Excellence Through A <br />
+                        <span className="text-[#B83934]">Structured</span> Process
+                    </h2>
+                    <p className="max-w-3xl mx-auto text-[#494B4D] text-lg mb-16">
+                        We follow a systematic and client-focused approach to ensure seamless execution and consistent results across every project. By combining strategic planning, advanced technology, and skilled expertise, we deliver solutions that are efficient, reliable, and aligned with your business goals.
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {approaches.map((item, index) => (
                             <div
                                 key={index}
-                                className="bg-white p-8 rounded-[20px] shadow-sm border-b-4 border-transparent hover:border-[#B83934] transition-all duration-300 group"
+                                className={`group p-8 rounded-[24px] border border-gray-100 shadow-sm flex flex-col items-center text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-[#B83934]/20 ${index % 2 !== 0 ? 'lg:mt-8' : ''}`}
                             >
-                                <div className="mb-6 w-16 h-16 bg-[#FDF2F2] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <div className="w-full flex justify-start mb-4">
+                                    <span className="text-[#B83934] text-2xl font-bold opacity-80 group-hover:opacity-100 transition-opacity">{item.number}</span>
+                                </div>
+                                <div className="mb-6 w-20 h-20 bg-[#FDF2F2] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                     {item.icon}
                                 </div>
-                                <h3 className="text-[#B83934] text-xl font-bold mb-4 leading-tight">
+                                <h3 className="text-[#0A2540] text-xl font-bold mb-4 group-hover:text-[#B83934] transition-colors">
                                     {item.title}
                                 </h3>
-                                <p className="text-[#494B4D] text-base leading-relaxed">
+                                <p className="text-[#494B4D] text-sm leading-relaxed">
                                     {item.desc}
                                 </p>
                             </div>
                         ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Why Choose Us */}
-            <section className="py-20 px-6 bg-white">
-                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
-                    <div className="w-full lg:w-1/2 flex flex-col gap-8">
-                        <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-bold">
-                            Elevate Your <span className="text-[#B83934]">Facility's</span> Efficiency
-                        </h2>
-                        <div className="flex flex-col gap-6 text-[#494B4D] text-lg leading-[33px] capitalize tracking-[0.36px]">
-                            <p>
-                                Choosing Kavach Global means partnering with a team dedicated to excellence in facility oversight. We combine technical expertise with a proactive mindset to anticipate needs before they become issues. Our managed services ensure that your operations remain uninterrupted, while our focus on energy optimization contributes to long-term sustainability.
-                            </p>
-                            <p>
-                                We prioritize safety through integrated security systems and rigorous risk assessments, providing peace of mind for employees and stakeholders alike. Our data-driven performance analytics allow for continuous improvement, ensuring your facility remains future-ready and highly efficient in an ever-changing landscape.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="w-full lg:w-1/2 relative">
-                        <div className="overflow-hidden rounded-[24px] shadow-xl">
-                            <img
-                                src={mid2}
-                                alt="Technical Excellence"
-                                className="w-full h-auto object-cover"
-                            />
-                        </div>
                     </div>
                 </div>
             </section>
@@ -234,3 +258,5 @@ function Facility() {
 }
 
 export default Facility;
+
+

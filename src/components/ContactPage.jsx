@@ -55,6 +55,52 @@ function WorldMap({ activeLocation, onHover }) {
 function ContactPage() {
   const [activeLocation, setActiveLocation] = useState(null);
 
+  // Form State
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+
+  // Handle input changes with Phone Number Validation (Only digits, max 10)
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    
+    if (name === "phone") {
+        // Allow only digits and limit to 10
+        const onlyNums = value.replace(/[^0-9]/g, '');
+        if (onlyNums.length <= 10) {
+            setFormData(prev => ({ ...prev, [name]: onlyNums }));
+        }
+    } else {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  // Handle Submission and Refresh Form
+  const handleSendInquiry = () => {
+    if (formData.phone.length !== 10) {
+        alert("Please enter a valid 10-digit phone number.");
+        return;
+    }
+
+    // Logic for sending data can go here
+    console.log("Form Submitted:", formData);
+    
+    // Refresh (Clear) form
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: ''
+    });
+    
+    alert("Inquiry sent successfully!");
+  };
+
   const offices = [
     { 
       title: 'Ahmedabad', 
@@ -188,13 +234,13 @@ function ContactPage() {
             <div className="cp-form-card" style={{ flex: "1.5 1 450px", padding: "35px", background: "#fff", borderRadius: 24, border: "1px solid rgba(0,0,0,0.05)", boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}>
               <h3 style={{ fontSize: 24, fontWeight: 700, color: "#0A2540", borderBottom: "1px solid rgba(0,0,0,0.1)", paddingBottom: 15, marginBottom: 25 }}>Send Us A Message</h3>
               <div className="cp-form-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 20, marginBottom: 20 }}>
-                <input style={inputStyle} placeholder="Your Name*" />
-                <input style={inputStyle} placeholder="Your Email*" />
-                <input style={inputStyle} placeholder="Phone Number*" />
-                <input style={inputStyle} placeholder="Subject" />
+                <input name="name" value={formData.name} onChange={handleChange} style={inputStyle} placeholder="Your Name*" />
+                <input name="email" value={formData.email} onChange={handleChange} style={inputStyle} placeholder="Your Email*" />
+                <input name="phone" value={formData.phone} onChange={handleChange} style={inputStyle} placeholder="Phone Number*" />
+                <input name="subject" value={formData.subject} onChange={handleChange} style={inputStyle} placeholder="Subject" />
               </div>
-              <textarea style={{ ...inputStyle, height: 130, width: "100%", marginBottom: 30 }} placeholder="Your Message" />
-              <button style={{ width: "100%", padding: "20px", background: "#FFD128", borderRadius: 12, color: "#0A2540", fontSize: 20, fontWeight: 700, border: "none", cursor: "pointer" }}>Send Inquiry</button>
+              <textarea name="message" value={formData.message} onChange={handleChange} style={{ ...inputStyle, height: 130, width: "100%", marginBottom: 30 }} placeholder="Your Message" />
+              <button onClick={handleSendInquiry} style={{ width: "100%", padding: "20px", background: "#FFD128", borderRadius: 12, color: "#0A2540", fontSize: 20, fontWeight: 700, border: "none", cursor: "pointer" }}>Send Inquiry</button>
             </div>
           </div>
         </div>
@@ -227,7 +273,6 @@ function ContactPage() {
             ))}
           </div>
           <div className="cp-office-map" style={{ borderRadius: 20, overflow: "hidden", border: "1px solid #ddd", minHeight: 400 }}>
-             {/* Updated iframe for Thaltej, Ahmedabad location */}
              <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.213715206981!2d72.50503037592497!3d23.052602715197845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b9800000001%3A0xc3f5247926715f3e!2sNew+York+Tower!5e0!3m2!1sen!2sin!4v1713400000000!5m2!1sen!2sin" 
                 width="100%" 

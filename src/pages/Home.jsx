@@ -696,7 +696,7 @@ function Home() {
                   padding: '30px 17px',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'flex-start',
+                  justifyContent: 'space-between',
                   alignItems: 'flex-start',
                   gap: '20px',
                   boxSizing: 'border-box',
@@ -787,9 +787,9 @@ function Home() {
                   >
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
-                      <line x1="8" y1="16" x2="16" y2="8"
+                      <line x1="7" y1="17" x2="17" y2="7"
                         stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" />
-                      <polyline points="9,8 16,8 16,15"
+                      <polyline points="7 7 17 7 17 17"
                         stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
                     </svg>
                   </span>

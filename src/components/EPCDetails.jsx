@@ -36,14 +36,6 @@ function EPCDetails() {
         {
             title: "Renewable Energy",
             desc: "We Deliver Sustainable Energy Solutions, Including Solar And Other Renewable Projects, Supporting Clean And Green Initiatives."
-        },
-        {
-            title: "Industrial & Commercial Infrastructure",
-            desc: "We Design And Build Robust Infrastructure For Industrial And Commercial Sectors, Tailored To Meet Specific Operational Requirements."
-        },
-        {
-            title: "Government & Public Infrastructure",
-            desc: "Partnering With Government Bodies, We Support The Development Of Essential Public Utilities And Large-Scale Infrastructure Projects."
         }
     ];
 
