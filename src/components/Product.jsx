@@ -65,7 +65,7 @@ const styles = {
     justifyContent: 'center',
     gap: '20px',
     marginBottom: '24px',
-    flexWrap: 'wrap', // Added for responsiveness
+    flexWrap: 'wrap', 
   },
   outerCard: {
     border: '1.5px solid #e8c4c4',
@@ -80,7 +80,6 @@ const styles = {
     fontSize: '15px', fontWeight: '500', letterSpacing: '0.4px',
     background: '#B83934', color: 'white',
     border: 'none', cursor: 'pointer',
-    fontFamily: "'Poppins', sans-serif",
     transition: 'all 0.3s ease',
     boxShadow: '0 4px 12px rgba(184, 57, 52, 0.2)',
   },
@@ -90,12 +89,11 @@ const styles = {
     fontSize: '15px', fontWeight: '500', letterSpacing: '0.4px',
     background: '#fde8e8', color: '#B83934',
     border: 'none', cursor: 'pointer',
-    fontFamily: "'Poppins', sans-serif",
     transition: 'all 0.3s ease',
   },
   body: {
     display: 'grid', 
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', // Changed for responsiveness
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
     padding: '40px 20px 24px 20px',
   },
   leftPanel: { paddingRight: '24px' },
@@ -105,18 +103,17 @@ const styles = {
   },
   leftTitle: {
     fontSize: '18px', fontWeight: '700', color: '#0A2540',
-    marginBottom: '10px', fontFamily: "'Poppins', sans-serif",
+    marginBottom: '10px',
   },
   leftDesc: {
     fontSize: '13px', color: '#6B7280', lineHeight: '1.7',
-    marginBottom: '18px', fontFamily: "'Poppins', sans-serif",
+    marginBottom: '18px',
   },
   btnYellow: {
     background: '#F5C518', color: '#1a1a1a', border: 'none',
     borderRadius: '8px', padding: '10px 22px',
     fontSize: '13px', fontWeight: '700', cursor: 'pointer',
     display: 'inline-flex', alignItems: 'center', gap: '6px',
-    fontFamily: "'Poppins', sans-serif",
   },
   statsGrid: {
     display: 'grid', gridTemplateColumns: '1fr 1fr 1fr',
@@ -130,33 +127,31 @@ const styles = {
   },
   statVal: {
     fontSize: '20px', fontWeight: '700', color: '#0A2540',
-    fontFamily: "'Poppins', sans-serif",
   },
   statLabel: {
     fontSize: '11px', color: '#4B5563', marginTop: '4px',
-    fontFamily: "'Poppins', sans-serif",
   },
   capsBox: {
     border: '1.5px solid #e8c4c4', borderRadius: '14px',
     padding: '18px', background: 'white',
-    marginBottom: '20px', // Added spacing for vertical stack
+    marginBottom: '20px', 
   },
   capsTitle: {
     fontSize: '13px', fontWeight: '700', color: '#0A2540',
-    marginBottom: '12px', fontFamily: "'Poppins', sans-serif",
+    marginBottom: '12px', 
   },
   chips: { display: 'flex', flexWrap: 'wrap', gap: '8px' },
   chip: {
     background: '#fde8e8', color: '#B83934', borderRadius: '50px',
     padding: '5px 14px', fontSize: '12px', fontWeight: '500',
-    border: '1px solid #f5c4c4', fontFamily: "'Poppins', sans-serif",
+    border: '1px solid #f5c4c4', 
   },
   rightPanel: {
     paddingLeft: '24px',
   },
   featuresTitle: {
     fontSize: '14px', fontWeight: '700', color: '#0A2540',
-    marginBottom: '12px', fontFamily: "'Poppins', sans-serif",
+    marginBottom: '12px', 
   },
   featCard: {
     border: '2px solid #E8C4C4', 
@@ -165,17 +160,15 @@ const styles = {
   },
   featTitle: {
     fontSize: '13px', fontWeight: '700', color: '#B83934',
-    marginBottom: '4px', fontFamily: "'Poppins', sans-serif",
+    marginBottom: '4px', 
   },
   featDesc: {
     fontSize: '12px', color: '#6B7280', lineHeight: '1.6',
-    fontFamily: "'Poppins', sans-serif",
   },
 }
 
 const ProductCard = ({ data }) => (
   <div style={styles.outerCard}>
-    {/* CSS for removing side-padding on mobile and managing grid layout */}
     <style>
       {`
         @media (max-width: 768px) {
@@ -247,7 +240,7 @@ const Product = () => {
   const currentData = activeTab === 'hr' ? konvertHRData : kavachAIData;
 
   return (
-    <div style={{ fontFamily: "'Poppins', sans-serif", overflow: 'hidden' }}>
+    <div style={{ overflow: 'hidden' }}>
 
       {/* ── Hero Section ── */}
       <section className="relative w-full min-h-[700px] flex items-center justify-center bg-[#0A2540] overflow-hidden">
@@ -264,7 +257,7 @@ const Product = () => {
 
       {/* ── Products Section ── */}
       <section style={{
-        padding: '60px 20px', // Adjusted padding for mobile
+        padding: '60px 20px', 
         backgroundImage: `url(${Productbg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -316,7 +309,7 @@ const Product = () => {
               <span
                 style={{
                   color: '#FFFFFF',
-                  fontSize: '32px', // Slightly adjusted for responsiveness
+                  fontSize: '32px', 
                   fontWeight: 700,
                   textTransform: 'uppercase',
                   letterSpacing: '0.76px',

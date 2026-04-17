@@ -14,7 +14,6 @@ function Facility() {
         backgroundRepeat: 'no-repeat',
     };
     const textStyle = {
-        fontFamily: "'Poppins', sans-serif",
         fontWeight: 700,
         letterSpacing: '0.76px',
         textTransform: 'capitalize',
@@ -38,18 +37,38 @@ function Facility() {
         },
         {
             title: "Remote Monitoring",
-            desc: "Real-time monitoring systems that enhance visibility, improve response time, and ensure continuous oversight.",
+            desc: "Real-time oversight of critical systems to detect issues early and ensure continuous performance.",
             icon: <Monitor className="w-8 h-8 text-[#B83934]" />
         },
         {
-            title: "Command Control Center",
-            desc: "Centralized control hubs that integrate systems for better decision-making, coordination, and operational efficiency.",
+            title: "Building Management",
+            desc: "Integrated solutions for optimizing energy use, lighting, and climate control within facilities.",
             icon: <Layout className="w-8 h-8 text-[#B83934]" />
         },
         {
-            title: "Asset & Maintenance Management",
-            desc: "Proactive maintenance and asset tracking solutions to ensure optimal performance, reduced downtime, and extended lifecycle of infrastructure.",
+            title: "Preventive Maintenance",
+            desc: "Scheduled inspections and repairs to avoid unexpected failures and extend asset life.",
             icon: <Wrench className="w-8 h-8 text-[#B83934]" />
+        },
+        {
+            title: "Risk Assessment",
+            desc: "Comprehensive evaluation of potential vulnerabilities to develop effective mitigation strategies.",
+            icon: <Search className="w-8 h-8 text-[#B83934]" />
+        },
+        {
+            title: "Inventory & Asset Tracking",
+            desc: "Systematic monitoring of equipment and supplies for better accountability and resource planning.",
+            icon: <ClipboardList className="w-8 h-8 text-[#B83934]" />
+        },
+        {
+            title: "Energy Optimization",
+            desc: "Strategies to reduce power consumption and improve sustainability across facility operations.",
+            icon: <Zap className="w-8 h-8 text-[#B83934]" />
+        },
+        {
+            title: "Performance Analytics",
+            desc: "Data-driven insights to measure efficiency and identify areas for operational improvement.",
+            icon: <TrendingUp className="w-8 h-8 text-[#B83934]" />
         }
     ];
 
@@ -67,13 +86,13 @@ function Facility() {
                             style={textStyle}
                             className="text-white text-3xl md:text-[38px] leading-[49px] break-words"
                         >
-                            Integrated Facility Management
+                            Facility Management
                         </h1>
                     </div>
                 </div>
             </section>
 
-            {/* Content Section */}
+            {/* Main Content Section */}
             <section style={sectionBgStyle} className="py-20 px-6">
                 <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
                     {/* Left: Image Composition */}
@@ -89,159 +108,129 @@ function Facility() {
                             ))}
                         </div>
                         <div className="absolute top-0 left-0 w-[80%] h-[80%] overflow-hidden rounded-[34px] z-10 shadow-lg">
-                            <img src={mid2} alt="City Infrastructure" className="w-full h-full object-cover" />
+                            <img src={mid2} alt="Modern Facility" className="w-full h-full object-cover" />
                         </div>
                         <div className="absolute bottom-[50px] right-0 w-[65%] h-[45%] overflow-hidden rounded-[18px] border-[6px] border-white z-20 shadow-xl">
-                            <img src={mid1} alt="Technician" className="w-full h-full object-cover" />
+                            <img src={mid1} alt="Facility Maintenance" className="w-full h-full object-cover" />
                         </div>
                     </div>
 
                     {/* Right: Text Content */}
                     <div className="w-full lg:w-1/2 flex flex-col gap-8">
                         <div className="flex flex-col gap-4">
-                            <span className="text-[#B42A26] text-lg font-medium tracking-wide font-['Poppins']">
-                                Integrated Facility Management
+                            <span className="text-[#B42A26] text-lg font-medium tracking-wide">
+                                Facility Solutions
                             </span>
-                            <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-bold leading-tight font-['Poppins']">
-                                Ensuring Efficient, <br />
-                                <span className="text-[#B83934]">Safe & Well-Managed</span> Environments
+                            <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-bold leading-tight">
+                                Integrated Management for <br />
+                                <span className="text-[#B83934]">Seamless</span> Operations
                             </h2>
                         </div>
-                        <div className="flex flex-col gap-6 text-[#494B4D] text-lg leading-[33px] font-['Poppins']">
+                        <div className="flex flex-col gap-6 text-[#494B4D] text-lg leading-[33px]">
                             <p>
-                                At Kavach Global, we provide comprehensive Integrated Facility Management (IFM) solutions that streamline operations, enhance safety, and improve overall efficiency. By combining people, processes, and technology, we deliver seamless facility management services tailored to the unique needs of each organization.
+                                At Kavach Global, our Facility Management services are designed to optimize the performance, safety, and efficiency of your physical environment. We provide a comprehensive suite of solutions ranging from preventive maintenance and managed services to advanced security system integration.
                             </p>
                             <p>
-                                Our integrated approach ensures better control, reduced operational costs, and improved asset performance—allowing businesses to focus on their core activities while we manage their facilities with precision and reliability.
+                                Our approach ensures that every aspect of your facility—from core infrastructure to day-to-day operations—is managed with precision. By leveraging technology and expert oversight, we help organizations reduce costs, improve sustainability, and create a secure, productive space for growth.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Capabilities Section */}
-            <section className="py-16 px-6 bg-gradient-to-b from-transparent to-[#FFF1F0]">
+            {/* Capabilities Grid */}
+            <section className="py-20 px-6 bg-[#FAF9F6]">
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-12">
-                        <p className="text-[#B42A26] text-lg font-medium font-['Poppins'] mb-2 uppercase tracking-[0.36px]">Our Capabilities</p>
-                        <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-bold font-['Poppins'] leading-tight">
-                            Enabling Seamless <br />
-                            <span className="text-[#B83934]">Connectivity & Smart</span> Operations
-                        </h2>
-                    </div>
+                    <h2 className="text-[#0A2540] text-3xl md:text-[42px] font-bold text-center mb-16">
+                        Our Capabilities
+                    </h2>
 
-                    <div className="flex flex-wrap justify-center gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {capabilities.map((item, index) => (
                             <div
                                 key={index}
-                                className="bg-white p-6 rounded-[20px] shadow-[0px_0px_8px_rgba(0,0,0,0.15)] border-b-4 border-[#B83934] flex flex-col gap-4 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-[380px]"
+                                className="bg-white p-8 rounded-[20px] shadow-sm border-b-4 border-transparent hover:border-[#B83934] transition-all duration-300 group"
                             >
-                                <div className="relative w-14 h-14 flex items-center justify-center">
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-[#FFBCBA] to-transparent opacity-40 rounded-lg"></div>
-                                    <div className="relative z-10 scale-75">
-                                        {item.icon}
-                                    </div>
+                                <div className="mb-6 w-16 h-16 bg-[#FDF2F2] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    {item.icon}
                                 </div>
-                                <div>
-                                    <h3 className="text-[#B42A26] text-lg font-bold font-['Poppins'] mb-2">{item.title}</h3>
-                                    <p className="text-[#494B4D] text-sm leading-relaxed font-['Poppins']">
-                                        {item.desc}
-                                    </p>
-                                </div>
+                                <h3 className="text-[#B83934] text-xl font-bold mb-4 leading-tight">
+                                    {item.title}
+                                </h3>
+                                <p className="text-[#494B4D] text-base leading-relaxed">
+                                    {item.desc}
+                                </p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Our Approach Section - UPDATED CARD SIZES */}
-            <section className="py-24 px-6 bg-white overflow-hidden">
-                <div className="max-w-[1200px] mx-auto">
-                    {/* Header */}
-                    <div className="text-center mb-20">
-                        <p className="text-[#B42A26] text-base font-medium font-['Poppins'] mb-3 tracking-[0.4px]">
-                            Our Approach
-                        </p>
-                        <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-extrabold font-['Poppins'] leading-tight mb-6">
-                            Delivering Excellence Through A <br />
-                            <span className="text-[#B83934]">Structured</span> Process
+            {/* Why Choose Us */}
+            <section className="py-20 px-6 bg-white">
+                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+                    <div className="w-full lg:w-1/2 flex flex-col gap-8">
+                        <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-bold">
+                            Elevate Your <span className="text-[#B83934]">Facility's</span> Efficiency
                         </h2>
-                        <p className="text-[#494B4D] text-[15px] font-normal font-['Poppins'] max-w-[780px] mx-auto leading-[28px]">
-                            We follow a systematic and client-focused approach to ensure seamless execution and consistent results across every project. By combining strategic planning, advanced technology, and skilled expertise, we deliver solutions that are efficient, reliable, and aligned with your business goals.
-                        </p>
+                        <div className="flex flex-col gap-6 text-[#494B4D] text-lg leading-[33px] capitalize tracking-[0.36px]">
+                            <p>
+                                Choosing Kavach Global means partnering with a team dedicated to excellence in facility oversight. We combine technical expertise with a proactive mindset to anticipate needs before they become issues. Our managed services ensure that your operations remain uninterrupted, while our focus on energy optimization contributes to long-term sustainability.
+                            </p>
+                            <p>
+                                We prioritize safety through integrated security systems and rigorous risk assessments, providing peace of mind for employees and stakeholders alike. Our data-driven performance analytics allow for continuous improvement, ensuring your facility remains future-ready and highly efficient in an ever-changing landscape.
+                            </p>
+                        </div>
                     </div>
 
-                    {/* Process Cards - Zig-Zag & Reduced Size */}
-                    <div className="flex flex-wrap lg:flex-nowrap justify-center items-start gap-4 relative">
-                        {[
-                            {
-                                number: "01",
-                                title: "Understand",
-                                desc: "We Analyze Your Requirements, Challenges, And Objectives To Design The Right Solution.",
-                                icon: <Search className="w-8 h-8 text-[#B83934]" />,
-                                style: "lg:mt-0"
-                            },
-                            {
-                                number: "02",
-                                title: "Plan",
-                                desc: "We Create A Customized Strategy With Clear Timelines And Resource Allocation.",
-                                icon: <ClipboardList className="w-8 h-8 text-[#B83934]" />,
-                                style: "lg:mt-16"
-                            },
-                            {
-                                number: "03",
-                                title: "Execute",
-                                desc: "Our Expert Teams Implement Solutions With Precision, Quality, And Efficiency.",
-                                icon: <Zap className="w-8 h-8 text-[#B83934]" />,
-                                style: "lg:mt-0"
-                            },
-                            {
-                                number: "04",
-                                title: "Monitor & Optimize",
-                                desc: "We Continuously Monitor Performance And Optimize Operations For Better Results.",
-                                icon: <TrendingUp className="w-8 h-8 text-[#B83934]" />,
-                                style: "lg:mt-16"
-                            },
-                        ].map((step, index) => (
-                            <div
-                                key={index}
-                                className={`relative w-full sm:w-[calc(50%-16px)] lg:w-[245px] bg-white border border-[#E1E6E8] rounded-[20px] p-6 flex flex-col items-center text-center shadow-[0_4px_15px_rgba(0,0,0,0.03)] ${step.style}`}
-                            >
-                                <div className="w-full flex justify-start mb-1">
-                                    <span className="text-[#B83934] text-2xl font-bold font-['Poppins']">{step.number}</span>
-                                </div>
-                                <div className="w-16 h-16 rounded-full bg-[#FFF0EF] flex items-center justify-center mb-5">
-                                    {step.icon}
-                                </div>
-                                <h3 className="text-[#0A2540] text-lg font-bold font-['Poppins'] mb-3">{step.title}</h3>
-                                <p className="text-[#494B4D] text-[13px] leading-[22px] font-['Poppins']">{step.desc}</p>
-                            </div>
-                        ))}
+                    <div className="w-full lg:w-1/2 relative">
+                        <div className="overflow-hidden rounded-[24px] shadow-xl">
+                            <img
+                                src={mid2}
+                                alt="Technical Excellence"
+                                className="w-full h-auto object-cover"
+                            />
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section className="w-full relative overflow-hidden" style={{ backgroundImage: `url(${aboutLast})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: "100%" }}>
-                <div className="absolute inset-0" style={{ backgroundColor: 'rgba(5, 15, 40, 0.85)', zIndex: 1 }} />
-                <div className="cp-cta-inner max-w-[1280px] mx-auto px-4 py-12 relative flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-10" style={{ zIndex: 2 }}>
-                    <div className="flex flex-col gap-3 w-full lg:max-w-[480px]">
-                        <h2 className="cp-cta-title" style={{ margin: 0, lineHeight: 1.3 }}>
-                            <span style={{ color: '#FFFFFF', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}>READY TO PARTNER <br /> WITH </span>
-                            <span style={{ color: '#FA221C', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}>KAVACH</span>
-                            <span style={{ color: '#FFFFFF', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}> GLOBAL!</span>
-                        </h2>
-                        <p style={{ margin: 0, color: '#FFFFFF', fontSize: '18px', fontWeight: 400, lineHeight: '33px' }}>
-                            Let's Build Something Extraordinary Together.
-                        </p>
-                    </div>
-                    <div className="cp-cta-buttons flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto">
-                        <a href="/new/contact" style={{ backgroundColor: '#FFD128', padding: '14px 32px', textDecoration: 'none', borderRadius: '10px', color: '#0A2540', fontWeight: 600 }}>Get In Touch</a>
-                        <a href="/new/services" style={{ border: '2px solid #FFD128', padding: '14px 32px', textDecoration: 'none', borderRadius: '10px', color: '#FFD128', fontWeight: 600 }}>Explore Solutions</a>
-                    </div>
-                </div>
-            </section>
+            {/* CTA Section */}
+            <section
+                 className="w-full relative overflow-hidden"
+                 style={{ backgroundImage: `url(${aboutLast})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
+               >
+                 <div className="absolute inset-0" style={{ backgroundColor: 'rgba(5, 15, 40, 0.85)', zIndex: 1 }} />
+                 <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-16 py-12 lg:py-[60px] relative flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-10" style={{ zIndex: 2 }}>
+                   <div className="flex flex-col gap-3 w-full lg:max-w-[480px]">
+                     <h2 style={{ margin: 0, lineHeight: 1.3 }}>
+                       <span style={{ color: '#FFFFFF', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>READY TO OPTIMIZE <br /> YOUR </span>
+                       <span style={{ color: '#FA221C', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>FACILITY?</span>
+                     </h2>
+                     <p style={{ margin: 0, color: '#FFFFFF', fontSize: '16px', fontWeight: 400, textTransform: 'capitalize', lineHeight: '1.6', letterSpacing: '0.36px' }}>
+                       Connect with our experts today to discover how our tailored facility management solutions can drive operational excellence and safety for your business.
+                     </p>
+                   </div>
+                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto flex-shrink-0">
+                     <a href="/new/contact" className="btn-yellow-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto" style={{ backgroundColor: '#FFD128', padding: '14px 32px', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                       <span style={{ color: '#0A2540', fontSize: '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Get In Touch</span>
+                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                         <line x1="8" y1="16" x2="16" y2="8" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" />
+                         <polyline points="9,8 16,8 16,15" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                       </svg>
+                     </a>
+                     <a href="/new/services" className="btn-outline-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto" style={{ backgroundColor: 'transparent', padding: '14px 32px', textDecoration: 'none', outline: '2px solid #FFD128', whiteSpace: 'nowrap' }}>
+                       <span style={{ color: '#FFD128', fontSize: '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Explore Solutions</span>
+                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                         <line x1="8" y1="16" x2="16" y2="8" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" />
+                         <polyline points="9,8 16,8 16,15" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                       </svg>
+                     </a>
+                   </div>
+                 </div>
+               </section>
         </div>
-    )
+    );
 }
 
-export default Facility
+export default Facility;

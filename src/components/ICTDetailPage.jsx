@@ -26,7 +26,6 @@ function ICTDetailPage() {
   };
 
   const textStyle = {
-    fontFamily: "'Poppins', sans-serif",
     fontWeight: 700,
     letterSpacing: '0.76px',
     textTransform: 'capitalize',
@@ -44,18 +43,18 @@ function ICTDetailPage() {
       icon: IC2
     },
     {
-      title: "System Integration",
-      desc: "We integrate diverse technologies and platforms into a unified system, enabling smooth data flow, improved efficiency, and centralized control.",
+      title: "Electronic Security",
+      desc: "We offer integrated electronic security systems, including surveillance, access control, and monitoring, to safeguard people and assets effectively.",
       icon: IC3
     },
     {
-      title: "Data Center Solutions",
-      desc: "We design and manage secure, high-performance data centers that ensure data availability, disaster recovery, and business continuity.",
+      title: "Software Development",
+      desc: "Custom software solutions designed to streamline business processes, enhance user experience, and drive innovation across various platforms.",
       icon: IC4
     },
     {
-      title: "Smart & Safe City Solutions",
-      desc: "We deliver intelligent solutions including surveillance, automation, and monitoring systems to enhance urban safety, efficiency, and governance.",
+      title: "System Integration",
+      desc: "Seamlessly connecting diverse technologies and systems into a unified platform to optimize performance and operational efficiency.",
       icon: IC5
     }
   ];
@@ -106,73 +105,89 @@ function ICTDetailPage() {
           {/* Right: Text Content */}
           <div className="w-full lg:w-1/2 flex flex-col gap-8">
             <div className="flex flex-col gap-4">
-              <span className="text-[#B42A26] text-lg font-medium tracking-wide font-['Poppins']">
+              <span className="text-[#B42A26] text-lg font-medium tracking-wide">
                 ICT Infrastructure
               </span>
-              <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-bold leading-tight font-['Poppins']">
-                Powering Connected, <br />
-                <span className="text-[#B83934]">Secure & Scalable</span> Environments
+              <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-bold leading-tight">
+                Empowering Connectivity through <br />
+                <span className="text-[#B83934]">Innovative</span> Technology
               </h2>
             </div>
-            <div className="flex flex-col gap-6 text-[#494B4D] text-lg leading-[33px] font-['Poppins']">
+            <div className="flex flex-col gap-6 text-[#494B4D] text-lg leading-[33px]">
               <p>
-                At Kavach Global, we deliver end-to-end ICT infrastructure solutions that enable organizations to operate seamlessly in a connected world. Our expertise spans telecom, IT infrastructure, system integration, data centers, and smart & safe city solutions—ensuring reliable connectivity, enhanced security, and optimized performance across operations.
+                At Kavach Global, our ICT capabilities are built on cutting-edge technology and technical expertise. We provide integrated solutions in telecom, IT infrastructure, and electronic security, ensuring businesses stay connected and secure in a rapidly evolving digital world.
               </p>
               <p>
-                With a technology-first approach, we design, implement, and manage robust infrastructure that supports business continuity and digital transformation. Our solutions are tailored to meet the unique needs of each client, combining scalability, efficiency, and innovation to build future-ready ecosystems.
+                From custom software development to complex system integrations, we help organizations streamline operations and improve efficiency. Our mission is to deliver scalable and future-ready digital solutions that drive business growth and operational excellence.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Capabilities Section */}
-      <section className="py-16 px-6 bg-gradient-to-b from-transparent to-[#FFF1F0]">
+      {/* Solutions Grid */}
+      <section className="py-20 px-6 bg-[#FAF9F6]">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-[#B42A26] text-lg font-medium font-['Poppins'] mb-2">Our Capabilities</p>
-            <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-bold font-['Poppins'] leading-tight">
-              Enabling Seamless <br />
-              <span className="text-[#B83934]">Connectivity & Smart</span> Operations
-            </h2>
-          </div>
-          <div className="flex flex-wrap justify-center gap-6">
-            {capabilities.map((item, index) => (
+          <h2 className="text-[#0A2540] text-3xl md:text-[42px] font-bold text-center mb-16">
+            Modern Technology Solutions
+          </h2>
+
+          {/* Top Row: 3 items */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            {capabilities.slice(0, 3).map((item, index) => (
               <div
                 key={index}
-                className="bg-white p-8 rounded-[20px] shadow-[0px_0px_8px_rgba(0,0,0,0.15)] border-b-4 border-[#B83934] flex flex-col gap-5 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-[466px]"
-                style={{ minHeight: '300px' }}
+                className="bg-white p-8 rounded-[20px] shadow-sm border-b-4 border-transparent hover:border-[#B83934] transition-all duration-300 group"
               >
-                <div className="relative w-[70px] h-[70px]">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#FFBCBA] to-transparent opacity-100 rounded-sm"></div>
-                  <img src={item.icon} alt={item.title} className="relative z-10 w-[55px] h-[55px] translate-x-2 translate-y-2" />
+                <div className="mb-6 w-16 h-16 bg-[#FDF2F2] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <img src={item.icon} alt={item.title} className="w-10 h-10 object-contain" />
                 </div>
-                <div>
-                  <h3 className="text-[#B42A26] text-xl font-bold font-['Poppins'] mb-3">{item.title}</h3>
-                  <p className="text-[#494B4D] text-base leading-relaxed font-['Poppins']">
-                    {item.desc}
-                  </p>
+                <h3 className="text-[#B83934] text-xl font-bold mb-4 leading-tight">
+                  {item.title}
+                </h3>
+                <p className="text-[#494B4D] text-base leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom Row: 2 items centered */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[850px] mx-auto">
+            {capabilities.slice(3, 5).map((item, index) => (
+              <div
+                key={index}
+                className="bg-white p-8 rounded-[20px] shadow-sm border-b-4 border-transparent hover:border-[#B83934] transition-all duration-300 group"
+              >
+                <div className="mb-6 w-16 h-16 bg-[#FDF2F2] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <img src={item.icon} alt={item.title} className="w-10 h-10 object-contain" />
                 </div>
+                <h3 className="text-[#B83934] text-xl font-bold mb-4 leading-tight">
+                  {item.title}
+                </h3>
+                <p className="text-[#494B4D] text-base leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Our ICT Solutions Section */}
+      {/* Why Choose Us */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
           {/* Left: Text Content */}
           <div className="w-full lg:w-1/2 flex flex-col gap-8 order-2 lg:order-1">
-            <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-bold font-['Poppins']">
-              Why Choose Our <span className="text-[#B83934]">ICT Solutions</span>
+            <h2 className="text-[#0A2540] text-3xl md:text-[38px] font-bold">
+              Why Choose Our <span className="text-[#B83934]">ICT</span> Services
             </h2>
-            <div className="flex flex-col gap-6 text-[#494B4D] text-lg leading-[33px] font-['Poppins'] capitalize tracking-[0.36px]">
+            <div className="flex flex-col gap-6 text-[#494B4D] text-lg leading-[33px] capitalize tracking-[0.36px]">
               <p>
-                Our ICT solutions are designed to deliver reliability, scalability, and performance in a rapidly evolving digital landscape. We combine deep technical expertise with advanced technologies to build secure and efficient infrastructure tailored to your business needs. From seamless connectivity to integrated systems and data management, our solutions ensure optimized operations and enhanced productivity.
+                Our ICT services are rooted in a profound technical mastery and a forward-thinking approach, allowing us to offer holistic solutions that span across telecommunications, IT infrastructure, and integrated electronic security. We pride ourselves on our ability to create robust, scalable networks and communication systems that form the backbone of modern business operations.
               </p>
               <p>
-                We take a holistic approach by integrating telecom, IT infrastructure, and smart technologies into a unified ecosystem that enhances visibility, control, and operational efficiency. Our team focuses on delivering solutions that are not only robust and secure but also flexible enough to adapt to changing business demands.
+                Through innovative custom software development and precise system integration, we ensure that every technological component works in harmony to drive efficiency and operational excellence. Our focus on security and reliability means that we don't just build systems—we build digital environments where businesses can thrive securely. By partnering with us, organizations gain access to a team dedicated to future-proofing their technological landscape through constant innovation and unwavering technical support.
               </p>
             </div>
           </div>
@@ -180,7 +195,6 @@ function ICTDetailPage() {
           {/* Right: Image Section with Red Frame */}
           <div className="w-full lg:w-1/2 relative order-1 lg:order-2">
             <div className="relative z-10">
-              {/* Red outline box behind image */}
               <div className="overflow-hidden rounded-[24px] shadow-xl relative z-10">
                 <img
                   src={ICTPerson}
@@ -193,22 +207,38 @@ function ICTDetailPage() {
         </div>
       </section>
 
-      <section className="w-full relative overflow-hidden" style={{ backgroundImage: `url(${aboutLast})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: "100%" }}>
+      {/* Ready to Partner Section */}
+      <section
+        className="w-full relative overflow-hidden"
+        style={{ backgroundImage: `url(${aboutLast})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
+      >
         <div className="absolute inset-0" style={{ backgroundColor: 'rgba(5, 15, 40, 0.85)', zIndex: 1 }} />
-        <div className="cp-cta-inner max-w-[1280px] mx-auto px-4 py-12 relative flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-10" style={{ zIndex: 2 }}>
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-16 py-12 lg:py-[60px] relative flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-10" style={{ zIndex: 2 }}>
           <div className="flex flex-col gap-3 w-full lg:max-w-[480px]">
-            <h2 className="cp-cta-title" style={{ margin: 0, lineHeight: 1.3 }}>
-              <span style={{ color: '#FFFFFF', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}>READY TO PARTNER <br /> WITH </span>
-              <span style={{ color: '#FA221C', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}>KAVACH</span>
-              <span style={{ color: '#FFFFFF', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}> GLOBAL!</span>
+            <h2 style={{ margin: 0, lineHeight: 1.3 }}>
+              <span style={{ color: '#FFFFFF', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>READY TO PARTNER <br /> WITH </span>
+              <span style={{ color: '#FA221C', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>KAVACH</span>
+              <span style={{ color: '#FFFFFF', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}> GLOBAL!</span>
             </h2>
-            <p style={{ margin: 0, color: '#FFFFFF', fontSize: '18px', fontWeight: 400, lineHeight: '33px' }}>
-              Let's Build Something Extraordinary Together.
+            <p style={{ margin: 0, color: '#FFFFFF', fontSize: '16px', fontWeight: 400, textTransform: 'capitalize', lineHeight: '1.6', letterSpacing: '0.36px' }}>
+              Let's Build Something Extraordinary Together. Our Experts Are Ready To Craft Tailored Solutions That Drive Real Results For Your Organization.
             </p>
           </div>
-          <div className="cp-cta-buttons flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto">
-            <a href="/new/contact" style={{ backgroundColor: '#FFD128', padding: '14px 32px', textDecoration: 'none', borderRadius: '10px', color: '#0A2540', fontWeight: 600 }}>Get In Touch</a>
-            <a href="/new/services" style={{ border: '2px solid #FFD128', padding: '14px 32px', textDecoration: 'none', borderRadius: '10px', color: '#FFD128', fontWeight: 600 }}>Explore Solutions</a>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto flex-shrink-0">
+            <a href="/new/contact" className="btn-yellow-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto" style={{ backgroundColor: '#FFD128', padding: '14px 32px', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              <span style={{ color: '#0A2540', fontSize: '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Get In Touch</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="8" y1="16" x2="16" y2="8" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" />
+                <polyline points="9,8 16,8 16,15" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+            </a>
+            <a href="/new/services" className="btn-outline-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto" style={{ backgroundColor: 'transparent', padding: '14px 32px', textDecoration: 'none', outline: '2px solid #FFD128', whiteSpace: 'nowrap' }}>
+              <span style={{ color: '#FFD128', fontSize: '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Explore Solutions</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="8" y1="16" x2="16" y2="8" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" />
+                <polyline points="9,8 16,8 16,15" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>

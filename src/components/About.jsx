@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import AboutHero from "../assets/AboutHero.png";
 import pikBehind from "../assets/PikBehind.svg";
 import aboutLock from "../assets/AboutLock.png"
@@ -17,6 +17,14 @@ import aboutLast from "../assets/AboutLast.png";
 const NAVBAR_HEIGHT = 82;
 
 function About() {
+    const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   return (
     <div className="w-full" style={{ paddingTop: `${NAVBAR_HEIGHT}px` }}>
 
@@ -738,85 +746,42 @@ function About() {
       </section>
 
       {/* ── LEADERSHIP SECTION ── */}
-      <section className="w-full" style={{ backgroundColor: '#FFFFFF' }}>
+     <section className="w-full" style={{ backgroundColor: '#FFFFFF' }}>
         <div
           className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-16"
           style={{ paddingTop: '72px', paddingBottom: '72px' }}
         >
-
           <div style={{ textAlign: 'center', marginBottom: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-            <span
-              style={{
-                color: '#B42A26',
-                fontSize: '18px',
-                fontWeight: 500,
-                textTransform: 'capitalize',
-                letterSpacing: '0.36px',
-              }}
-            >
+            <span style={{ color: '#B42A26', fontSize: isMobile ? '15px' : '18px', fontWeight: 500, textTransform: 'capitalize', letterSpacing: '0.36px' }}>
               Leadership
             </span>
             <h2 style={{ margin: 0, lineHeight: 1.3, textAlign: 'center' }}>
-              <span
-                style={{
-                  color: '#0A2540',
-                  fontSize: '38px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.76px',
-                }}
-              >
+              <span style={{ color: '#0A2540', fontSize: isMobile ? '24px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
                 The Team Turning{' '}
               </span>
-              <span
-                style={{
-                  color: '#B83934',
-                  fontSize: '38px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.76px',
-                }}
-              >
+              <span style={{ color: '#B83934', fontSize: isMobile ? '24px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
                 Ideas
               </span>
-              <span
-                style={{
-                  color: '#0A2540',
-                  fontSize: '38px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.76px',
-                }}
-              >
+              <span style={{ color: '#0A2540', fontSize: isMobile ? '24px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
                 {' '}Into Reality
               </span>
             </h2>
-            <p
-              style={{
-                margin: 0,
-                color: '#494B4D',
-                fontSize: '16px',
-                fontWeight: 400,
-                textTransform: 'capitalize',
-                letterSpacing: '0.32px',
-              }}
-            >
+            <p style={{ margin: 0, color: '#494B4D', fontSize: isMobile ? '13px' : '16px', fontWeight: 400, textTransform: 'capitalize', letterSpacing: '0.32px' }}>
               Meet The Visionary Leaders Driving Innovation And Excellence At Kavach Global.
             </p>
           </div>
 
-          {/* Scrollable Cards */}
           <div
             className="hide-scrollbar"
             style={{
               display: 'flex',
-              gap: '32px',
+              gap: isMobile ? '0px' : '32px',
               overflowX: 'auto',
               paddingBottom: '16px',
               paddingTop: '12px',
-              paddingLeft: '10px',
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
+              scrollSnapType: isMobile ? 'x mandatory' : 'none',
             }}
           >
             {[
@@ -830,93 +795,44 @@ function About() {
                 key={i}
                 style={{
                   flexShrink: 0,
-                  width: '260px',
+                  width: isMobile ? '100%' : '260px',
                   position: 'relative',
-                  paddingLeft: '8px',
-                  paddingTop: '8px',
+                  paddingLeft: isMobile ? '0px' : '8px',
+                  paddingTop: isMobile ? '0px' : '8px',
+                  scrollSnapAlign: 'start',
+                  display: 'flex',
+                  justifyContent: isMobile ? 'center' : 'flex-start',
                 }}
               >
-                {/* Red bg card */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: '0px',
-                    top: '0px',
-                    width: '260px',
+                <div style={{ position: 'relative', width: isMobile ? '280px' : '260px' }}>
+                  <div style={{
+                    position: 'absolute', left: isMobile ? '0px' : '0px', top: isMobile ? '0px' : '0px',
+                    width: isMobile ? '280px' : '260px',
                     height: '370px',
-                    borderRadius: '20px',
-                    backgroundColor: '#B83934',
-                    zIndex: 0,
-                  }}
-                />
-
-                {/* White card with hover */}
-                <div
-                  className="person-card-hover"
-                  style={{
-                    position: 'relative',
-                    zIndex: 1,
-                    borderRadius: '20px',
-                    backgroundColor: '#FFFFFF',
-                    boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.10)',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
-                    <img
-                      src={person.img}
-                      alt={person.name}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center top',
-                      }}
-                    />
-                  </div>
-
-                  <div
-                    style={{
-                      padding: '14px 16px 16px',
-                      backgroundColor: '#FFFFFF',
+                    borderRadius: '20px', backgroundColor: '#B83934', zIndex: 0,
+                    transform: isMobile ? 'translate(-8px, -8px)' : 'translate(-8px, -8px)'
+                  }} />
+                  <div className="person-card-hover" style={{
+                    position: 'relative', zIndex: 1, borderRadius: '20px',
+                    backgroundColor: '#FFFFFF', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.10)', overflow: 'hidden'
+                  }}>
+                    <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
+                      <img src={person.img} alt={person.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+                    </div>
+                    <div style={{
+                      padding: '14px 16px 16px', backgroundColor: '#FFFFFF',
                       borderTop: '1px solid rgba(10, 37, 64, 0.08)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '3px',
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: '#0A2540',
-                        fontSize: '16px',
-                        fontWeight: 700,
-                        textTransform: 'capitalize',
-                        letterSpacing: '0.32px',
-                      }}
-                    >
-                      {person.name}
-                    </span>
-                    <span
-                      style={{
-                        color: '#494B4D',
-                        fontSize: '13px',
-                        fontWeight: 400,
-                        textTransform: 'capitalize',
-                        letterSpacing: '0.26px',
-                      }}
-                    >
-                      {person.role}
-                    </span>
+                      display: 'flex', flexDirection: 'column', gap: '3px'
+                    }}>
+                      <span style={{ color: '#0A2540', fontSize: isMobile ? '13px' : '16px', fontWeight: 700, textTransform: 'capitalize', letterSpacing: '0.32px' }}>{person.name}</span>
+                      <span style={{ color: '#494B4D', fontSize: isMobile ? '11px' : '13px', fontWeight: 400, textTransform: 'capitalize', letterSpacing: '0.26px' }}>{person.role}</span>
+                    </div>
                   </div>
                 </div>
-
               </div>
             ))}
-
-            <div style={{ flexShrink: 0, width: '10px' }} />
-
+            {!isMobile && <div style={{ flexShrink: 0, width: '10px' }} />}
           </div>
-
         </div>
       </section>
 

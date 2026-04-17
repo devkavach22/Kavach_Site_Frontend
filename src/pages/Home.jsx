@@ -1,9 +1,9 @@
-import React, { useRef, useEffect } from 'react';
-import img1 from "../assets/img1.png";
-import img2 from "../assets/img2.png";
-import img3 from "../assets/img3.png";
-import img4 from "../assets/img4.png";
-import img5 from "../assets/img5.png";
+import React, { useRef, useEffect,useState } from 'react';
+import img1 from "../assets/img-1.png";
+import img2 from "../assets/img-2.png";
+import img3 from "../assets/img-3.png";
+import img4 from "../assets/img-4.png";
+import img5 from "../assets/img-5.png";
 
 import Aboutbg from "../assets/AboutBg.png";
 import EnginerAbout from "../assets/EnginerAbout.png";
@@ -47,7 +47,35 @@ import Data from "../assets/DataC.png";
 
 
 const NAVBAR_HEIGHT = 82;
-const slides = [img1, img2, img3, img4, img5];
+const slides = [
+  {
+    img: img1,
+    title: 'ICT Infrastructure',
+    desc: 'Delivering Robust Telecom, IT, And System Integration Solutions To Build Scalable, High-Performance Digital Infrastructure.',
+  },
+  {
+    img: img2,
+    title: 'EPC Works',
+    desc: 'Delivering End-To-End EPC Solutions Across Urban Development, Power Transmission & Distribution, And Renewable Energy Projects.',
+  },
+  {
+    img: img3,
+   
+
+     title: 'Security Services',
+    desc: 'Delivering Reliable Security Solutions With Trained Personnel, Armed Protection, Industrial Security, And Expert Investigation Services.',
+  },
+  {
+    img: img4,
+    title: 'Integrated Facility Managemant',
+    desc: 'Delivering End-To-End Facility Management With Managed Services, Advanced Security Systems, And Centralized Command Control For Seamless Operations.',
+  },
+  {
+    img: img5,
+    title: 'Software Development',
+    desc: 'Delivering Scalable, Secure, And Customized Software Solutions Tailored To Meet Evolving Business Needs.',
+  },
+];
 const extendedSlides = [slides[slides.length - 1], ...slides, slides[0]];
 const TOTAL = extendedSlides.length;
 
@@ -206,6 +234,15 @@ function Home() {
     startAutoScroll();
   };
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   return (
     <div className="w-full" style={{ paddingTop: `${NAVBAR_HEIGHT}px` }}>
 
@@ -258,7 +295,8 @@ function Home() {
       {/* ── HERO SLIDER ── */}
       <div
         ref={containerRef}
-        className="w-full overflow-x-hidden relative select-none h-[50vh] md:h-[min(750px,90vh)]"
+        // ✅ ONLY CHANGE: mobile height now fills screen minus navbar height
+        className="w-full overflow-x-hidden relative select-none h-[calc(100svh-82px)] min-h-[320px] md:h-[min(750px,90vh)] md:max-h-none md:min-h-0"
         style={{
           cursor: 'grab',
           scrollBehavior: 'smooth',
@@ -284,45 +322,98 @@ function Home() {
               style={{ width: `${100 / TOTAL}%` }}
             >
               <img
-                src={slide}
+                src={slide.img}
                 alt={`Slide ${index}`}
-                className="w-full h-full object-cover pointer-events-none md:[object-position:center_20%]"
-                style={{ objectPosition: 'right 20%' }}
+                className="w-full h-full object-cover pointer-events-none"
+                style={{ objectPosition: 'center center' }}
                 draggable={false}
               />
 
-              {/* Mobile: centered at bottom | Desktop: bottom-14 right-[31%] */}
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 md:bottom-14 md:right-[31%] md:left-auto md:translate-x-0">
-                <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-[#F5C518] hover:brightness-105 transition-all no-underline pointer-events-auto text-[13px] px-[14px] py-[8px] md:text-[16px] md:px-[20px] md:py-[10px]"
-                  style={{
-                    color: '#0A2540',
-                    fontWeight: 600,
-                    textTransform: 'capitalize',
-                    letterSpacing: '0.42px',
-                    whiteSpace: 'nowrap',
-                    textDecoration: 'none',
-                    borderRadius: '10px',
-                  }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  Get In Touch
-                  <svg
-                    width="14"
-                    height="14"
-                    className="md:w-4 md:h-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#0A2540"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+              {/* Text + Button — RIGHT side, vertically centered */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  right: isMobile ? '16px' : '6%',
+                  left: isMobile ? '16px' : 'auto',
+                  maxWidth: isMobile ? 'calc(100% - 32px)' : '45%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: isMobile ? '12px' : '24px',
+                  textAlign: isMobile ? 'left' : 'left',
+                }}
+              >
+                {/* Text */}
+                <div style={{
+                  pointerEvents: 'none',
+                  background: isMobile ? 'rgba(0, 0, 0, 0.45)' : 'none',
+                  borderRadius: isMobile ? '10px' : '0',
+                  padding: isMobile ? '10px 14px' : '0',
+                  backdropFilter: isMobile ? 'blur(2px)' : 'none',
+                }}>
+                  <h2
+                    style={{
+                      margin: '0 0 12px 0',
+                      color: '#B42A26',
+                      fontSize: isMobile ? '22px' : '48px',
+                      fontWeight: 800,
+                      lineHeight: 1.15,
+                      letterSpacing: isMobile ? '0.4px' : '0.8px',
+                      textShadow: isMobile ? 'none' : 'none',
+                    }}
                   >
-                    <line x1="7" y1="17" x2="17" y2="7" />
-                    <polyline points="7 7 17 7 17 17" />
-                  </svg>
-                </a>
+                    {slide.title}
+                  </h2>
+                  <p
+                    style={{
+                      margin: 0,
+                      color: isMobile ? '#FFFFFF' : '#2D2D2D',
+                      fontSize: isMobile ? '11px' : '17px',
+                      fontWeight: isMobile ? 600 : 400,
+                      lineHeight: isMobile ? '1.5' : '1.65',
+                      letterSpacing: '0.3px',
+                      maxWidth: isMobile ? '260px' : '460px',
+                      textShadow: 'none',
+                    }}
+                  >
+                    {slide.desc}
+                  </p>
+                </div>
+
+                {/* Get In Touch button */}
+                <div>
+                  <a
+                    href="/contact"
+                    className="inline-flex items-center gap-2 bg-[#F5C518] hover:brightness-105 transition-all no-underline pointer-events-auto text-[13px] px-[14px] py-[8px] md:text-[16px] md:px-[20px] md:py-[10px]"
+                    style={{
+                      color: '#0A2540',
+                      fontWeight: 600,
+                      textTransform: 'capitalize',
+                      letterSpacing: '0.42px',
+                      whiteSpace: 'nowrap',
+                      textDecoration: 'none',
+                      borderRadius: '10px',
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Get In Touch
+                    <svg
+                      width="14"
+                      height="14"
+                      className="md:w-4 md:h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#0A2540"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7" />
+                      <polyline points="7 7 17 7 17 17" />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
           ))}
@@ -502,55 +593,55 @@ function Home() {
                 icon: Physical,
                 title: 'Physical Security Services',
                 desc: 'Advanced Integrated Security Including Surveillance, Access Control, And Rapid Response Systems Protecting Your Assets Around The Clock.',
-                href: '/services/physical-security',
+                href: '/new/services',
               },
               {
                 icon: Facility,
                 title: 'Facility Management',
                 desc: 'End-To-End Facility Management Ensuring Seamless Operations, Maintenance Excellence, And A Productive Work Environment.',
-                href: '/services/facility-management',
+                href: '/new/services',
               },
               {
                 icon: ICT,
                 title: 'ICT Infrastructure',
                 desc: 'Cutting-Edge ICT Solutions — Networking, Cloud Deployments, Enterprise Software, And Digital Automation — Powering Organizations Of Every Size.',
-                href: '/services/ict-infrastructure',
+                href: '/new/services',
               },
               {
                 icon: Data,
                 title: 'Data Center',
                 desc: 'Design, Build, And Management Of Enterprise-Grade Data Centers With 99.99% Uptime, Tier IV Readiness, And Round-The-Clock Operations Support.',
-                href: '/services/data-center',
+                href: '/new/services',
               },
               {
                 icon: Infrastructure,
                 title: 'Infrastructure Projects',
                 desc: 'Large-Scale Roads, Energy, Water Systems, And Smart City Networks — Building The Backbone Of Modern Cities And Industrial Ecosystems.',
-                href: '/services/infrastructure',
+                href: '/new/services',
               },
               {
                 icon: Cloud,
                 title: 'Cloud & Communication',
                 desc: 'Cloud Contact Centers, Conversational AI, And Enterprise Communication Platforms For Seamless Omnichannel Connectivity.',
-                href: '/services/cloud-communication',
+                href: '/new/services',
               },
               {
                 icon: Smart,
                 title: 'Smart City Solutions',
                 desc: 'Intelligent Traffic Management, Emergency Response Systems, And GIS-Based Solutions For Modern Smart Cities.',
-                href: '/services/smart-city',
+                href: '/new/services',
               },
               {
                 icon: HR,
                 title: 'HR & Payroll Outsourcing',
                 desc: '360-Degree Payroll Solutions, HR Management, And Workforce Services For Enterprises Of All Sizes.',
-                href: '/services/hr-payroll',
+                href: '/new/services',
               },
               {
                 icon: Health,
                 title: 'HealthTech & GovTech',
                 desc: 'Digital Health Worker Systems, Drug Distribution Platforms, And E-Governance Solutions Improving Public Services At Scale.',
-                href: '/services/healthtech-govtech',
+                href: '/new/services',
               },
             ].map((item, i) => (
               <div
@@ -705,7 +796,6 @@ function Home() {
                   zIndex: 1,
                 }}
               />
-              {/* ── KEY IMAGE with hover ── */}
               <div
                 className="why-img-hover"
                 style={{
@@ -725,7 +815,6 @@ function Home() {
                   style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
                 />
               </div>
-              {/* ── WHY-P IMAGE with hover ── */}
               <div
                 className="why-img-hover"
                 style={{
@@ -821,9 +910,8 @@ function Home() {
               </div>
 
               <div style={{ marginTop: '8px' }}>
-                {/* ── CONTACT NOW BUTTON with hover ── */}
                 <a
-                  href="/contact"
+                  href="/new/contact"
                   className="btn-hover"
                   style={{
                     display: 'inline-flex',
@@ -1452,62 +1540,21 @@ function Home() {
           style={{ paddingTop: '72px', paddingBottom: '72px' }}
         >
           <div style={{ textAlign: 'center', marginBottom: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-            <span
-              style={{
-                color: '#B42A26',
-                fontSize: '18px',
-                fontWeight: 500,
-                textTransform: 'capitalize',
-                letterSpacing: '0.36px',
-              }}
-            >
+            <span style={{ color: '#B42A26', fontSize: isMobile ? '15px' : '18px', fontWeight: 500, textTransform: 'capitalize', letterSpacing: '0.36px' }}>
               Leadership
             </span>
             <h2 style={{ margin: 0, lineHeight: 1.3, textAlign: 'center' }}>
-              <span
-                style={{
-                  color: '#0A2540',
-                  fontSize: '38px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.76px',
-                }}
-              >
+              <span style={{ color: '#0A2540', fontSize: isMobile ? '24px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
                 The Team Turning{' '}
               </span>
-              <span
-                style={{
-                  color: '#B83934',
-                  fontSize: '38px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.76px',
-                }}
-              >
+              <span style={{ color: '#B83934', fontSize: isMobile ? '24px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
                 Ideas
               </span>
-              <span
-                style={{
-                  color: '#0A2540',
-                  fontSize: '38px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.76px',
-                }}
-              >
+              <span style={{ color: '#0A2540', fontSize: isMobile ? '24px' : '38px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>
                 {' '}Into Reality
               </span>
             </h2>
-            <p
-              style={{
-                margin: 0,
-                color: '#494B4D',
-                fontSize: '16px',
-                fontWeight: 400,
-                textTransform: 'capitalize',
-                letterSpacing: '0.32px',
-              }}
-            >
+            <p style={{ margin: 0, color: '#494B4D', fontSize: isMobile ? '13px' : '16px', fontWeight: 400, textTransform: 'capitalize', letterSpacing: '0.32px' }}>
               Meet The Visionary Leaders Driving Innovation And Excellence At Kavach Global.
             </p>
           </div>
@@ -1516,13 +1563,13 @@ function Home() {
             className="hide-scrollbar"
             style={{
               display: 'flex',
-              gap: '32px',
+              gap: isMobile ? '0px' : '32px',
               overflowX: 'auto',
               paddingBottom: '16px',
               paddingTop: '12px',
-              paddingLeft: '10px',
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
+              scrollSnapType: isMobile ? 'x mandatory' : 'none',
             }}
           >
             {[
@@ -1536,87 +1583,43 @@ function Home() {
                 key={i}
                 style={{
                   flexShrink: 0,
-                  width: '260px',
+                  width: isMobile ? '100%' : '260px',
                   position: 'relative',
-                  paddingLeft: '8px',
-                  paddingTop: '8px',
+                  paddingLeft: isMobile ? '0px' : '8px',
+                  paddingTop: isMobile ? '0px' : '8px',
+                  scrollSnapAlign: 'start',
+                  display: 'flex',
+                  justifyContent: isMobile ? 'center' : 'flex-start',
                 }}
               >
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: '0px',
-                    top: '0px',
-                    width: '260px',
+                <div style={{ position: 'relative', width: isMobile ? '280px' : '260px' }}>
+                  <div style={{
+                    position: 'absolute', left: isMobile ? '0px' : '0px', top: isMobile ? '0px' : '0px',
+                    width: isMobile ? '280px' : '260px',
                     height: '370px',
-                    borderRadius: '20px',
-                    backgroundColor: '#B83934',
-                    zIndex: 0,
-                  }}
-                />
-                {/* ── PERSON CARD with hover ── */}
-                <div
-                  className="person-card-hover"
-                  style={{
-                    position: 'relative',
-                    zIndex: 1,
-                    borderRadius: '20px',
-                    backgroundColor: '#FFFFFF',
-                    boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.10)',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
-                    <img
-                      src={person.img}
-                      alt={person.name}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center top',
-                      }}
-                    />
-                  </div>
-
-                  <div
-                    style={{
-                      padding: '14px 16px 16px',
-                      backgroundColor: '#FFFFFF',
+                    borderRadius: '20px', backgroundColor: '#B83934', zIndex: 0,
+                    transform: isMobile ? 'translate(-8px, -8px)' : 'translate(-8px, -8px)'
+                  }} />
+                  <div className="person-card-hover" style={{
+                    position: 'relative', zIndex: 1, borderRadius: '20px',
+                    backgroundColor: '#FFFFFF', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.10)', overflow: 'hidden'
+                  }}>
+                    <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
+                      <img src={person.img} alt={person.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+                    </div>
+                    <div style={{
+                      padding: '14px 16px 16px', backgroundColor: '#FFFFFF',
                       borderTop: '1px solid rgba(10, 37, 64, 0.08)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '3px',
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: '#0A2540',
-                        fontSize: '16px',
-                        fontWeight: 700,
-                        textTransform: 'capitalize',
-                        letterSpacing: '0.32px',
-                      }}
-                    >
-                      {person.name}
-                    </span>
-                    <span
-                      style={{
-                        color: '#494B4D',
-                        fontSize: '13px',
-                        fontWeight: 400,
-                        textTransform: 'capitalize',
-                        letterSpacing: '0.26px',
-                      }}
-                    >
-                      {person.role}
-                    </span>
+                      display: 'flex', flexDirection: 'column', gap: '3px'
+                    }}>
+                      <span style={{ color: '#0A2540', fontSize: isMobile ? '13px' : '16px', fontWeight: 700, textTransform: 'capitalize', letterSpacing: '0.32px' }}>{person.name}</span>
+                      <span style={{ color: '#494B4D', fontSize: isMobile ? '11px' : '13px', fontWeight: 400, textTransform: 'capitalize', letterSpacing: '0.26px' }}>{person.role}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
-
-            <div style={{ flexShrink: 0, width: '10px' }} />
+            {!isMobile && <div style={{ flexShrink: 0, width: '10px' }} />}
           </div>
         </div>
       </section>

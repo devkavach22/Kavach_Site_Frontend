@@ -30,35 +30,35 @@ const servicesData = [
         image: ITC,
         title: "ICT Infrastructure",
         description: "We Provide Comprehensive ICT Infrastructure Solutions Across Telecom, IT, System Integration, Data Centers, And Smart City Technologies—Enabling Secure, Scalable, And Efficient Operations.",
-        link: "#",
+        link: "/new/ITCdetails",
     },
     {
         id: 2,
         image: img3,
         title: "Security Services",
         description: "Reliable Security Solutions Including Guarding, Armed Protection, Industrial Security, And Investigation Services—Ensuring Safety And Peace Of Mind.",
-        link: "#",
+        link: "/new/security",
     },
     {
         id: 3,
         image: EPCwork,
         title: "EPC Works",
         description: "Comprehensive EPC Solutions Across Urban Development, Power Distribution, And Renewable Energy—Delivering Reliable And Sustainable Infrastructure.",
-        link: "#",
+        link: "/new/epc",
     },
     {
         id: 4,
         image: software,
         title: "Software Development",
         description: "We Deliver Customized Software Solutions That Are Scalable, Secure, And Performance-Driven—Helping Businesses Streamline Operations And Accelerate Digital Transformation.",
-        link: "#",
+        link: "/new/software",
     },
     {
         id: 5,
         image: FMT,
         title: "Integrated Facility Management",
         description: "End-To-End Facility Management Solutions Including Managed Services, Security Systems, Remote Monitoring, And Command Centers—Ensuring Efficiency, Safety, And Control.",
-        link: "#",
+        link: "/new/facility",
     },
 ]
 
@@ -228,8 +228,8 @@ function WhyCard({ icon, title, description }) {
                     <img src={icon} alt={title} style={{ width: '45px', height: '45px', position: 'absolute', bottom: 0, right: 0, objectFit: 'contain' }} />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', flex: 1 }}>
-                    <h3 style={{ color: '#B42A26', fontSize: '19px', fontFamily: "'Poppins', sans-serif", fontWeight: 700, margin: 0 }}>{title}</h3>
-                    <p style={{ color: '#494B4D', fontSize: '15px', fontFamily: "'Poppins', sans-serif", fontWeight: 400, lineHeight: '1.4', marginTop: "10px" }}>{description}</p>
+                    <h3 style={{ color: '#B42A26', fontSize: '19px', fontWeight: 700, margin: 0 }}>{title}</h3>
+                    <p style={{ color: '#494B4D', fontSize: '15px', fontWeight: 400, lineHeight: '1.4', marginTop: "10px" }}>{description}</p>
                 </div>
             </div>
         </div>
@@ -240,7 +240,7 @@ function Services() {
     const [openId, setOpenId] = useState(1);
 
     return (
-        <div style={{ fontFamily: "'Poppins', sans-serif" }}>
+        <div>
             <style>{customStyles}</style>
 
             {/* Hero Section */}

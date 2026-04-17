@@ -8,14 +8,13 @@ import aboutLast from "../assets/AboutLast.png";
 // Updated MARKERS with specific offsets to prevent UK/Ireland overlap
 const MARKERS = [
   { name: "USA", cx: 180, cy: 165, region: "Americas" },
-  { name: "Ireland", cx: 445, cy: 115, region: "Europe", labelAnchor: "end", labelDx: -12, labelDy: 5 },
-  { name: "UK", cx: 458, cy: 110, region: "Europe", labelAnchor: "start", labelDx: 12, labelDy: -5 },
+  { name: "Ireland", cx: 418, cy: 108, region: "Europe", labelAnchor: "middle", labelDx: 0, labelDy: -14 },
+  { name: "UK", cx: 462, cy: 118, region: "Europe", labelAnchor: "middle", labelDx: 0, labelDy: -14 },
   { name: "Dubai", cx: 595, cy: 215, region: "Middle East" },
   { name: "India", cx: 655, cy: 235, region: "Asia", isHQ: true },
   { name: "Singapore", cx: 735, cy: 305, region: "Asia" },
   { name: "Australia", cx: 810, cy: 385, region: "Oceania" },
 ];
-
 function WorldMap({ activeLocation, onHover }) {
   return (
     <div style={{ position: "relative", width: "100%", background: "#f9fafb", borderRadius: 16, overflow: "hidden" }}>
@@ -41,7 +40,7 @@ function WorldMap({ activeLocation, onHover }) {
                 fill={isActive ? "#0A2540" : "#494B4D"} 
                 fontSize={isActive ? 11 : 10} 
                 fontWeight={isActive ? "700" : "500"} 
-                style={{ pointerEvents: "none", userSelect: "none", fontFamily: 'Poppins, sans-serif' }}
+                style={{ pointerEvents: "none", userSelect: "none" }}
               >
                 {loc.name}
               </text>
@@ -76,14 +75,13 @@ function ContactPage() {
     borderRadius: 10,
     border: "1px solid rgba(0,0,0,0.1)",
     fontSize: 16,
-    fontFamily: "Poppins",
     color: "#494B4D",
     width: "100%",
     boxSizing: "border-box"
   };
 
   return (
-    <div style={{ fontFamily: "'Poppins', sans-serif", backgroundColor: "#fff", overflowX: "hidden", width: "100%" }}>
+    <div style={{ backgroundColor: "#fff", overflowX: "hidden", width: "100%" }}>
 
       <style>{`
         @media (max-width: 768px) {
@@ -258,28 +256,42 @@ function ContactPage() {
       </section>
 
       {/* 5. CTA SECTION */}
-      <section className="w-full relative overflow-hidden" style={{ backgroundImage: `url(${aboutLast})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: "100%" }}>
-          <div className="absolute inset-0" style={{ backgroundColor: 'rgba(5, 15, 40, 0.85)', zIndex: 1 }} />
-          <div className="cp-cta-inner max-w-[1280px] mx-auto px-4 py-12 relative flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-10" style={{ zIndex: 2 }}>
-            <div className="flex flex-col gap-3 w-full lg:max-w-[480px]">
-              <h2 className="cp-cta-title" style={{ margin: 0, lineHeight: 1.3 }}>
-                <span style={{ color: '#FFFFFF', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}>READY TO PARTNER <br /> WITH </span>
-                <span style={{ color: '#FA221C', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}>KAVACH</span>
-                <span style={{ color: '#FFFFFF', fontSize: '38px', fontWeight: 700, textTransform: 'uppercase' }}> GLOBAL!</span>
-              </h2>
-              <p style={{ margin: 0, color: '#FFFFFF', fontSize: '18px', fontWeight: 400, lineHeight: '33px' }}>
-                Let's Build Something Extraordinary Together.
-              </p>
-            </div>
-            <div className="cp-cta-buttons flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto">
-              <a href="/new/contact" style={{ backgroundColor: '#FFD128', padding: '14px 32px', textDecoration: 'none', borderRadius: '10px', color: '#0A2540', fontWeight: 600 }}>Get In Touch</a>
-              <a href="/new/services" style={{ border: '2px solid #FFD128', padding: '14px 32px', textDecoration: 'none', borderRadius: '10px', color: '#FFD128', fontWeight: 600 }}>Explore Solutions</a>
-            </div>
-          </div>
-      </section>
+     <section
+           className="w-full relative overflow-hidden"
+           style={{ backgroundImage: `url(${aboutLast})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
+         >
+           <div className="absolute inset-0" style={{ backgroundColor: 'rgba(5, 15, 40, 0.85)', zIndex: 1 }} />
+           <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-16 py-12 lg:py-[60px] relative flex flex-col lg:flex-row items-center lg:justify-between gap-8 lg:gap-10" style={{ zIndex: 2 }}>
+             <div className="flex flex-col gap-3 w-full lg:max-w-[480px]">
+               <h2 style={{ margin: 0, lineHeight: 1.3 }}>
+                 <span style={{ color: '#FFFFFF', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>READY TO PARTNER <br /> WITH </span>
+                 <span style={{ color: '#FA221C', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}>KAVACH</span>
+                 <span style={{ color: '#FFFFFF', fontSize: '32px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.76px' }}> GLOBAL!</span>
+               </h2>
+               <p style={{ margin: 0, color: '#FFFFFF', fontSize: '16px', fontWeight: 400, textTransform: 'capitalize', lineHeight: '1.6', letterSpacing: '0.36px' }}>
+                 Let's Build Something Extraordinary Together. Our Experts Are Ready To Craft Tailored Solutions That Drive Real Results For Your Organization.
+               </p>
+             </div>
+             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto flex-shrink-0">
+               <a href="/new/contact" className="btn-yellow-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto" style={{ backgroundColor: '#FFD128', padding: '14px 32px', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                 <span style={{ color: '#0A2540', fontSize: '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Get In Touch</span>
+                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <line x1="8" y1="16" x2="16" y2="8" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" />
+                   <polyline points="9,8 16,8 16,15" stroke="#0A2540" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                 </svg>
+               </a>
+               <a href="/new/services" className="btn-outline-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto" style={{ backgroundColor: 'transparent', padding: '14px 32px', textDecoration: 'none', outline: '2px solid #FFD128', whiteSpace: 'nowrap' }}>
+                 <span style={{ color: '#FFD128', fontSize: '18px', fontWeight: 600, textTransform: 'capitalize', letterSpacing: '0.42px' }}>Explore Solutions</span>
+                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <line x1="8" y1="16" x2="16" y2="8" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" />
+                   <polyline points="9,8 16,8 16,15" stroke="#FFD128" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                 </svg>
+               </a>
+             </div>
+           </div>
+         </section>
     </div>
   );
 }
 
 export default ContactPage;
-

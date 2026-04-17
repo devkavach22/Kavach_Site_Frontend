@@ -146,7 +146,7 @@ function Footer() {
             <ul className="m-0 p-0 list-none flex flex-col gap-[10px]">
               {[
                 'Facilities Management Services',
-                'CT Infra - Solutions & Services',
+                'ICT Infra - Solutions & Services',
                 'Energy And Utilities',
                 'Healthcare',
                 'Solutions For Urban Development',
@@ -192,11 +192,13 @@ function Footer() {
             </h3>
             <ul className="m-0 p-0 list-none flex flex-col gap-[10px]">
               {[
-                { label: 'Home',       href: '/' },
-                { label: 'About Us',   href: '/about' },
-                { label: 'Services',   href: '/services' },
-                { label: 'Awards',     href: '/awards' },
-                { label: 'Contact Us', href: '/contact' },
+                { label: 'Home', href: '/new/' },
+                { label: 'About Us', href: '/new/about' },
+                { label: 'Services', href: '/new/services' },
+                { label: 'Awards', href: '/new/awards' },
+                { label: 'Career', href: '/new/career' },
+                { label: 'Contact Us', href: '/new/contact' },
+
               ].map((link, i) => (
                 <li key={i} className="flex items-center gap-2">
                   <span style={{ color: '#B42A26', fontSize: '16px', lineHeight: 1 }}>•</span>
@@ -249,7 +251,7 @@ function Footer() {
                     letterSpacing: '0.28px',
                   }}
                 >
-                  A/53, 5th Floor, New York Tower, Thaltej, Ahmedabad – 380015.
+                  A/53, 5th Floor, New York Tower, Thaltej, Ahmedabad – 380054.
                 </span>
               </div>
 

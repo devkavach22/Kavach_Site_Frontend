@@ -39,7 +39,7 @@ const AppRoutes = () => {
         <Route path="/facility" element={<Facility />} />
         <Route path="/security" element={<Security />} />
         <Route path="/epc" element={<EPCDetails />} />
-        <Route path="software" element={<Software />} />
+        <Route path="/software" element={<Software />} />
       </Routes>
     </>
   );
