@@ -912,7 +912,7 @@ function About() {
 
             {/* Get In Touch button with hover */}
             <a
-              href="/new/contact"
+              href="/contact"
               className="btn-yellow-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto"
               style={{
                 backgroundColor: '#FFD128',
@@ -940,7 +940,7 @@ function About() {
 
             {/* Explore Solutions button with hover */}
             <a
-              href="/new/services"
+              href="/services"
               className="btn-outline-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto"
               style={{
                 backgroundColor: 'transparent',

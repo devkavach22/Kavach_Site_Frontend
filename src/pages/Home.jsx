@@ -539,7 +539,7 @@ function Home() {
 
             <div style={{ marginTop: '8px' }}>
               <a
-                href="/new/about"
+                href="/about"
                 className="inline-flex items-center gap-2 hover:brightness-90 transition-all"
                 style={{
                   backgroundColor: '#FFD128',
@@ -953,7 +953,7 @@ function Home() {
 
               <div style={{ marginTop: '8px' }}>
                 <a
-                  href="/new/contact"
+                  href="/contact"
                   className="btn-hover"
                   style={{
                     display: 'inline-flex',

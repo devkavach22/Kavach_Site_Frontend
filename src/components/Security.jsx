@@ -298,7 +298,7 @@ function Security() {
                     </div>
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto flex-shrink-0">
                         <a
-                            href="/new/contact"
+                            href="/contact"
                             className="btn-yellow-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto"
                             style={{
                                 backgroundColor: "#FFD128",
@@ -345,7 +345,7 @@ function Security() {
                             </svg>
                         </a>
                         <a
-                            href="/new/services"
+                            href="/services"
                             className="btn-outline-hover flex items-center justify-center gap-2 rounded-[10px] w-full sm:w-auto"
                             style={{
                                 backgroundColor: "transparent",

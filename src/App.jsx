@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <BrowserRouter basename='/new'>
+    <BrowserRouter basename='/'>
       <div className="min-h-screen">
         <Navbar />
         <AppRoutes />
