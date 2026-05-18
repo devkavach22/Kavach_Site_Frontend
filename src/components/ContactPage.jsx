@@ -82,6 +82,30 @@ function ContactPage() {
     { n: "7+", l: "Global Footprints" },
   ];
 
+  // Contact info items — href added for phone and email
+  const contactInfoItems = [
+    {
+      label: "Office Address",
+      val: "A-53, New York Tower-A, Cross Road, Sarkhej - Gandhinagar Hwy, Ahmedabad, Gujarat 380054, India",
+      href: null,
+    },
+    {
+      label: "Email Us",
+      val: "info@kavachglobal.com",
+      href: "mailto:info@kavachglobal.com",
+    },
+    {
+      label: "Call Us",
+      val: "+91 72288 88904",
+      href: "tel:+917228888904",
+    },
+    {
+      label: "Working Hours",
+      val: "Mon - Sat: 8 AM - 6 PM",
+      href: null,
+    },
+  ];
+
   const inputStyle = {
     padding: "18px 15px", background: "#F5F5F5", borderRadius: 10,
     border: "1px solid rgba(0,0,0,0.1)", fontSize: 16, color: "#494B4D",
@@ -91,6 +115,13 @@ function ContactPage() {
   return (
     <div style={{ backgroundColor: "#fff", overflowX: "hidden", width: "100%" }}>
       <style>{`
+        .contact-link-hover {
+          transition: color 0.2s ease;
+        }
+        .contact-link-hover:hover {
+          color: #B42A26 !important;
+        }
+
         @media (max-width: 768px) {
           .cp-hero { min-height: 260px !important; padding: 60px 20px !important; margin-top: 60px !important; width: 100% !important; box-sizing: border-box; }
           .cp-hero h1 { font-size: 24px !important; }
@@ -154,6 +185,7 @@ function ContactPage() {
           </div>
 
           <div className="cp-contact-row" style={{ display: "flex", flexWrap: "wrap", gap: 30, justifyContent: "center" }}>
+            {/* Contact Information Card */}
             <div
               className="cp-info-card"
               style={{
@@ -167,20 +199,32 @@ function ContactPage() {
                 Contact Information
               </h3>
               <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
-                {[
-                  { label: "Office Address", val: "A-53, New York Tower-A, Cross Road, Sarkhej - Gandhinagar Hwy, Ahmedabad, Gujarat 380054, India" },
-                  { label: "Email Us", val: "info@kavachglobal.com" },
-                  { label: "Call Us", val: "+91 72288 88904" },
-                  { label: "Working Hours", val: "Mon - Sat: 8 AM - 6 PM" },
-                ].map((item, i) => (
-                  <div key={i} style={{ borderBottom: i === 3 ? "none" : "1px solid rgba(0,0,0,0.1)", paddingBottom: 20 }}>
+                {contactInfoItems.map((item, i) => (
+                  <div key={i} style={{ borderBottom: i === contactInfoItems.length - 1 ? "none" : "1px solid rgba(0,0,0,0.1)", paddingBottom: 20 }}>
                     <p style={{ color: "#B83934", fontWeight: 600, fontSize: 16, marginBottom: 8 }}>{item.label}</p>
-                    <p style={{ color: "#494B4D", fontSize: 16, lineHeight: "29px" }}>{item.val}</p>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        className="contact-link-hover"
+                        style={{
+                          color: "#494B4D",
+                          fontSize: 16,
+                          lineHeight: "29px",
+                          textDecoration: "none",
+                          display: "block",
+                        }}
+                      >
+                        {item.val}
+                      </a>
+                    ) : (
+                      <p style={{ color: "#494B4D", fontSize: 16, lineHeight: "29px", margin: 0 }}>{item.val}</p>
+                    )}
                   </div>
                 ))}
               </div>
             </div>
 
+            {/* Send Message Form Card */}
             <div
               className="cp-form-card"
               style={{

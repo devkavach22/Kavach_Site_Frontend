@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import KavachLogo from "../assets/KavachLogo2.png";
+import { Phone } from 'lucide-react';
 
 const NAVBAR_HEIGHT = 82;
 
@@ -40,6 +41,21 @@ const Navbar = () => {
       className={`fixed top-0 w-full z-50 bg-white transition-all duration-300 ${scrolled ? 'shadow-md' : ''}`}
       style={{ boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.10)' }}
     >
+      <style>{`
+        .nav-phone-link {
+          color: #0A2540;
+          text-decoration: none;
+          transition: color 0.2s ease;
+          font-size: 16px;
+          font-weight: 600;
+          letter-spacing: 0.3px;
+          white-space: nowrap;
+        }
+        .nav-phone-link:hover {
+          color: #B13E37;
+        }
+      `}</style>
+
       {/* ── Main Bar ── */}
       <div
         className="w-full px-4 sm:px-8 lg:px-16"
@@ -78,6 +94,28 @@ const Navbar = () => {
                 {item.label}
               </Link>
             ))}
+
+            {/* Phone Number */}
+            <div className="flex items-center gap-2 ml-2">
+              <div
+                style={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: '50%',
+                  background: '#FFF1F0',
+                  border: '1px solid rgba(177,62,55,0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                <Phone size={15} color="#B13E37" />
+              </div>
+              <a href="tel:+917228888904" className="nav-phone-link">
+                +91 72288 88904
+              </a>
+            </div>
           </div>
 
           {/* Mobile Hamburger */}
@@ -95,7 +133,7 @@ const Navbar = () => {
 
       {/* Mobile Dropdown */}
       <div
-        className={`lg:hidden bg-white w-full overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-[500px] border-t border-gray-100 shadow-md' : 'max-h-0'}`}
+        className={`lg:hidden bg-white w-full overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-[560px] border-t border-gray-100 shadow-md' : 'max-h-0'}`}
       >
         <div className="flex flex-col px-4 sm:px-8 py-4 gap-4">
           {navLinks.map((item) => (
@@ -112,6 +150,28 @@ const Navbar = () => {
               {item.label}
             </Link>
           ))}
+
+          {/* Phone Number in Mobile Menu */}
+          <div className="flex items-center gap-2 pt-1 border-t border-gray-100">
+            <div
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+                background: '#FFF1F0',
+                border: '1px solid rgba(177,62,55,0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <Phone size={14} color="#B13E37" />
+            </div>
+            <a href="tel:+917228888904" className="nav-phone-link">
+              +91 72288 88904
+            </a>
+          </div>
         </div>
       </div>
 
